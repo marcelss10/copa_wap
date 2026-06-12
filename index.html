@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copa do Mundo 2026 — Calendário Horário Comercial | WAP</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00A86B;
+    --verde-escuro: #007A4D;
+    --amarelo: #F5D800;
+    --azul-escuro: #0A1628;
+    --azul-medio: #112240;
+    --azul-card: #162D4A;
+    --texto: #E8EDF4;
+    --texto-muted: #8899AA;
+    --border: rgba(255,255,255,0.08);
+    --commercial-glow: rgba(245,216,0,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background-color: var(--azul-escuro);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--azul-medio);
+    border-bottom: 2px solid var(--verde);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-badge {
+    background: var(--verde);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    padding: 6px 14px;
+    border-radius: 4px;
+  }
+
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+  .header-title span {
+    color: var(--amarelo);
+  }
+
+  .legend-strip {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .leg {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .leg-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .leg-dot.commercial { background: var(--amarelo); }
+  .leg-dot.outside { background: var(--texto-muted); }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    background: var(--azul-medio);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--texto-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 12px 14px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+  .tab-btn:hover { color: var(--texto); }
+  .tab-btn.active {
+    color: var(--amarelo);
+    border-bottom-color: var(--amarelo);
+  }
+  .tab-btn.has-comercial::after {
+    content: '●';
+    font-size: 7px;
+    vertical-align: super;
+    margin-left: 4px;
+    color: var(--verde);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* ── DAY SECTION ── */
+  .day-section { display: none; }
+  .day-section.active { display: block; }
+
+  .day-header {
+    margin-bottom: 16px;
+  }
+  .day-header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .day-header h2 .dia-num {
+    color: var(--amarelo);
+    font-size: 48px;
+    margin-right: 4px;
+  }
+  .day-header .rodada-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-top: 4px;
+  }
+  .day-comercial-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,216,0,0.12);
+    border: 1px solid rgba(245,216,0,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--amarelo);
+    margin-top: 8px;
+  }
+
+  /* ── GAME CARD ── */
+  .games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .game-card {
+    background: var(--azul-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid transparent;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .game-card:hover {
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .game-card.commercial {
+    border-left-color: var(--amarelo);
+    background: linear-gradient(135deg, rgba(245,216,0,0.06) 0%, var(--azul-card) 50%);
+  }
+  .game-card.outside {
+    border-left-color: var(--texto-muted);
+    opacity: 0.65;
+  }
+
+  .game-time {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+  }
+  .game-card.commercial .game-time { color: var(--amarelo); }
+  .game-card.outside .game-time { color: var(--texto-muted); }
+
+  .game-time-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  .game-match {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .game-teams {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .game-teams .vs {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto-muted);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .team-brasil {
+    color: var(--verde);
+  }
+
+  .game-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .game-group {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: var(--texto-muted);
+  }
+  .game-city {
+    font-size: 12px;
+    color: var(--texto-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .game-city svg { opacity: 0.5; }
+
+  .badge-comercial {
+    background: var(--amarelo);
+    color: var(--azul-escuro);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .game-right {
+    text-align: right;
+    min-width: 90px;
+  }
+  .game-right .badge-comercial { display: inline-block; margin-bottom: 6px; }
+  .fora-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+  }
+
+  /* ── EMPTY ── */
+  .no-games {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--texto-muted);
+  }
+  .no-games p { font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--texto-muted);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .game-card {
+      grid-template-columns: 56px 1fr;
+    }
+    .game-right { display: none; }
+    .game-teams { font-size: 17px; }
+    header { padding: 14px 16px; }
+    .header-title { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-badge">WAP</div>
+    <div>
+      <div class="header-title">COPA DO MUNDO 2026 <span>— CALENDÁRIO</span></div>
+      <div style="font-size:11px;color:var(--texto-muted);margin-top:2px;letter-spacing:0.05em">Horário de Brasília · Fase de Grupos</div>
+    </div>
+  </div>
+  <div class="legend-strip">
+    <div class="leg"><div class="leg-dot commercial"></div> Horário Comercial</div>
+    <div class="leg"><div class="leg-dot outside"></div> Fora do Comercial</div>
+  </div>
+</header>
+
+<div class="tabs-bar" id="tabsBar"></div>
+
+<main id="mainContent"></main>
+
+<footer>
+  Horário comercial considerado das <strong>09h às 18h</strong> (horário de Brasília) · Fase de Grupos · Copa do Mundo FIFA 2026
+</footer>
+
+<script>
+// Horário comercial: 9h a 18h (exclusive 18h+)
+const isComercial = h => h >= 9 && h < 18;
+
+// Emoji bandeiras aproximados
+const flagMap = {
+  'Brasil':'🇧🇷','Marrocos':'🇲🇦','Haiti':'🇭🇹','Escócia':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+  'México':'🇲🇽','África do Sul':'🇿🇦','Coreia do Sul':'🇰🇷',
+  'Canadá':'🇨🇦','Catar':'🇶🇦','Suíça':'🇨🇭',
+  'Austrália':'🇦🇺','Estados Unidos':'🇺🇸','Paraguai':'🇵🇾',
+  'Alemanha':'🇩🇪','Curaçao':'🇨🇼','Costa do Marfim':'🇨🇮','Equador':'🇪🇨',
+  'Holanda':'🇳🇱','Japão':'🇯🇵','Tunísia':'🇹🇳',
+  'Espanha':'🇪🇸','Cabo Verde':'🇨🇻','Arábia Saudita':'🇸🇦','Uruguai':'🇺🇾',
+  'Bélgica':'🇧🇪','Egito':'🇪🇬','Irã':'🇮🇷','Nova Zelândia':'🇳🇿',
+  'Argentina':'🇦🇷','Argélia':'🇩🇿','Áustria':'🇦🇹','Jordânia':'🇯🇴',
+  'França':'🇫🇷','Senegal':'🇸🇳','Noruega':'🇳🇴',
+  'Portugal':'🇵🇹','Uzbequistão':'🇺🇿','Colômbia':'🇨🇴',
+  'Inglaterra':'🇬🇧','Croácia':'🇭🇷','Gana':'🇬🇭','Panamá':'🇵🇦',
+};
+
+const flag = name => {
+  const key = Object.keys(flagMap).find(k => name.includes(k));
+  return key ? flagMap[key] : '🏳️';
+};
+const isBrasil = name => name.includes('Brasil') || name.includes('Brazil');
+
+// ── JOGOS DA FASE DE GRUPOS ──────────────────────────────────────────────────
+const games = [
+  // 11 jun
+  {date:'2026-06-11',h:16,label:'16h',team1:'México',team2:'África do Sul',city:'Cidade do México',group:'A',round:1},
+  {date:'2026-06-11',h:23,label:'23h',team1:'Coreia do Sul',team2:'Europa D',city:'Guadalajara',group:'A',round:1},
+  // 12 jun
+  {date:'2026-06-12',h:16,label:'16h',team1:'Canadá',team2:'Europa A',city:'Toronto',group:'B',round:1},
+  {date:'2026-06-12',h:22,label:'22h',team1:'Estados Unidos',team2:'Paraguai',city:'Los Angeles',group:'D',round:1},
+  // 13 jun
+  {date:'2026-06-13',h:1,label:'01h',team1:'Austrália',team2:'Europa C',city:'Vancouver',group:'D',round:1},
+  {date:'2026-06-13',h:16,label:'16h',team1:'Catar',team2:'Suíça',city:'San Francisco',group:'B',round:1},
+  {date:'2026-06-13',h:19,label:'19h',team1:'Brasil',team2:'Marrocos',city:'Nova York/NJ',group:'C',round:1},
+  {date:'2026-06-13',h:22,label:'22h',team1:'Haiti',team2:'Escócia',city:'Boston',group:'C',round:1},
+  // 14 jun
+  {date:'2026-06-14',h:14,label:'14h',team1:'Alemanha',team2:'Curaçao',city:'Houston',group:'E',round:1},
+  {date:'2026-06-14',h:17,label:'17h',team1:'Holanda',team2:'Japão',city:'Dallas',group:'F',round:1},
+  {date:'2026-06-14',h:20,label:'20h',team1:'Costa do Marfim',team2:'Equador',city:'Filadélfia',group:'E',round:1},
+  {date:'2026-06-14',h:23,label:'23h',team1:'Europa B',team2:'Tunísia',city:'Monterrey',group:'F',round:1},
+  // 15 jun
+  {date:'2026-06-15',h:13,label:'13h',team1:'Espanha',team2:'Cabo Verde',city:'Atlanta',group:'H',round:1},
+  {date:'2026-06-15',h:16,label:'16h',team1:'Bélgica',team2:'Egito',city:'Seattle',group:'G',round:1},
+  {date:'2026-06-15',h:19,label:'19h',team1:'Arábia Saudita',team2:'Uruguai',city:'Miami',group:'H',round:1},
+  {date:'2026-06-15',h:22,label:'22h',team1:'Irã',team2:'Nova Zelândia',city:'Los Angeles',group:'G',round:1},
+  // 16 jun
+  {date:'2026-06-16',h:14,label:'14h',team1:'Argentina',team2:'Argélia',city:'Kansas City',group:'J',round:1},
+  {date:'2026-06-16',h:16,label:'16h',team1:'França',team2:'Senegal',city:'Nova York/NJ',group:'I',round:1},
+  {date:'2026-06-16',h:19,label:'19h',team1:'Rep. Mundial 2',team2:'Noruega',city:'Boston',group:'I',round:1},
+  // 17 jun
+  {date:'2026-06-17',h:1,label:'01h',team1:'Áustria',team2:'Jordânia',city:'San Francisco',group:'J',round:1},
+  {date:'2026-06-17',h:14,label:'14h',team1:'Portugal',team2:'Rep. Mundial 1',city:'Houston',group:'K',round:1},
+  {date:'2026-06-17',h:17,label:'17h',team1:'Inglaterra',team2:'Croácia',city:'Dallas',group:'L',round:1},
+  {date:'2026-06-17',h:20,label:'20h',team1:'Gana',team2:'Panamá',city:'Toronto',group:'L',round:1},
+  {date:'2026-06-17',h:23,label:'23h',team1:'Uzbequistão',team2:'Colômbia',city:'Cidade do México',group:'K',round:1},
+  // 18 jun
+  {date:'2026-06-18',h:13,label:'13h',team1:'Europa D',team2:'África do Sul',city:'Atlanta',group:'A',round:2},
+  {date:'2026-06-18',h:16,label:'16h',team1:'Suíça',team2:'Europa A',city:'Los Angeles',group:'B',round:2},
+  {date:'2026-06-18',h:19,label:'19h',team1:'Canadá',team2:'Catar',city:'Vancouver',group:'B',round:2},
+  {date:'2026-06-18',h:22,label:'22h',team1:'México',team2:'Coreia do Sul',city:'Guadalajara',group:'A',round:2},
+  // 19 jun
+  {date:'2026-06-19',h:1,label:'01h',team1:'Europa C',team2:'Paraguai',city:'San Francisco',group:'D',round:2},
+  {date:'2026-06-19',h:16,label:'16h',team1:'Estados Unidos',team2:'Austrália',city:'Seattle',group:'D',round:2},
+  {date:'2026-06-19',h:19,label:'19h',team1:'Escócia',team2:'Marrocos',city:'Boston',group:'C',round:2},
+  {date:'2026-06-19',h:22,label:'22h',team1:'Brasil',team2:'Haiti',city:'Filadélfia',group:'C',round:2},
+  // 20 jun
+  {date:'2026-06-20',h:14,label:'14h',team1:'Holanda',team2:'Europa B',city:'Houston',group:'F',round:2},
+  {date:'2026-06-20',h:17,label:'17h',team1:'Alemanha',team2:'Costa do Marfim',city:'Toronto',group:'E',round:2},
+  {date:'2026-06-20',h:21,label:'21h',team1:'Equador',team2:'Curaçao',city:'Kansas City',group:'E',round:2},
+  // 21 jun
+  {date:'2026-06-21',h:1,label:'01h',team1:'Tunísia',team2:'Japão',city:'Monterrey',group:'F',round:2},
+  {date:'2026-06-21',h:13,label:'13h',team1:'Espanha',team2:'Arábia Saudita',city:'Atlanta',group:'H',round:2},
+  {date:'2026-06-21',h:16,label:'16h',team1:'Bélgica',team2:'Irã',city:'Los Angeles',group:'G',round:2},
+  {date:'2026-06-21',h:19,label:'19h',team1:'Uruguai',team2:'Cabo Verde',city:'Miami',group:'H',round:2},
+  {date:'2026-06-21',h:22,label:'22h',team1:'Nova Zelândia',team2:'Egito',city:'Vancouver',group:'G',round:2},
+  // 22 jun
+  {date:'2026-06-22',h:14,label:'14h',team1:'Argentina',team2:'Áustria',city:'Dallas',group:'J',round:2},
+  {date:'2026-06-22',h:18,label:'18h',team1:'França',team2:'Rep. Mundial 2',city:'Filadélfia',group:'I',round:2},
+  {date:'2026-06-22',h:21,label:'21h',team1:'Noruega',team2:'Senegal',city:'Nova York/NJ',group:'I',round:2},
+  // 23 jun
+  {date:'2026-06-23',h:0,label:'00h',team1:'Jordânia',team2:'Argélia',city:'San Francisco',group:'J',round:2},
+  {date:'2026-06-23',h:14,label:'14h',team1:'Portugal',team2:'Uzbequistão',city:'Houston',group:'K',round:2},
+  {date:'2026-06-23',h:17,label:'17h',team1:'Inglaterra',team2:'Gana',city:'Boston',group:'L',round:2},
+  {date:'2026-06-23',h:20,label:'20h',team1:'Panamá',team2:'Croácia',city:'Toronto',group:'L',round:2},
+  {date:'2026-06-23',h:23,label:'23h',team1:'Colômbia',team2:'Rep. Mundial 1',city:'Guadalajara',group:'K',round:2},
+  // 24 jun
+  {date:'2026-06-24',h:16,label:'16h',team1:'Suíça',team2:'Canadá',city:'Vancouver',group:'B',round:3},
+  {date:'2026-06-24',h:16,label:'16h',team1:'Europa A',team2:'Catar',city:'Seattle',group:'B',round:3},
+  {date:'2026-06-24',h:19,label:'19h',team1:'Escócia',team2:'Brasil',city:'Miami',group:'C',round:3},
+  {date:'2026-06-24',h:19,label:'19h',team1:'Marrocos',team2:'Haiti',city:'Atlanta',group:'C',round:3},
+  {date:'2026-06-24',h:22,label:'22h',team1:'Europa D',team2:'México',city:'Cidade do México',group:'A',round:3},
+  {date:'2026-06-24',h:22,label:'22h',team1:'África do Sul',team2:'Coreia do Sul',city:'Monterrey',group:'A',round:3},
+  // 25 jun
+  {date:'2026-06-25',h:17,label:'17h',team1:'Equador',team2:'Alemanha',city:'Nova York/NJ',group:'E',round:3},
+  {date:'2026-06-25',h:17,label:'17h',team1:'Curaçao',team2:'Costa do Marfim',city:'Filadélfia',group:'E',round:3},
+  {date:'2026-06-25',h:20,label:'20h',team1:'Japão',team2:'Europa B',city:'Dallas',group:'F',round:3},
+  {date:'2026-06-25',h:20,label:'20h',team1:'Tunísia',team2:'Holanda',city:'Kansas City',group:'F',round:3},
+  {date:'2026-06-25',h:23,label:'23h',team1:'Europa C',team2:'Estados Unidos',city:'Los Angeles',group:'D',round:3},
+  {date:'2026-06-25',h:23,label:'23h',team1:'Paraguai',team2:'Austrália',city:'San Francisco',group:'D',round:3},
+  // 26 jun
+  {date:'2026-06-26',h:16,label:'16h',team1:'Noruega',team2:'França',city:'Boston',group:'I',round:3},
+  {date:'2026-06-26',h:16,label:'16h',team1:'Senegal',team2:'Rep. Mundial 2',city:'Toronto',group:'I',round:3},
+  {date:'2026-06-26',h:21,label:'21h',team1:'Cabo Verde',team2:'Arábia Saudita',city:'Houston',group:'H',round:3},
+  {date:'2026-06-26',h:21,label:'21h',team1:'Uruguai',team2:'Espanha',city:'Guadalajara',group:'H',round:3},
+  // 27 jun
+  {date:'2026-06-27',h:0,label:'00h',team1:'Egito',team2:'Irã',city:'Seattle',group:'G',round:3},
+  {date:'2026-06-27',h:0,label:'00h',team1:'Nova Zelândia',team2:'Bélgica',city:'Vancouver',group:'G',round:3},
+  {date:'2026-06-27',h:18,label:'18h',team1:'Panamá',team2:'Inglaterra',city:'Nova York/NJ',group:'L',round:3},
+  {date:'2026-06-27',h:18,label:'18h',team1:'Croácia',team2:'Gana',city:'Filadélfia',group:'L',round:3},
+  {date:'2026-06-27',h:20,label:'20:30h',team1:'Colômbia',team2:'Portugal',city:'Miami',group:'K',round:3},
+  {date:'2026-06-27',h:20,label:'20:30h',team1:'Rep. Mundial 1',team2:'Uzbequistão',city:'Atlanta',group:'K',round:3},
+  {date:'2026-06-27',h:23,label:'23h',team1:'Argélia',team2:'Áustria',city:'Kansas City',group:'J',round:3},
+  {date:'2026-06-27',h:23,label:'23h',team1:'Jordânia',team2:'Argentina',city:'Dallas',group:'J',round:3},
+];
+
+// Group games by date
+const byDate = {};
+games.forEach(g => {
+  if (!byDate[g.date]) byDate[g.date] = [];
+  byDate[g.date].push(g);
+});
+
+const dateLabels = {
+  '2026-06-11':'Qui 11',
+  '2026-06-12':'Sex 12',
+  '2026-06-13':'Sáb 13',
+  '2026-06-14':'Dom 14',
+  '2026-06-15':'Seg 15',
+  '2026-06-16':'Ter 16',
+  '2026-06-17':'Qua 17',
+  '2026-06-18':'Qui 18',
+  '2026-06-19':'Sex 19',
+  '2026-06-20':'Sáb 20',
+  '2026-06-21':'Dom 21',
+  '2026-06-22':'Seg 22',
+  '2026-06-23':'Ter 23',
+  '2026-06-24':'Qua 24',
+  '2026-06-25':'Qui 25',
+  '2026-06-26':'Sex 26',
+  '2026-06-27':'Sáb 27',
+};
+
+const roundLabel = {1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
+
+const tabsBar = document.getElementById('tabsBar');
+const mainContent = document.getElementById('mainContent');
+const today = new Date().toISOString().slice(0,10);
+
+const sortedDates = Object.keys(byDate).sort();
+let activeTab = sortedDates.includes(today) ? today : sortedDates[0];
+
+sortedDates.forEach(date => {
+  const dayGames = byDate[date];
+  const comercialCount = dayGames.filter(g => isComercial(g.h)).length;
+  const label = dateLabels[date] || date.slice(8);
+
+  // Tab
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn' + (comercialCount > 0 ? ' has-comercial' : '');
+  btn.dataset.date = date;
+  btn.textContent = label;
+  if (date === activeTab) btn.classList.add('active');
+  btn.addEventListener('click', () => switchTab(date));
+  tabsBar.appendChild(btn);
+
+  // Section
+  const section = document.createElement('div');
+  section.className = 'day-section' + (date === activeTab ? ' active' : '');
+  section.id = 'section-' + date;
+
+  const [y, m, d] = date.split('-');
+  const months = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const weekDays = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const wd = new Date(date + 'T12:00:00').getDay();
+
+  const rounds = [...new Set(dayGames.map(g => g.round))].sort();
+
+  let headerHtml = `
+    <div class="day-header">
+      <h2><span class="dia-num">${d}</span>${months[parseInt(m)]} 2026</h2>
+      <div class="rodada-label">${weekDays[wd]} · ${rounds.map(r=>roundLabel[r]).join(' & ')}</div>
+  `;
+  if (comercialCount > 0) {
+    headerHtml += `<div class="day-comercial-summary">⚡ ${comercialCount} jogo${comercialCount>1?'s':''} no horário comercial</div>`;
+  }
+  headerHtml += `</div>`;
+
+  let gamesHtml = '<div class="games-list">';
+  dayGames.forEach(g => {
+    const com = isComercial(g.h);
+    const t1IsBrasil = isBrasil(g.team1);
+    const t2IsBrasil = isBrasil(g.team2);
+    gamesHtml += `
+      <div class="game-card ${com ? 'commercial' : 'outside'}">
+        <div>
+          <div class="game-time">${g.label}</div>
+          <div class="game-time-label">Brasília</div>
+        </div>
+        <div class="game-match">
+          <div class="game-teams">
+            <span class="${t1IsBrasil ? 'team-brasil' : ''}">${flag(g.team1)} ${g.team1}</span>
+            <span class="vs">vs</span>
+            <span class="${t2IsBrasil ? 'team-brasil' : ''}">${flag(g.team2)} ${g.team2}</span>
+          </div>
+          <div class="game-meta">
+            <span class="game-group">Grupo ${g.group}</span>
+            <span class="game-city">
+              <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0C2.24 0 0 2.24 0 5c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg>
+              ${g.city}
+            </span>
+          </div>
+        </div>
+        <div class="game-right">
+          ${com
+            ? '<span class="badge-comercial">Comercial</span>'
+            : '<span class="fora-badge">Fora</span>'
+          }
+        </div>
+      </div>
+    `;
+  });
+  gamesHtml += '</div>';
+
+  section.innerHTML = headerHtml + gamesHtml;
+  mainContent.appendChild(section);
+});
+
+function switchTab(date) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.date === date));
+  document.querySelectorAll('.day-section').forEach(s => s.classList.toggle('active', s.id === 'section-' + date));
+  // scroll tab into view
+  const btn = document.querySelector(`.tab-btn[data-date="${date}"]`);
+  if (btn) btn.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+}
+</script>
+</body>
+</html>
