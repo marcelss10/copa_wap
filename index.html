@@ -232,14 +232,20 @@
 
 <header>
   <div class="header-left">
-    <!-- LOGO: coloque logo.png (ou logo.jpg) na raiz do projeto para substituir o bloco de texto -->
     <div id="logoWrap">
-      <div class="logo-block" id="logoFallback">
-        <span class="logo-wap">WAP</span>
-        <span class="logo-waaw">WAAW BY ALOK</span>
-      </div>
+        <img
+            src="logo.png"
+            alt="Logo WAP"
+            id="logoImg"
+            onerror="document.getElementById('logoFallback').style.display='flex'; this.style.display='none';"
+        >
+
+        <div class="logo-block" id="logoFallback" style="display:none;">
+            <span class="logo-wap">WAP</span>
+            <span class="logo-waaw">WAAW BY ALOK</span>
+        </div>
     </div>
-    <div>
+</div>
       <div class="header-title">COPA DO MUNDO 2026 <em>— CALENDÁRIO</em></div>
       <div class="header-sub">Horário de Brasília · Fase de Grupos · 11 jun – 27 jun</div>
     </div>
