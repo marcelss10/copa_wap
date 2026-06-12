@@ -236,48 +236,83 @@
   }
 
   /* SVG do canarinho */
+.canary-wrap {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+  }
+
+  /* Label WAP acima do robô */
+  .canary-stolen {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #07111F;
+    background: var(--amarelo);
+    padding: 2px 8px;
+    border-radius: 4px 4px 0 0;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    letter-spacing: 0.08em;
+    position: relative;
+    bottom: -2px;
+    z-index: 2;
+  }
+
+  /* SVG do robô aspirador */
   .canary-svg {
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.7));
   }
 
-  /* Estados da asa para bater */
-  @keyframes wing-flap {
-    0%   { transform: scaleY(1); }
-    50%  { transform: scaleY(-0.4); }
-    100% { transform: scaleY(1); }
-  }
-  .wing { transform-origin: 50% 30%; animation: wing-flap 0.22s ease-in-out infinite; }
+  /* Rodas girando */
+@keyframes fly-across {
 
-  /* Animação de voo: entra pela esquerda → para no centro → sai pela direita */
-  @keyframes fly-across {
-    0%   { transform: translateX(-200px); opacity: 0; }
-    8%   { opacity: 1; }
-    35%  { transform: translateX(calc(50vw - 60px)); opacity: 1; }
-    55%  { transform: translateX(calc(50vw - 60px)); opacity: 1; }
-    92%  { opacity: 1; }
-    100% { transform: translateX(calc(100vw + 200px)); opacity: 0; }
-  }
+    /* entra bem devagar */
+    0% {
+        transform: translateX(-120px);
+        opacity: 0;
+    }
+
+    10% {
+        transform: translateX(-60px);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+
+    /* chega exatamente sobre o countdown */
+    38% {
+        transform: translateX(var(--target-x));
+        opacity: 1;
+    }
+
+    /* fica parado roubando o minuto */
+    58% {
+        transform: translateX(var(--target-x));
+        opacity: 1;
+    }
+
+    94% {
+        opacity: 1;
+    }
+
+    /* sai da tela */
+    100% {
+        transform: translateX(calc(100vw + 120px));
+        opacity: 0;
+    }
+}
 
   .canary-flying {
-    animation: fly-across 2.8s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    animation: fly-across 3.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   }
 
-  /* Flash de "roubo" no número do countdown */
-  @keyframes steal-flash {
-    0%   { transform: scale(1);    filter: brightness(1); }
-    20%  { transform: scale(1.35); filter: brightness(2.5) drop-shadow(0 0 8px var(--amarelo)); }
-    60%  { transform: scale(0.7);  filter: brightness(0.3); opacity: 0.4; }
-    100% { transform: scale(1);    filter: brightness(1);   opacity: 1; }
-  }
-  .steal-anim { animation: steal-flash 0.55s ease-out forwards; }
-
-  @media (max-width: 750px) {
-    .game-card { grid-template-columns: 72px 1fr; }
-    .col-cd { display: none; }
-    .team { font-size: 18px; }
-    .flag { width: 28px; height: 20px; }
-    .notif-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
-  }
 </style>
 </head>
 <body>
@@ -464,29 +499,12 @@ function teamHtml(name, isBr){
 function canarySVG(facingRight) {
   const flip = facingRight ? '' : 'transform="scale(-1,1) translate(-88,0)"';
   return `<svg class="canary-svg" width="88" height="64" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg" ${flip}>
-    <ellipse cx="40" cy="38" rx="19" ry="14" fill="#F5D800"/>
-    <ellipse cx="40" cy="38" rx="19" ry="14" fill="none" stroke="#00A86B" stroke-width="1.5"/>
-    <circle cx="59" cy="28" r="11" fill="#F5D800"/>
-    <circle cx="59" cy="28" r="11" fill="none" stroke="#00A86B" stroke-width="1.2"/>
-    <circle cx="42" cy="32" r="4" fill="#009B55"/>
-    <ellipse cx="40" cy="38" rx="10" ry="5" fill="#009B55" opacity=".35"/>
-    <polygon points="70,26 82,29 70,32" fill="#FF9500"/>
-    <polygon points="70,27 78,29 70,31" fill="#FFB500"/>
-    <circle cx="64" cy="25" r="2.8" fill="#07111F"/>
-    <circle cx="65" cy="24" r="1" fill="white"/>
-    <g class="wing">
-      <ellipse cx="36" cy="30" rx="17" ry="9" fill="#00A86B" opacity=".9"/>
-      <ellipse cx="36" cy="30" rx="13" ry="6" fill="#F5D800" opacity=".7"/>
-    </g>
-    <polygon points="22,36 5,27 8,41 22,42" fill="#00A86B"/>
-    <polygon points="22,37 8,30 10,40 22,41" fill="#F5D800" opacity=".6"/>
-    <line x1="42" y1="51" x2="40" y2="60" stroke="#FF9500" stroke-width="2" stroke-linecap="round"/>
-    <line x1="49" y1="52" x2="47" y2="61" stroke="#FF9500" stroke-width="2" stroke-linecap="round"/>
-    <line x1="40" y1="60" x2="36" y2="63" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="40" y1="60" x2="43" y2="63" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="47" y1="61" x2="43" y2="63" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="47" y1="61" x2="50" y2="63" stroke="#FF9500" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>`;
+    <image href="./aspirador.png"
+       x="-11"
+       y="-8"
+       width="110"
+       height="80"
+       preserveAspectRatio="xMidYMid meet"/>`;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -510,48 +528,80 @@ function getActiveCountdownEl() {
 }
 
 function fireCanary(stolenText, targetEl) {
+
   if (canaryLocked) return;
   canaryLocked = true;
 
   const stage = document.getElementById('canary-stage');
 
-  // Cria o wrapper
+  // posição vertical
+  let targetTopPx = window.innerHeight * 0.5;
+
+  // posição horizontal
+  let targetX = (window.innerWidth / 2) - 44;
+
+  if (targetEl) {
+
+    const rect = targetEl.getBoundingClientRect();
+
+    // centraliza o robô verticalmente
+    targetTopPx = rect.top + (rect.height / 2) - 32;
+
+    targetTopPx = Math.max(
+      8,
+      Math.min(window.innerHeight - 80, targetTopPx)
+    );
+
+    // centraliza exatamente sobre o número
+    targetX = rect.left + (rect.width / 2) - 44;
+  }
+
   const wrap = document.createElement('div');
   wrap.className = 'canary-wrap canary-flying';
 
-  // Texto roubado (fica acima do passarinho)
+  // passa a posição para o CSS
+  wrap.style.setProperty('--target-x', targetX + 'px');
+
   const stolen = document.createElement('div');
   stolen.className = 'canary-stolen';
   stolen.textContent = stolenText;
 
-  // SVG do pássaro
   const birdDiv = document.createElement('div');
   birdDiv.innerHTML = canarySVG(true);
 
   wrap.appendChild(stolen);
   wrap.appendChild(birdDiv);
 
-  // Posição vertical: centro da tela
-  wrap.style.top  = '45vh';
+  wrap.style.top = targetTopPx + 'px';
   wrap.style.left = '0px';
 
   stage.appendChild(wrap);
 
-  // Mostra o número roubado quando o pássaro chega ao meio (≈35% da animação = ~1s)
   setTimeout(() => {
+
     stolen.style.opacity = '1';
-    // Pisca o elemento original
+
     if (targetEl) {
+
       targetEl.classList.add('steal-anim');
-      targetEl.addEventListener('animationend', () => targetEl.classList.remove('steal-anim'), {once:true});
+
+      targetEl.addEventListener(
+        'animationend',
+        () => targetEl.classList.remove('steal-anim'),
+        { once:true }
+      );
     }
+
   }, 980);
 
-  // Remove ao final
   wrap.addEventListener('animationend', () => {
-    wrap.remove();
-    canaryLocked = false;
-  });
+
+  wrap.remove();
+  canaryLocked = false;
+
+  location.reload();
+
+});
 }
 
 // ═══════════════════════════════════════════════════════════
