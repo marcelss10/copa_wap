@@ -105,7 +105,6 @@
 
   .games-list { display: flex; flex-direction: column; gap: 14px; }
 
-  /* === CARDS LEVEMENTE MAIORES PARA TV === */
   .game-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -202,13 +201,16 @@
   footer .dev { font-size: 11px; color: rgba(122,143,168,0.5); }
 
   /* ═══════════════════════════════════════════════════
-     CANARINHO — animação de roubar o minuto
+     ASPIRADOR — stage e animação
   ═══════════════════════════════════════════════════ */
+
+  /* AJUSTE TV: pointer-events none em tudo no stage,
+     nunca bloqueia cliques/interação na página */
   #canary-stage {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    pointer-events: none;
+    pointer-events: none;    /* ← nunca bloqueia a tela */
     z-index: 9999;
     overflow: hidden;
   }
@@ -218,40 +220,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-  }
-
-  /* Número que o canarinho carrega */
-  .canary-stolen {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    color: var(--amarelo);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.2s;
-    position: relative;
-    top: 4px;
-  }
-
-  /* SVG do canarinho */
-.canary-wrap {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 0px;
+    pointer-events: none;   /* redundante mas seguro */
   }
 
-  /* Label WAP acima do robô */
+  /* Badge WAP acima do robô */
   .canary-stolen {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 14px;
     color: #07111F;
     background: var(--amarelo);
-    padding: 2px 8px;
+    padding: 2px 10px;
     border-radius: 4px 4px 0 0;
     white-space: nowrap;
     opacity: 0;
@@ -262,62 +242,62 @@
     z-index: 2;
   }
 
-  /* SVG do robô aspirador */
+  /* SVG do robô aspirador — MAIOR que o original */
   .canary-svg {
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.7));
+    /* sem filter para não criar efeitos pesados */
   }
 
-  /* Rodas girando */
-@keyframes fly-across {
+  /* Trilha de brilho que o aspirador deixa para trás */
+  .canary-trail {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 6px;
+    width: 0;
+    border-radius: 3px;
+    background: linear-gradient(90deg,
+      rgba(245,216,0,0) 0%,
+      rgba(245,216,0,0.55) 40%,
+      rgba(180,255,200,0.7) 70%,
+      rgba(255,255,255,0.85) 100%
+    );
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
 
-    /* entra bem devagar */
-    0% {
-        transform: translateX(-120px);
-        opacity: 0;
-    }
+  /* Partículas de brilho que pipocam na trilha */
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    pointer-events: none;
+    animation: sparkle-pop 0.5s ease-out forwards;
+  }
+  @keyframes sparkle-pop {
+    0%   { transform: scale(0) translateY(0);  opacity: 1; }
+    60%  { transform: scale(1.4) translateY(-8px); opacity: 0.8; }
+    100% { transform: scale(0) translateY(-14px); opacity: 0; }
+  }
 
-    10% {
-        transform: translateX(-60px);
-        opacity: 1;
-    }
-
-    20% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-
-    /* chega exatamente sobre o countdown */
-    38% {
-        transform: translateX(var(--target-x));
-        opacity: 1;
-    }
-
-    /* fica parado roubando o minuto */
-    58% {
-        transform: translateX(var(--target-x));
-        opacity: 1;
-    }
-
-    94% {
-        opacity: 1;
-    }
-
-    /* sai da tela */
-    100% {
-        transform: translateX(calc(100vw + 120px));
-        opacity: 0;
-    }
-}
+  @keyframes fly-across {
+    0%  { transform: translateX(-140px); opacity: 0; }
+    8%  { transform: translateX(-70px);  opacity: 1; }
+    18% { transform: translateX(0px);    opacity: 1; }
+    38% { transform: translateX(var(--target-x)); opacity: 1; }
+    58% { transform: translateX(var(--target-x)); opacity: 1; }
+    94% { opacity: 1; }
+    100%{ transform: translateX(calc(100vw + 140px)); opacity: 0; }
+  }
 
   .canary-flying {
     animation: fly-across 3.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   }
-
 </style>
 </head>
 <body>
 
-<!-- Stage para o canarinho voar -->
 <div id="canary-stage"></div>
 
 <header>
@@ -494,29 +474,48 @@ function teamHtml(name, isBr){
 }
 
 // ═══════════════════════════════════════════════════════════
-//  CANARINHO — desenho SVG inline do passarinho
+//  SVG do aspirador — MAIOR (120×88 vs 88×64 original)
 // ═══════════════════════════════════════════════════════════
 function canarySVG(facingRight) {
-  const flip = facingRight ? '' : 'transform="scale(-1,1) translate(-88,0)"';
-  return `<svg class="canary-svg" width="88" height="64" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg" ${flip}>
+  const flip = facingRight ? '' : 'transform="scale(-1,1) translate(-120,0)"';
+  return `<svg class="canary-svg"
+    width="160"
+    height="118"
+    viewBox="0 0 160 118"
+    xmlns="http://www.w3.org/2000/svg"
+    ${flip}>
+
     <image href="./aspirador.png"
-       x="-11"
-       y="-8"
-       width="110"
-       height="80"
-       preserveAspectRatio="xMidYMid meet"/>`;
+       x="-15"
+       y="-10"
+       width="180"
+       height="132"
+       preserveAspectRatio="xMidYMid meet"/>
+
+</svg>`;
 }
 
 // ═══════════════════════════════════════════════════════════
-//  LÓGICA DE ANIMAÇÃO DO CANARINHO
-//  — dispara a cada virada de minuto para jogos com contagem
+//  TRILHA DE BRILHO — cresce enquanto o robô avança,
+//  depois pisca e some quando ele sai da tela
 // ═══════════════════════════════════════════════════════════
-let lastMinute = -1;         // último minuto em que o canarinho voou
-let canaryLocked = false;    // evita sobreposição de animações
+function spawnSparkle(stage, x, y) {
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.style.left = x + 'px';
+  s.style.top  = y + 'px';
+  s.style.background = Math.random() > 0.5 ? '#F5D800' : '#afffda';
+  s.style.width  = (4 + Math.random() * 6) + 'px';
+  s.style.height = s.style.width;
+  s.style.animationDelay = (Math.random() * 0.2) + 's';
+  stage.appendChild(s);
+  setTimeout(() => s.remove(), 700);
+}
 
-// Referência ao elemento de countdown ativo (o que mais importa: o 1º jogo futuro)
+let canaryLocked = false;
+const lastMinsMap = {};
+
 function getActiveCountdownEl() {
-  // Retorna o elemento .cd-num do próximo jogo que ainda não começou
   const now = Date.now();
   for (const g of games) {
     const k = kickoff(g).getTime();
@@ -528,39 +527,61 @@ function getActiveCountdownEl() {
 }
 
 function fireCanary(stolenText, targetEl) {
-
   if (canaryLocked) return;
   canaryLocked = true;
 
   const stage = document.getElementById('canary-stage');
 
-  // posição vertical
   let targetTopPx = window.innerHeight * 0.5;
-
-  // posição horizontal
-  let targetX = (window.innerWidth / 2) - 44;
+  let targetX     = (window.innerWidth / 2) - 60;
 
   if (targetEl) {
-
     const rect = targetEl.getBoundingClientRect();
-
-    // centraliza o robô verticalmente
-    targetTopPx = rect.top + (rect.height / 2) - 32;
-
-    targetTopPx = Math.max(
-      8,
-      Math.min(window.innerHeight - 80, targetTopPx)
-    );
-
-    // centraliza exatamente sobre o número
-    targetX = rect.left + (rect.width / 2) - 44;
+    targetTopPx = rect.top + (rect.height / 2) - 44;
+    targetTopPx = Math.max(8, Math.min(window.innerHeight - 100, targetTopPx));
+    targetX = rect.left + (rect.width / 2) - 60;
   }
 
+  // ── Trilha de brilho ──────────────────────────────────
+  const trail = document.createElement('div');
+  trail.className = 'canary-trail';
+  trail.style.top  = (targetTopPx + 44) + 'px';   // centro vertical do robô
+  trail.style.left = '0px';
+  stage.appendChild(trail);
+
+  // Anima a largura da trilha sincronizada com o robô (0→targetX em ~38% de 3.2s ≈ 1.22s)
+  const trailDuration = 3200 * 0.38; // ms até o robô chegar no target
+  let trailStart = null;
+  let sparkleTimer = null;
+
+  function growTrail(ts) {
+    if (!trailStart) trailStart = ts;
+    const elapsed = ts - trailStart;
+    const progress = Math.min(elapsed / trailDuration, 1);
+    const currentWidth = progress * (targetX + 60); // 60 = metade do robô
+    trail.style.width = currentWidth + 'px';
+
+    // Partículas periódicas enquanto cresce
+    if (progress < 1) {
+      requestAnimationFrame(growTrail);
+    } else {
+      // Trilha chegou — dispara sparkles ao longo dela por 1s
+      let count = 0;
+      sparkleTimer = setInterval(() => {
+        const rx = Math.random() * currentWidth;
+        spawnSparkle(stage, rx, targetTopPx + 40 + (Math.random() * 12 - 6));
+        if (++count > 18) clearInterval(sparkleTimer);
+      }, 55);
+    }
+  }
+  requestAnimationFrame(growTrail);
+
+  // ── Wrap do robô ─────────────────────────────────────
   const wrap = document.createElement('div');
   wrap.className = 'canary-wrap canary-flying';
-
-  // passa a posição para o CSS
   wrap.style.setProperty('--target-x', targetX + 'px');
+  wrap.style.top  = targetTopPx + 'px';
+  wrap.style.left = '0px';
 
   const stolen = document.createElement('div');
   stolen.className = 'canary-stolen';
@@ -571,37 +592,21 @@ function fireCanary(stolenText, targetEl) {
 
   wrap.appendChild(stolen);
   wrap.appendChild(birdDiv);
-
-  wrap.style.top = targetTopPx + 'px';
-  wrap.style.left = '0px';
-
   stage.appendChild(wrap);
 
-  setTimeout(() => {
+  // Mostra badge WAP ao chegar no countdown
+  setTimeout(() => { stolen.style.opacity = '1'; }, 980);
 
-    stolen.style.opacity = '1';
-
-    if (targetEl) {
-
-      targetEl.classList.add('steal-anim');
-
-      targetEl.addEventListener(
-        'animationend',
-        () => targetEl.classList.remove('steal-anim'),
-        { once:true }
-      );
-    }
-
-  }, 980);
-
+  // Quando a animação termina: limpa tudo e recarrega
   wrap.addEventListener('animationend', () => {
-
-  wrap.remove();
-  canaryLocked = false;
-
-  location.reload();
-
-});
+    clearInterval(sparkleTimer);
+    // Fade out da trilha
+    trail.style.transition = 'opacity 0.4s';
+    trail.style.opacity = '0';
+    setTimeout(() => { trail.remove(); wrap.remove(); }, 450);
+    canaryLocked = false;
+    location.reload();
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -655,21 +660,38 @@ function triggerGameOpen(g, link) {
 
 function initNotifications() {
   if (!('Notification' in window)) return;
+
+  const enabled = localStorage.getItem('notificationsEnabled') === 'true';
+
   if (Notification.permission === 'granted') {
+    localStorage.setItem('notificationsEnabled', 'true');
+    notifBar.classList.add('hidden');
     scheduleGameAlerts();
-  } else if (Notification.permission !== 'denied') {
-    notifBar.classList.remove('hidden');
+  }
+  else if (Notification.permission !== 'denied') {
+
+    if (enabled) {
+      scheduleGameAlerts();
+      notifBar.classList.add('hidden');
+    } else {
+      notifBar.classList.remove('hidden');
+    }
+
     btnNotif.addEventListener('click', () => {
       Notification.requestPermission().then(perm => {
         notifBar.classList.add('hidden');
-        if (perm === 'granted') scheduleGameAlerts();
+
+        if (perm === 'granted') {
+          localStorage.setItem('notificationsEnabled', 'true');
+          scheduleGameAlerts();
+        }
       });
     });
-  } else {
+  }
+  else {
     scheduleGameAlerts();
   }
 }
-initNotifications();
 
 // ─── BUILD DOM ────────────────────────────────────────────────────────────────
 const byDate = {};
@@ -780,13 +802,9 @@ function fmtCd(ms){
   return      {text:`${ss}s`,                  cls:'urgent', mins: 0};
 }
 
-// Guarda o último valor de minutos para detectar virada
-const lastMinsMap = {};
-
 function tick(){
   const now = Date.now();
 
-  // Encontra o 1º jogo futuro (é o "principal" para o canarinho)
   let primaryGameId = null;
   for (const g of games) {
     const k = kickoff(g).getTime();
@@ -797,43 +815,37 @@ function tick(){
     const nEl = document.getElementById('cdnum-'+g.id);
     const lEl = document.getElementById('cdlbl-'+g.id);
     const cEl = document.getElementById('card-'+g.id);
-    const dEl = document.getElementById('colcd-'+g.id);
     if(!nEl) return;
 
     const k       = kickoff(g).getTime();
     const toStart = k - now;
-    const toEnd   = k + GAME_DUR - now;
 
     if(toStart > 0){
-  const f = fmtCd(toStart);
+      const f = fmtCd(toStart);
+      const prevMins = lastMinsMap[g.id];
+      const curMins  = f.mins;
 
-  // Detecta virada: compara o valor de minutos ANTERIOR com o atual
-  const prevMins = lastMinsMap[g.id];
-  const curMins  = f.mins;
+      if (g.id === primaryGameId && prevMins !== undefined && curMins !== prevMins) {
+        let stolenLabel;
+        if (prevMins >= 60) {
+          const h = Math.floor(prevMins / 60);
+          const m = prevMins % 60;
+          stolenLabel = m > 0 ? `${h}h ${pad(m)}m` : `${h}h`;
+        } else if (prevMins > 0) {
+          stolenLabel = `${prevMins}m`;
+        } else {
+          const s = Math.floor((toStart + 1000) / 1000) % 60;
+          stolenLabel = `${pad(s)}s`;
+        }
+        fireCanary(stolenLabel, nEl);
+      }
 
-  if (g.id === primaryGameId && prevMins !== undefined && curMins !== prevMins) {
-    // Captura exatamente o valor que acabou de sair (prevMins)
-    let stolenLabel;
-    if (prevMins >= 60) {
-      const h = Math.floor(prevMins / 60);
-      const m = prevMins % 60;
-      stolenLabel = m > 0 ? `${h}h ${pad(m)}m` : `${h}h`;
-    } else if (prevMins > 0) {
-      stolenLabel = `${prevMins}m`;
-    } else {
-      // virada de segundo quando mins=0
-      const s = Math.floor((toStart + 1000) / 1000) % 60;
-      stolenLabel = `${pad(s)}s`;
+      lastMinsMap[g.id] = curMins;
+      nEl.textContent = f.text;
+      nEl.className   = 'cd-num ' + f.cls;
+      lEl.textContent = 'para o início';
+      cEl.classList.remove('live');
     }
-    fireCanary(stolenLabel, nEl);
-  }
-
-  lastMinsMap[g.id] = curMins;
-  nEl.textContent = f.text;
-  nEl.className   = 'cd-num ' + f.cls;
-  lEl.textContent = 'para o início';
-  cEl.classList.remove('live');
-}
   });
 }
 
