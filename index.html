@@ -105,7 +105,7 @@
   .col-match {}
   .match-teams { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 9px; }
 
-  /* Team block: flag + name side by side */
+  /* Team block: flag img + name side by side */
   .team {
     display: inline-flex;
     align-items: center;
@@ -117,12 +117,17 @@
     line-height: 1;
   }
   .team.brasil { color: var(--verde); }
-  /* Flag rendered as image via country-flag-emoji-polyfill or just a styled span */
+
+  /* Flag rendered as real image from flagcdn */
   .flag {
     display: inline-block;
-    font-size: 28px;
-    line-height: 1;
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    width: 32px;
+    height: 22px;
+    border-radius: 3px;
+    object-fit: cover;
+    vertical-align: middle;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
   }
 
   .vs-sep { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); padding: 0 2px; flex-shrink: 0; }
@@ -152,7 +157,7 @@
     .game-card { grid-template-columns: 68px 1fr; }
     .col-cd { display: none; }
     .team { font-size: 17px; }
-    .flag { font-size: 22px; }
+    .flag { width: 26px; height: 18px; }
   }
 </style>
 </head>
@@ -185,73 +190,64 @@
 
 <script>
 // ── DADOS COMPLETOS E CORRETOS ─────────────────────────────────────────────
-// Todos os times confirmados após repescagens (abril 2026)
-// Grupos:
-// A: México, África do Sul, Coreia do Sul, República Tcheca
-// B: Canadá, Bósnia e Herzegovina, Catar, Suíça
-// C: Brasil, Marrocos, Haiti, Escócia
-// D: Estados Unidos, Paraguai, Austrália, Turquia
-// E: Alemanha, Curaçao, Costa do Marfim, Equador
-// F: Holanda, Japão, Suécia, Tunísia
-// G: Bélgica, Egito, Irã, Nova Zelândia
-// H: Espanha, Cabo Verde, Arábia Saudita, Uruguai
-// I: França, Senegal, Iraque, Noruega
-// J: Argentina, Argélia, Áustria, Jordânia
-// K: Portugal, RD Congo, Uzbequistão, Colômbia
-// L: Inglaterra, Croácia, Gana, Panamá
-
-// Bandeiras: cada seleção tem flag emoji separado do nome no HTML
-// para garantir renderização correta em todas as plataformas.
+// Bandeiras agora usam códigos ISO 3166-1 alpha-2 para imagens reais via flagcdn.com
+// Seleções com bandeira especial (Escócia, Inglaterra) usam imagens específicas
 const teams = {
-  'México':               '🇲🇽',
-  'África do Sul':        '🇿🇦',
-  'Coreia do Sul':        '🇰🇷',
-  'República Tcheca':     '🇨🇿',
-  'Canadá':               '🇨🇦',
-  'Bósnia e Herzegovina': '🇧🇦',
-  'Catar':                '🇶🇦',
-  'Suíça':                '🇨🇭',
-  'Brasil':               '🇧🇷',
-  'Marrocos':             '🇲🇦',
-  'Haiti':                '🇭🇹',
-  'Escócia':              '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  'Estados Unidos':       '🇺🇸',
-  'Paraguai':             '🇵🇾',
-  'Austrália':            '🇦🇺',
-  'Turquia':              '🇹🇷',
-  'Alemanha':             '🇩🇪',
-  'Curaçao':              '🇨🇼',
-  'Costa do Marfim':      '🇨🇮',
-  'Equador':              '🇪🇨',
-  'Holanda':              '🇳🇱',
-  'Japão':                '🇯🇵',
-  'Suécia':               '🇸🇪',
-  'Tunísia':              '🇹🇳',
-  'Bélgica':              '🇧🇪',
-  'Egito':                '🇪🇬',
-  'Irã':                  '🇮🇷',
-  'Nova Zelândia':        '🇳🇿',
-  'Espanha':              '🇪🇸',
-  'Cabo Verde':           '🇨🇻',
-  'Arábia Saudita':       '🇸🇦',
-  'Uruguai':              '🇺🇾',
-  'França':               '🇫🇷',
-  'Senegal':              '🇸🇳',
-  'Iraque':               '🇮🇶',
-  'Noruega':              '🇳🇴',
-  'Argentina':            '🇦🇷',
-  'Argélia':              '🇩🇿',
-  'Áustria':              '🇦🇹',
-  'Jordânia':             '🇯🇴',
-  'Portugal':             '🇵🇹',
-  'RD Congo':             '🇨🇩',
-  'Uzbequistão':          '🇺🇿',
-  'Colômbia':             '🇨🇴',
-  'Inglaterra':           '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-  'Croácia':              '🇭🇷',
-  'Gana':                 '🇬🇭',
-  'Panamá':               '🇵🇦',
+  'México':               'mx',
+  'África do Sul':        'za',
+  'Coreia do Sul':        'kr',
+  'República Tcheca':     'cz',
+  'Canadá':               'ca',
+  'Bósnia e Herzegovina': 'ba',
+  'Catar':                'qa',
+  'Suíça':                'ch',
+  'Brasil':               'br',
+  'Marrocos':             'ma',
+  'Haiti':                'ht',
+  'Escócia':              'gb-sct',
+  'Estados Unidos':       'us',
+  'Paraguai':             'py',
+  'Austrália':            'au',
+  'Turquia':              'tr',
+  'Alemanha':             'de',
+  'Curaçao':              'cw',
+  'Costa do Marfim':      'ci',
+  'Equador':              'ec',
+  'Holanda':              'nl',
+  'Japão':                'jp',
+  'Suécia':               'se',
+  'Tunísia':              'tn',
+  'Bélgica':              'be',
+  'Egito':                'eg',
+  'Irã':                  'ir',
+  'Nova Zelândia':        'nz',
+  'Espanha':              'es',
+  'Cabo Verde':           'cv',
+  'Arábia Saudita':       'sa',
+  'Uruguai':              'uy',
+  'França':               'fr',
+  'Senegal':              'sn',
+  'Iraque':               'iq',
+  'Noruega':              'no',
+  'Argentina':            'ar',
+  'Argélia':              'dz',
+  'Áustria':              'at',
+  'Jordânia':             'jo',
+  'Portugal':             'pt',
+  'RD Congo':             'cd',
+  'Uzbequistão':          'uz',
+  'Colômbia':             'co',
+  'Inglaterra':           'gb-eng',
+  'Croácia':              'hr',
+  'Gana':                 'gh',
+  'Panamá':               'pa',
 };
+
+// Retorna a URL da bandeira para o código ISO
+function flagUrl(code) {
+  // gb-sct e gb-eng são suportados pelo flagcdn como subdivisões
+  return `https://flagcdn.com/w40/${code}.png`;
+}
 
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil = n => n === 'Brasil';
@@ -361,10 +357,11 @@ function brasiliaToday() {
   return new Date(Date.now() - 3*3600*1000).toISOString().slice(0,10);
 }
 
-// Build team HTML: flag in separate span from name text
+// Build team HTML: real flag image + name
 function teamHtml(name, isBr) {
-  const fl = teams[name] || '🏳️';
-  return `<span class="team${isBr?' brasil':''}"><span class="flag">${fl}</span><span class="tname">${name}</span></span>`;
+  const code = teams[name] || 'un';
+  const url  = flagUrl(code);
+  return `<span class="team${isBr?' brasil':''}"><img class="flag" src="${url}" alt="${name}" loading="lazy" onerror="this.style.display='none'">${name}</span>`;
 }
 
 const byDate = {};
