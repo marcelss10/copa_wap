@@ -32,6 +32,14 @@
     z-index: 100;
   }
   .header-left { display: flex; align-items: center; gap: 16px; }
+
+  /* LOGO: imagem real se existir, fallback para bloco de texto */
+  .logo-img {
+    height: 48px;
+    width: auto;
+    display: block;
+    border-radius: 6px;
+  }
   .logo-block {
     background: var(--verde);
     border-radius: 6px;
@@ -41,9 +49,42 @@
   }
   .logo-wap { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; color: #fff; letter-spacing: 0.04em; }
   .logo-waaw { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.09em; color: rgba(255,255,255,0.8); white-space: nowrap; }
+
   .header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.03em; line-height: 1.1; }
   .header-title em { color: var(--amarelo); font-style: normal; }
   .header-sub { font-size: 12px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
+
+  /* Notificação banner */
+  .notif-bar {
+    background: rgba(0,168,107,0.12);
+    border-bottom: 1px solid rgba(0,168,107,0.3);
+    padding: 9px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    color: #5DE8A8;
+  }
+  .notif-bar.hidden { display: none; }
+  .notif-bar strong { font-weight: 700; }
+  .btn-notif {
+    background: var(--verde);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity .15s;
+  }
+  .btn-notif:hover { opacity: 0.85; }
+
   .legend { display: flex; gap: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
   .leg { display: flex; align-items: center; gap: 7px; }
   .leg-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -105,7 +146,6 @@
   .col-match {}
   .match-teams { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 9px; }
 
-  /* Team block: flag img + name side by side */
   .team {
     display: inline-flex;
     align-items: center;
@@ -118,7 +158,6 @@
   }
   .team.brasil { color: var(--verde); }
 
-  /* Flag rendered as real image from flagcdn */
   .flag {
     display: inline-block;
     width: 32px;
@@ -134,6 +173,33 @@
   .match-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .meta-grp { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(255,255,255,0.06); border-radius: 4px; padding: 3px 8px; color: var(--muted); }
   .meta-city { font-size: 13px; color: var(--muted); }
+
+  /* BOTÃO ASSISTIR */
+  .btn-watch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 9px;
+    background: rgba(255,0,0,0.13);
+    border: 1px solid rgba(255,60,60,0.35);
+    color: #FF7777;
+    border-radius: 5px;
+    padding: 5px 13px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .btn-watch:hover {
+    background: rgba(255,0,0,0.25);
+    border-color: rgba(255,60,60,0.7);
+    color: #fff;
+  }
+  .btn-watch svg { flex-shrink: 0; }
 
   /* COUNTDOWN COLUMN */
   .col-cd { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
@@ -158,6 +224,7 @@
     .col-cd { display: none; }
     .team { font-size: 17px; }
     .flag { width: 26px; height: 18px; }
+    .notif-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
   }
 </style>
 </head>
@@ -165,9 +232,12 @@
 
 <header>
   <div class="header-left">
-    <div class="logo-block">
-      <span class="logo-wap">WAP</span>
-      <span class="logo-waaw">WAAW BY ALOK</span>
+    <!-- LOGO: coloque logo.png (ou logo.jpg) na raiz do projeto para substituir o bloco de texto -->
+    <div id="logoWrap">
+      <div class="logo-block" id="logoFallback">
+        <span class="logo-wap">WAP</span>
+        <span class="logo-waaw">WAAW BY ALOK</span>
+      </div>
     </div>
     <div>
       <div class="header-title">COPA DO MUNDO 2026 <em>— CALENDÁRIO</em></div>
@@ -180,6 +250,12 @@
   </div>
 </header>
 
+<!-- Banner de permissão de notificações -->
+<div class="notif-bar hidden" id="notifBar">
+  <span>🔔 <strong>Ative as notificações</strong> para abrir automaticamente os jogos do horário comercial no horário exato.</span>
+  <button class="btn-notif" id="btnNotif">Ativar notificações</button>
+</div>
+
 <div class="tabs-wrap" id="tabsBar"></div>
 <main id="mainContent"></main>
 
@@ -189,70 +265,79 @@
 </footer>
 
 <script>
-// ── DADOS COMPLETOS E CORRETOS ─────────────────────────────────────────────
-// Bandeiras agora usam códigos ISO 3166-1 alpha-2 para imagens reais via flagcdn.com
-// Seleções com bandeira especial (Escócia, Inglaterra) usam imagens específicas
+// ─────────────────────────────────────────────────────────────────────────────
+// LOGO: tenta carregar logo.png da raiz. Se não existir, mantém o bloco de texto.
+// Para usar: coloque o arquivo "logo.png" (ou .jpg) na mesma pasta do HTML.
+// ─────────────────────────────────────────────────────────────────────────────
+(function() {
+  const extensions = ['png', 'jpg', 'jpeg', 'svg', 'webp'];
+  let tried = 0;
+  function tryNext() {
+    if (tried >= extensions.length) return; // nenhuma encontrada, mantém fallback
+    const img = new Image();
+    img.src = './logo.' + extensions[tried++];
+    img.className = 'logo-img';
+    img.alt = 'WAP – WAAW BY ALOK';
+    img.onload = function() {
+      const wrap = document.getElementById('logoWrap');
+      const fallback = document.getElementById('logoFallback');
+      fallback.replaceWith(img);
+    };
+    img.onerror = tryNext;
+  }
+  tryNext();
+})();
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DADOS
+// ─────────────────────────────────────────────────────────────────────────────
 const teams = {
-  'México':               'mx',
-  'África do Sul':        'za',
-  'Coreia do Sul':        'kr',
-  'República Tcheca':     'cz',
-  'Canadá':               'ca',
-  'Bósnia e Herzegovina': 'ba',
-  'Catar':                'qa',
-  'Suíça':                'ch',
-  'Brasil':               'br',
-  'Marrocos':             'ma',
-  'Haiti':                'ht',
-  'Escócia':              'gb-sct',
-  'Estados Unidos':       'us',
-  'Paraguai':             'py',
-  'Austrália':            'au',
-  'Turquia':              'tr',
-  'Alemanha':             'de',
-  'Curaçao':              'cw',
-  'Costa do Marfim':      'ci',
-  'Equador':              'ec',
-  'Holanda':              'nl',
-  'Japão':                'jp',
-  'Suécia':               'se',
-  'Tunísia':              'tn',
-  'Bélgica':              'be',
-  'Egito':                'eg',
-  'Irã':                  'ir',
-  'Nova Zelândia':        'nz',
-  'Espanha':              'es',
-  'Cabo Verde':           'cv',
-  'Arábia Saudita':       'sa',
-  'Uruguai':              'uy',
-  'França':               'fr',
-  'Senegal':              'sn',
-  'Iraque':               'iq',
-  'Noruega':              'no',
-  'Argentina':            'ar',
-  'Argélia':              'dz',
-  'Áustria':              'at',
-  'Jordânia':             'jo',
-  'Portugal':             'pt',
-  'RD Congo':             'cd',
-  'Uzbequistão':          'uz',
-  'Colômbia':             'co',
-  'Inglaterra':           'gb-eng',
-  'Croácia':              'hr',
-  'Gana':                 'gh',
-  'Panamá':               'pa',
+  'México':               'mx',  'África do Sul':        'za',
+  'Coreia do Sul':        'kr',  'República Tcheca':     'cz',
+  'Canadá':               'ca',  'Bósnia e Herzegovina': 'ba',
+  'Catar':                'qa',  'Suíça':                'ch',
+  'Brasil':               'br',  'Marrocos':             'ma',
+  'Haiti':                'ht',  'Escócia':              'gb-sct',
+  'Estados Unidos':       'us',  'Paraguai':             'py',
+  'Austrália':            'au',  'Turquia':              'tr',
+  'Alemanha':             'de',  'Curaçao':              'cw',
+  'Costa do Marfim':      'ci',  'Equador':              'ec',
+  'Holanda':              'nl',  'Japão':                'jp',
+  'Suécia':               'se',  'Tunísia':              'tn',
+  'Bélgica':              'be',  'Egito':                'eg',
+  'Irã':                  'ir',  'Nova Zelândia':        'nz',
+  'Espanha':              'es',  'Cabo Verde':           'cv',
+  'Arábia Saudita':       'sa',  'Uruguai':              'uy',
+  'França':               'fr',  'Senegal':              'sn',
+  'Iraque':               'iq',  'Noruega':              'no',
+  'Argentina':            'ar',  'Argélia':              'dz',
+  'Áustria':              'at',  'Jordânia':             'jo',
+  'Portugal':             'pt',  'RD Congo':             'cd',
+  'Uzbequistão':          'uz',  'Colômbia':             'co',
+  'Inglaterra':           'gb-eng', 'Croácia':           'hr',
+  'Gana':                 'gh',  'Panamá':               'pa',
 };
 
-// Retorna a URL da bandeira para o código ISO
 function flagUrl(code) {
-  // gb-sct e gb-eng são suportados pelo flagcdn como subdivisões
   return `https://flagcdn.com/w40/${code}.png`;
 }
 
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil = n => n === 'Brasil';
 
-// ── JOGOS — times reais, horários e cidades confirmados pela FIFA ──────────
+// ── LINKS DOS JOGOS (horário comercial) ──────────────────────────────────────
+// Chave: "Time1 vs Time2" (ordem exata como no array games)
+const gameLinks = {
+  'Canadá vs Bósnia e Herzegovina':  'https://www.youtube.com/watch?v=CRtjePKnGvA',
+  'Espanha vs Cabo Verde':           'https://www.youtube.com/watch?v=EYStZQ5FsVk',
+  'Bélgica vs Egito':                'https://www.youtube.com/watch?v=aclBHrhLQr4',
+  'França vs Senegal':               'https://www.youtube.com/watch?v=m1vplAfSs_A',
+  'Portugal vs RD Congo':            'https://www.youtube.com/watch?v=HpzKFDctbNw',
+};
+
+function gameKey(g) { return `${g.t1} vs ${g.t2}`; }
+
+// ── JOGOS ─────────────────────────────────────────────────────────────────────
 const games = [
   // 11 jun — 1ª Rodada
   {date:'2026-06-11',h:16,min:0,label:'16h',  t1:'México',         t2:'África do Sul',       city:'Cidade do México',group:'A',round:1},
@@ -357,13 +442,91 @@ function brasiliaToday() {
   return new Date(Date.now() - 3*3600*1000).toISOString().slice(0,10);
 }
 
-// Build team HTML: real flag image + name
 function teamHtml(name, isBr) {
   const code = teams[name] || 'un';
   const url  = flagUrl(code);
   return `<span class="team${isBr?' brasil':''}"><img class="flag" src="${url}" alt="${name}" loading="lazy" onerror="this.style.display='none'">${name}</span>`;
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// NOTIFICAÇÕES + AUTO-ABERTURA
+// Lógica: para cada jogo com link, agendamos um setTimeout que dispara na hora
+// exata. Se o usuário permitiu notificações, exibe notificação clicável que
+// abre o link + tenta window.open como backup.
+// ─────────────────────────────────────────────────────────────────────────────
+const notifBar   = document.getElementById('notifBar');
+const btnNotif   = document.getElementById('btnNotif');
+const firedGames = new Set(); // evita disparar duas vezes
+
+function scheduleGameAlerts() {
+  const now = Date.now();
+  games.forEach(g => {
+    const link = gameLinks[gameKey(g)];
+    if (!link) return;
+    const k = kickoff(g).getTime();
+    const delay = k - now;
+    if (delay < 0) return; // jogo já passou
+    if (delay > 7 * 24 * 3600 * 1000) return; // mais de 7 dias → não agendar agora (re-agenda ao abrir)
+
+    setTimeout(() => {
+      if (firedGames.has(g.id)) return;
+      firedGames.add(g.id);
+      triggerGameOpen(g, link);
+    }, delay);
+  });
+}
+
+function triggerGameOpen(g, link) {
+  // 1. Tenta abrir aba (funciona se a página está em foco)
+  const win = window.open(link, '_blank');
+
+  // 2. Notificação do sistema (funciona em background)
+  if (Notification.permission === 'granted') {
+    const n = new Notification(`⚽ AO VIVO: ${g.t1} vs ${g.t2}`, {
+      body: `Grupo ${g.group} · ${g.city} — Clique para assistir`,
+      icon: './logo.png',
+      tag: 'jogo-' + g.id,
+      requireInteraction: true,
+    });
+    n.onclick = () => { window.open(link, '_blank'); n.close(); };
+  }
+
+  // 3. Se window.open foi bloqueado, mostra alerta visual no card
+  if (!win || win.closed || typeof win.closed === 'undefined') {
+    const dEl = document.getElementById('colcd-' + g.id);
+    if (dEl) {
+      const alertEl = document.createElement('a');
+      alertEl.href = link;
+      alertEl.target = '_blank';
+      alertEl.className = 'badge-live';
+      alertEl.innerHTML = '<span class="live-dot"></span> ABRIR JOGO';
+      alertEl.style.textDecoration = 'none';
+      dEl.insertBefore(alertEl, dEl.firstChild);
+    }
+  }
+}
+
+// Mostra banner para pedir permissão se ainda não foi concedida
+function initNotifications() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') {
+    scheduleGameAlerts();
+  } else if (Notification.permission !== 'denied') {
+    notifBar.classList.remove('hidden');
+    btnNotif.addEventListener('click', () => {
+      Notification.requestPermission().then(perm => {
+        notifBar.classList.add('hidden');
+        if (perm === 'granted') scheduleGameAlerts();
+      });
+    });
+  } else {
+    // já negado: apenas agenda tentativa de window.open
+    scheduleGameAlerts();
+  }
+}
+initNotifications();
+
+// ── BUILD DOM ─────────────────────────────────────────────────────────────────
 const byDate = {};
 games.forEach(g => { (byDate[g.date] = byDate[g.date]||[]).push(g); });
 
@@ -417,8 +580,17 @@ sorted.forEach(date => {
     <div class="games-list">`;
 
   dayG.forEach(g => {
-    const com = isComercial(g.h);
-    const b1 = isBrasil(g.t1), b2 = isBrasil(g.t2);
+    const com  = isComercial(g.h);
+    const b1   = isBrasil(g.t1), b2 = isBrasil(g.t2);
+    const link = gameLinks[gameKey(g)];
+
+    // Botão Assistir — só aparece se tiver link
+    const watchBtn = link ? `
+      <a class="btn-watch" href="${link}" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Assistir
+      </a>` : '';
+
     html += `
       <div class="game-card ${com?'com':'out'}" id="card-${g.id}">
         <div class="col-time">
@@ -435,6 +607,7 @@ sorted.forEach(date => {
             <span class="meta-grp">Grupo ${g.group}</span>
             <span class="meta-city">📍 ${g.city}</span>
           </div>
+          ${watchBtn}
         </div>
         <div class="col-cd" id="colcd-${g.id}">
           ${com?'<span class="badge-com">Comercial</span>':''}
@@ -450,7 +623,7 @@ sorted.forEach(date => {
   mainEl.appendChild(sec);
 });
 
-// ── COUNTDOWN ──────────────────────────────────────────────────────────────
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
 function pad(n){ return String(n).padStart(2,'0'); }
 function fmtCd(ms){
   if(ms<=0) return null;
