@@ -204,13 +204,11 @@
      ASPIRADOR — stage e animação
   ═══════════════════════════════════════════════════ */
 
-  /* AJUSTE TV: pointer-events none em tudo no stage,
-     nunca bloqueia cliques/interação na página */
   #canary-stage {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    pointer-events: none;    /* ← nunca bloqueia a tela */
+    pointer-events: none;
     z-index: 9999;
     overflow: hidden;
   }
@@ -221,10 +219,9 @@
     flex-direction: column;
     align-items: center;
     gap: 0px;
-    pointer-events: none;   /* redundante mas seguro */
+    pointer-events: none;
   }
 
-  /* Badge WAP acima do robô */
   .canary-stolen {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
@@ -242,12 +239,9 @@
     z-index: 2;
   }
 
-  /* SVG do robô aspirador — MAIOR que o original */
   .canary-svg {
-    /* sem filter para não criar efeitos pesados */
   }
 
-  /* Trilha de brilho que o aspirador deixa para trás */
   .canary-trail {
     position: absolute;
     top: 50%;
@@ -265,7 +259,6 @@
     pointer-events: none;
   }
 
-  /* Partículas de brilho que pipocam na trilha */
   .sparkle {
     position: absolute;
     width: 6px;
@@ -279,6 +272,23 @@
     0%   { transform: scale(0) translateY(0);  opacity: 1; }
     60%  { transform: scale(1.4) translateY(-8px); opacity: 0.8; }
     100% { transform: scale(0) translateY(-14px); opacity: 0; }
+  }
+
+  /* ── Marcos fixo no canto inferior esquerdo ── */
+  #marcos-img {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;          /* um pouco maior que o aspirador (160px) */
+    height: auto;
+    z-index: 9998;         /* abaixo do stage do aspirador */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform-origin: bottom left;
+  }
+  #marcos-img.visible {
+    opacity: 1;
   }
 
   @keyframes fly-across {
@@ -299,6 +309,7 @@
 <body>
 
 <div id="canary-stage"></div>
+<img id="marcos-img" src="./marcos.png" alt="Marcos">
 
 <header>
  <div class="header-left">
@@ -496,8 +507,7 @@ function canarySVG(facingRight) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  TRILHA DE BRILHO — cresce enquanto o robô avança,
-//  depois pisca e some quando ele sai da tela
+//  TRILHA DE BRILHO
 // ═══════════════════════════════════════════════════════════
 function spawnSparkle(stage, x, y) {
   const s = document.createElement('div');
@@ -532,6 +542,10 @@ function fireCanary(stolenText, targetEl) {
 
   const stage = document.getElementById('canary-stage');
 
+  // Mostra Marcos junto com o aspirador
+  const marcosEl = document.getElementById('marcos-img');
+  if (marcosEl) marcosEl.classList.add('visible');
+
   let targetTopPx = window.innerHeight * 0.5;
   let targetX     = (window.innerWidth / 2) - 60;
 
@@ -545,12 +559,11 @@ function fireCanary(stolenText, targetEl) {
   // ── Trilha de brilho ──────────────────────────────────
   const trail = document.createElement('div');
   trail.className = 'canary-trail';
-  trail.style.top  = (targetTopPx + 44) + 'px';   // centro vertical do robô
+  trail.style.top  = (targetTopPx + 44) + 'px';
   trail.style.left = '0px';
   stage.appendChild(trail);
 
-  // Anima a largura da trilha sincronizada com o robô (0→targetX em ~38% de 3.2s ≈ 1.22s)
-  const trailDuration = 3200 * 0.38; // ms até o robô chegar no target
+  const trailDuration = 3200 * 0.38;
   let trailStart = null;
   let sparkleTimer = null;
 
@@ -558,14 +571,12 @@ function fireCanary(stolenText, targetEl) {
     if (!trailStart) trailStart = ts;
     const elapsed = ts - trailStart;
     const progress = Math.min(elapsed / trailDuration, 1);
-    const currentWidth = progress * (targetX + 60); // 60 = metade do robô
+    const currentWidth = progress * (targetX + 60);
     trail.style.width = currentWidth + 'px';
 
-    // Partículas periódicas enquanto cresce
     if (progress < 1) {
       requestAnimationFrame(growTrail);
     } else {
-      // Trilha chegou — dispara sparkles ao longo dela por 1s
       let count = 0;
       sparkleTimer = setInterval(() => {
         const rx = Math.random() * currentWidth;
@@ -594,16 +605,15 @@ function fireCanary(stolenText, targetEl) {
   wrap.appendChild(birdDiv);
   stage.appendChild(wrap);
 
-  // Mostra badge WAP ao chegar no countdown
   setTimeout(() => { stolen.style.opacity = '1'; }, 980);
 
-  // Quando a animação termina: limpa tudo e recarrega
   wrap.addEventListener('animationend', () => {
     clearInterval(sparkleTimer);
-    // Fade out da trilha
     trail.style.transition = 'opacity 0.4s';
     trail.style.opacity = '0';
     setTimeout(() => { trail.remove(); wrap.remove(); }, 450);
+    // Esconde Marcos quando o aspirador sai
+    if (marcosEl) marcosEl.classList.remove('visible');
     canaryLocked = false;
     location.reload();
   });
