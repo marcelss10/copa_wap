@@ -115,348 +115,101 @@
   gap: 12px;
   transition: transform .12s;
 }
-
 .game-card:hover { transform: translateX(4px); }
-
 .game-card.com {
   border-left-color: var(--laranja);
   background: linear-gradient(100deg, rgba(242,101,34,0.06) 0%, var(--card) 45%);
 }
-
 .game-card.out {
   border-left-color: rgba(255,255,255,0.13);
   opacity: 0.52;
 }
-
 .game-card.live {
   border-left-color: #FF4040 !important;
   background: linear-gradient(100deg, rgba(255,64,64,0.08) 0%, var(--card) 50%) !important;
   opacity: 1 !important;
   animation: pulse 2s ease-in-out infinite;
 }
-
 @keyframes pulse {
   0%,100%{box-shadow:0 0 0 0 rgba(255,64,64,0.25)}
   50%{box-shadow:0 0 0 8px rgba(255,64,64,0)}
 }
-
-.col-time {
-  text-align: center;
-}
-
-.time-big {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 30px;
-  font-weight: 900;
-  line-height: 1;
-}
-
+.col-time { text-align: center; }
+.time-big { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; line-height: 1; }
 .game-card.com .time-big { color: var(--laranja); }
 .game-card.out .time-big { color: var(--muted); }
 .game-card.live .time-big { color: #FF7777; }
-
-.time-lbl {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.match-teams {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 3px;
-}
-
-.team {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-  line-height: 1;
-}
-
-.team.brasil {
-  color: var(--verde-br);
-}
-
-.flag {
-  display: inline-block;
-  width: 20px;
-  height: 14px;
-  border-radius: 2px;
-  object-fit: cover;
-  vertical-align: middle;
-  flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-}
-
-.vs-sep {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  padding: 0 1px;
-  flex-shrink: 0;
-}
-
-.match-meta {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.meta-grp {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: rgba(255,255,255,0.06);
-  border-radius: 3px;
-  padding: 1px 5px;
-  color: var(--muted);
-}
-
-.meta-city {
-  font-size: 10px;
-  color: var(--muted);
-}
-
-.btn-watch {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 5px;
-  background: rgba(255,0,0,0.13);
-  border: 1px solid rgba(255,60,60,0.35);
-  color: #FF7777;
-  border-radius: 5px;
-  padding: 4px 8px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background .15s, border-color .15s, color .15s;
-}
-
-.btn-watch:hover {
-  background: rgba(255,0,0,0.25);
-  border-color: rgba(255,60,60,0.7);
-  color: #fff;
-}
-
-.btn-watch svg {
-  flex-shrink: 0;
-}
-
-.col-cd {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.badge-com {
-  display: inline-block;
-  background: var(--laranja);
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-
-.badge-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: #FF4040;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 4px;
-  animation: blink 1.1s steps(1) infinite;
-}
-
-.live-dot {
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  border-radius: 50%;
-}
-
-@keyframes blink {
-  0%,100%{opacity:1}
-  50%{opacity:0.3}
-}
-
-.cd-box {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 6px 10px;
-  text-align: center;
-  min-width: 90px;
-}
-
-.cd-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 21px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-
+.time-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.match-teams { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 3px; }
+.team { display: inline-flex; align-items: center; gap: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; line-height: 1; }
+.team.brasil { color: var(--verde-br); }
+.flag { display: inline-block; width: 20px; height: 14px; border-radius: 2px; object-fit: cover; vertical-align: middle; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.35); }
+.vs-sep { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); padding: 0 1px; flex-shrink: 0; }
+.match-meta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.meta-grp { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,0.06); border-radius: 3px; padding: 1px 5px; color: var(--muted); }
+.meta-city { font-size: 10px; color: var(--muted); }
+.btn-watch { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,60,60,0.35); color: #FF7777; border-radius: 5px; padding: 4px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.btn-watch:hover { background: rgba(255,0,0,0.25); border-color: rgba(255,60,60,0.7); color: #fff; }
+.btn-watch svg { flex-shrink: 0; }
+.col-cd { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.badge-com { display: inline-block; background: var(--laranja); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+.badge-live { display: inline-flex; align-items: center; gap: 4px; background: #FF4040; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; animation: blink 1.1s steps(1) infinite; }
+.live-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.cd-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 10px; text-align: center; min-width: 90px; }
+.cd-num { font-family: 'Barlow Condensed', sans-serif; font-size: 21px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
 .cd-num.far    { color: var(--txt); }
 .cd-num.soon   { color: var(--laranja2); }
 .cd-num.urgent { color: #FF9944; }
 .cd-num.done   { color: var(--muted); font-size: 12px; }
+.cd-lbl { font-size: 8px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
 
-.cd-lbl {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 1px;
-}
+footer { text-align: center; padding: 8px 22px 12px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); line-height: 1.6; margin-top: -80px; }
+footer .dev { font-size: 11px; color: rgba(122,143,168,0.5); }
 
-footer {
-  text-align: center;
-  padding: 8px 22px 12px;
-  font-size: 12px;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  line-height: 1.6;
-  margin-top: -80px;
-}
-
-footer .dev {
-  font-size: 11px;
-  color: rgba(122,143,168,0.5);
-}
-
-  /* ══════════════════════════════════
-     RODAPÉ TICKER
-  ══════════════════════════════════ */
   #results-ticker {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 48px;
-    background: #07111F;
-    border-top: 2px solid var(--verde);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    position: fixed; bottom: 0; left: 0; right: 0; height: 48px;
+    background: #07111F; border-top: 2px solid var(--verde); z-index: 200;
+    display: flex; align-items: center; overflow: hidden;
   }
   #results-ticker .ticker-label {
-    flex-shrink: 0;
-    background: var(--verde);
-    color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0 16px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
+    flex-shrink: 0; background: var(--verde); color: #fff;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 0 16px;
+    height: 100%; display: flex; align-items: center; white-space: nowrap;
   }
   #results-ticker .ticker-track { flex: 1; overflow: hidden; height: 100%; }
   #results-ticker .ticker-inner {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    white-space: nowrap;
-    animation: ticker-scroll 120s linear infinite;
-    will-change: transform;
+    display: flex; align-items: center; height: 100%; white-space: nowrap;
+    animation: ticker-scroll 120s linear infinite; will-change: transform;
   }
   #results-ticker .ticker-inner:hover { animation-play-state: paused; }
   @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 28px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--txt);
-    border-right: 1px solid rgba(255,255,255,0.1);
+    display: inline-flex; align-items: center; gap: 8px; padding: 0 28px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: 0.04em; color: var(--txt); border-right: 1px solid rgba(255,255,255,0.1);
   }
   .ticker-item .t-score { font-size: 18px; font-weight: 900; color: var(--amarelo); letter-spacing: 0.08em; }
   .ticker-item .t-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; }
   .ticker-item .t-group { font-size: 10px; color: var(--verde); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
   #results-ticker.hidden { display: none; }
 
-  /* ══════════════════════════════════
-     ASPIRADOR — stage
-  ══════════════════════════════════ */
   #canary-stage {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 9999; overflow: hidden;
   }
-  .canary-wrap {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    pointer-events: none;
-    gap: 0;
-  }
+  .canary-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; pointer-events: none; gap: 0; }
   .canary-stolen {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    color: #07111F;
-    background: var(--amarelo);
-    padding: 4px 14px;
-    border-radius: 6px 6px 0 0;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.25s;
-    letter-spacing: 0.08em;
-    position: relative;
-    bottom: -2px;
-    z-index: 2;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px;
+    color: #07111F; background: var(--amarelo); padding: 4px 14px;
+    border-radius: 6px 6px 0 0; white-space: nowrap; opacity: 0;
+    transition: opacity 0.25s; letter-spacing: 0.08em; position: relative; bottom: -2px; z-index: 2;
   }
-
-  /* ── UMA estrela de limpeza (sem linha) ── */
   .clean-star {
-    position: absolute;
-    pointer-events: none;
+    position: absolute; pointer-events: none;
     animation: clean-star-pop 0.85s ease-out forwards;
-    z-index: 9998;
-    user-select: none;
-    line-height: 1;
+    z-index: 9998; user-select: none; line-height: 1;
   }
   @keyframes clean-star-pop {
     0%   { transform: scale(0) rotate(-30deg) translateY(0px);   opacity: 1; }
@@ -489,7 +242,7 @@ footer .dev {
 </header>
 
 <div class="notif-bar hidden" id="notifBar">
-  <span>🔔 <strong>Ative as notificações</strong> para abrir automaticamente os jogos do horário comercial no horário exato.</span>
+  <span>🔔 <strong>Ative as notificações</strong> para abrir automaticamente os jogos 30 minutos antes do início.</span>
   <button class="btn-notif" id="btnNotif">Ativar notificações</button>
 </div>
 
@@ -544,80 +297,99 @@ const flagUrl = code => `https://flagcdn.com/w40/${code}.png`;
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil    = n => n === 'Brasil';
 
+// ─── LINKS PARA ASSISTIR (abre automaticamente 30min antes) ──────────────────
 const gameLinks = {
   'Canadá vs Bósnia e Herzegovina':  'https://www.youtube.com/watch?v=CRtjePKnGvA',
   'Espanha vs Cabo Verde':           'https://www.youtube.com/watch?v=EYStZQ5FsVk',
   'Bélgica vs Egito':                'https://www.youtube.com/watch?v=aclBHrhLQr4',
   'França vs Senegal':               'https://www.youtube.com/watch?v=m1vplAfSs_A',
   'Portugal vs RD Congo':            'https://www.youtube.com/watch?v=HpzKFDctbNw',
+  'Argentina vs Argélia':            'https://www.youtube.com/watch?v=RhpNoBWVQGA',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
 const games = [
+  // ── 11 JUN ──
   {date:'2026-06-11',h:16,min:0,label:'16h',t1:'México',t2:'África do Sul',city:'Cidade do México',group:'A',round:1},
   {date:'2026-06-11',h:23,min:0,label:'23h',t1:'Coreia do Sul',t2:'República Tcheca',city:'Guadalajara',group:'A',round:1},
+  // ── 12 JUN ──
   {date:'2026-06-12',h:16,min:0,label:'16h',t1:'Canadá',t2:'Bósnia e Herzegovina',city:'Toronto',group:'B',round:1},
   {date:'2026-06-12',h:22,min:0,label:'22h',t1:'Estados Unidos',t2:'Paraguai',city:'Los Angeles',group:'D',round:1},
+  // ── 13 JUN ──
   {date:'2026-06-13',h:1,min:0,label:'01h',t1:'Austrália',t2:'Turquia',city:'Vancouver',group:'D',round:1},
   {date:'2026-06-13',h:16,min:0,label:'16h',t1:'Catar',t2:'Suíça',city:'San Francisco',group:'B',round:1},
   {date:'2026-06-13',h:19,min:0,label:'19h',t1:'Brasil',t2:'Marrocos',city:'Nova York/NJ',group:'C',round:1},
   {date:'2026-06-13',h:22,min:0,label:'22h',t1:'Haiti',t2:'Escócia',city:'Boston',group:'C',round:1},
+  // ── 14 JUN ──
   {date:'2026-06-14',h:14,min:0,label:'14h',t1:'Alemanha',t2:'Curaçao',city:'Houston',group:'E',round:1},
   {date:'2026-06-14',h:17,min:0,label:'17h',t1:'Holanda',t2:'Japão',city:'Dallas',group:'F',round:1},
   {date:'2026-06-14',h:20,min:0,label:'20h',t1:'Costa do Marfim',t2:'Equador',city:'Filadélfia',group:'E',round:1},
   {date:'2026-06-14',h:23,min:0,label:'23h',t1:'Suécia',t2:'Tunísia',city:'Monterrey',group:'F',round:1},
+  // ── 15 JUN ──
   {date:'2026-06-15',h:13,min:0,label:'13h',t1:'Espanha',t2:'Cabo Verde',city:'Atlanta',group:'H',round:1},
   {date:'2026-06-15',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Egito',city:'Seattle',group:'G',round:1},
   {date:'2026-06-15',h:19,min:0,label:'19h',t1:'Arábia Saudita',t2:'Uruguai',city:'Miami',group:'H',round:1},
   {date:'2026-06-15',h:22,min:0,label:'22h',t1:'Irã',t2:'Nova Zelândia',city:'Los Angeles',group:'G',round:1},
-  {date:'2026-06-16',h:14,min:0,label:'14h',t1:'Argentina',t2:'Argélia',city:'Kansas City',group:'J',round:1},
-  {date:'2026-06-16',h:16,min:0,label:'16h',t1:'França',t2:'Senegal',city:'Nova York/NJ',group:'I',round:1},
+  // ── 16 JUN ──
+  {date:'2026-06-16',h:14,min:0,label:'14h',t1:'França',t2:'Senegal',city:'Nova York/NJ',group:'I',round:1},
   {date:'2026-06-16',h:19,min:0,label:'19h',t1:'Iraque',t2:'Noruega',city:'Boston',group:'I',round:1},
+  {date:'2026-06-16',h:22,min:0,label:'22h',t1:'Argentina',t2:'Argélia',city:'Kansas City',group:'J',round:1},
+  // ── 17 JUN ──
   {date:'2026-06-17',h:1,min:0,label:'01h',t1:'Áustria',t2:'Jordânia',city:'San Francisco',group:'J',round:1},
   {date:'2026-06-17',h:14,min:0,label:'14h',t1:'Portugal',t2:'RD Congo',city:'Houston',group:'K',round:1},
   {date:'2026-06-17',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Croácia',city:'Dallas',group:'L',round:1},
   {date:'2026-06-17',h:20,min:0,label:'20h',t1:'Gana',t2:'Panamá',city:'Toronto',group:'L',round:1},
   {date:'2026-06-17',h:23,min:0,label:'23h',t1:'Uzbequistão',t2:'Colômbia',city:'Cidade do México',group:'K',round:1},
+  // ── 18 JUN ──
   {date:'2026-06-18',h:13,min:0,label:'13h',t1:'República Tcheca',t2:'África do Sul',city:'Atlanta',group:'A',round:2},
   {date:'2026-06-18',h:16,min:0,label:'16h',t1:'Suíça',t2:'Bósnia e Herzegovina',city:'Los Angeles',group:'B',round:2},
   {date:'2026-06-18',h:19,min:0,label:'19h',t1:'Canadá',t2:'Catar',city:'Vancouver',group:'B',round:2},
   {date:'2026-06-18',h:22,min:0,label:'22h',t1:'México',t2:'Coreia do Sul',city:'Guadalajara',group:'A',round:2},
+  // ── 19 JUN ──
   {date:'2026-06-19',h:1,min:0,label:'01h',t1:'Turquia',t2:'Paraguai',city:'San Francisco',group:'D',round:2},
   {date:'2026-06-19',h:16,min:0,label:'16h',t1:'Estados Unidos',t2:'Austrália',city:'Seattle',group:'D',round:2},
   {date:'2026-06-19',h:19,min:0,label:'19h',t1:'Escócia',t2:'Marrocos',city:'Boston',group:'C',round:2},
   {date:'2026-06-19',h:22,min:0,label:'22h',t1:'Brasil',t2:'Haiti',city:'Filadélfia',group:'C',round:2},
+  // ── 20 JUN ──
   {date:'2026-06-20',h:14,min:0,label:'14h',t1:'Holanda',t2:'Suécia',city:'Houston',group:'F',round:2},
   {date:'2026-06-20',h:17,min:0,label:'17h',t1:'Alemanha',t2:'Costa do Marfim',city:'Toronto',group:'E',round:2},
   {date:'2026-06-20',h:21,min:0,label:'21h',t1:'Equador',t2:'Curaçao',city:'Kansas City',group:'E',round:2},
+  // ── 21 JUN ──
   {date:'2026-06-21',h:1,min:0,label:'01h',t1:'Tunísia',t2:'Japão',city:'Monterrey',group:'F',round:2},
   {date:'2026-06-21',h:13,min:0,label:'13h',t1:'Espanha',t2:'Arábia Saudita',city:'Atlanta',group:'H',round:2},
   {date:'2026-06-21',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Irã',city:'Los Angeles',group:'G',round:2},
   {date:'2026-06-21',h:19,min:0,label:'19h',t1:'Uruguai',t2:'Cabo Verde',city:'Miami',group:'H',round:2},
   {date:'2026-06-21',h:22,min:0,label:'22h',t1:'Nova Zelândia',t2:'Egito',city:'Vancouver',group:'G',round:2},
+  // ── 22 JUN ──
   {date:'2026-06-22',h:14,min:0,label:'14h',t1:'Argentina',t2:'Áustria',city:'Dallas',group:'J',round:2},
   {date:'2026-06-22',h:18,min:0,label:'18h',t1:'França',t2:'Iraque',city:'Filadélfia',group:'I',round:2},
   {date:'2026-06-22',h:21,min:0,label:'21h',t1:'Noruega',t2:'Senegal',city:'Nova York/NJ',group:'I',round:2},
+  // ── 23 JUN ──
   {date:'2026-06-23',h:0,min:0,label:'00h',t1:'Jordânia',t2:'Argélia',city:'San Francisco',group:'J',round:2},
   {date:'2026-06-23',h:14,min:0,label:'14h',t1:'Portugal',t2:'Uzbequistão',city:'Houston',group:'K',round:2},
   {date:'2026-06-23',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Gana',city:'Boston',group:'L',round:2},
   {date:'2026-06-23',h:20,min:0,label:'20h',t1:'Panamá',t2:'Croácia',city:'Toronto',group:'L',round:2},
   {date:'2026-06-23',h:23,min:0,label:'23h',t1:'Colômbia',t2:'RD Congo',city:'Guadalajara',group:'K',round:2},
+  // ── 24 JUN ──
   {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Suíça',t2:'Canadá',city:'Vancouver',group:'B',round:3},
   {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Bósnia e Herzegovina',t2:'Catar',city:'Seattle',group:'B',round:3},
   {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Escócia',t2:'Brasil',city:'Miami',group:'C',round:3},
   {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Marrocos',t2:'Haiti',city:'Atlanta',group:'C',round:3},
   {date:'2026-06-24',h:22,min:0,label:'22h',t1:'República Tcheca',t2:'México',city:'Cidade do México',group:'A',round:3},
   {date:'2026-06-24',h:22,min:0,label:'22h',t1:'África do Sul',t2:'Coreia do Sul',city:'Monterrey',group:'A',round:3},
+  // ── 25 JUN ──
   {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Equador',t2:'Alemanha',city:'Nova York/NJ',group:'E',round:3},
   {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Curaçao',t2:'Costa do Marfim',city:'Filadélfia',group:'E',round:3},
   {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Japão',t2:'Suécia',city:'Dallas',group:'F',round:3},
   {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Tunísia',t2:'Holanda',city:'Kansas City',group:'F',round:3},
   {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Turquia',t2:'Estados Unidos',city:'Los Angeles',group:'D',round:3},
   {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Paraguai',t2:'Austrália',city:'San Francisco',group:'D',round:3},
+  // ── 26 JUN ──
   {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Noruega',t2:'França',city:'Boston',group:'I',round:3},
   {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Senegal',t2:'Iraque',city:'Toronto',group:'I',round:3},
   {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Cabo Verde',t2:'Arábia Saudita',city:'Houston',group:'H',round:3},
   {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Uruguai',t2:'Espanha',city:'Guadalajara',group:'H',round:3},
+  // ── 27 JUN ──
   {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Egito',t2:'Irã',city:'Seattle',group:'G',round:3},
   {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Nova Zelândia',t2:'Bélgica',city:'Vancouver',group:'G',round:3},
   {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Panamá',t2:'Inglaterra',city:'Nova York/NJ',group:'L',round:3},
@@ -642,10 +414,10 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS REAIS — Rodada 1 (confirmados)
+//  RESULTADOS REAIS — atualizados em 15/06/2026
 // ══════════════════════════════════════════════════════
 const resultados = {
-  // Rodada 1 — resultados reais confirmados
+  // Rodada 1 — resultados confirmados
   'México vs África do Sul':          '2-0',
   'Coreia do Sul vs República Tcheca':'2-1',
   'Canadá vs Bósnia e Herzegovina':   '1-1',
@@ -658,6 +430,9 @@ const resultados = {
   'Holanda vs Japão':                 '2-2',
   'Costa do Marfim vs Equador':       '1-0',
   'Suécia vs Tunísia':                '5-1',
+  // 15/06 — hoje
+  'Espanha vs Cabo Verde':            '0-0',
+  'Bélgica vs Egito':                 '1-1',
 };
 
 // ─── TICKER ────────────────────────────────────────────────────────────────
@@ -691,30 +466,53 @@ function buildTicker(){
 
   let html = '';
   finished.forEach(g => { html += makeItem(g); });
-  finished.forEach(g => { html += makeItem(g); }); // duplica para loop
+  finished.forEach(g => { html += makeItem(g); }); // duplica para loop contínuo
   innerEl.innerHTML = html;
 
   const totalPx = innerEl.scrollWidth/2;
   innerEl.style.animationDuration = Math.max(40, totalPx/65)+'s';
 }
 
-// ─── ABERTURA AUTOMÁTICA ───────────────────────────────────────────────────
+// ─── ABERTURA AUTOMÁTICA — 30 MINUTOS antes de cada jogo com link ──────────
+// Funciona para TODOS os jogos que têm link em gameLinks.
+// A página deve estar aberta para o agendamento funcionar.
 const firedPreOpen = new Set();
+
 function schedulePreOpen(){
   const now = Date.now();
   games.forEach(g => {
     const link = gameLinks[gameKey(g)];
     if(!link) return;
-    const delay = kickoff(g).getTime()-30*60*1000-now;
-    if(delay<0||delay>7*24*3600*1000) return;
-    setTimeout(()=>{
+
+    const kickoffMs = kickoff(g).getTime();
+    const openAt    = kickoffMs - 30 * 60 * 1000; // exatos 30 min antes
+    const delay     = openAt - now;
+
+    // Só agenda se ainda falta tempo (janela: agora até 7 dias no futuro)
+    if(delay < 0 || delay > 7 * 24 * 3600 * 1000) return;
+
+    setTimeout(() => {
       if(firedPreOpen.has(g.id)) return;
       firedPreOpen.add(g.id);
-      const win = window.open(link,'_blank');
-      try{ if(win){ win.moveTo(0,0); win.resizeTo(screen.width,screen.height); } }catch(e){}
-      if(Notification.permission==='granted'){
-        const n = new Notification(`⚽ Em 30min: ${g.t1} vs ${g.t2}`,{body:`Grupo ${g.group} · ${g.city}`,icon:'./logo.png',tag:'pre-'+g.id,requireInteraction:true});
-        n.onclick=()=>{ window.open(link,'_blank'); n.close(); };
+
+      // Abre em nova aba e tenta maximizar
+      const win = window.open(link, '_blank');
+      try {
+        if(win){
+          win.moveTo(0, 0);
+          win.resizeTo(screen.width, screen.height);
+        }
+      } catch(e) {}
+
+      // Notificação push (se permitida)
+      if(Notification.permission === 'granted'){
+        const n = new Notification(`⚽ Em 30 min: ${g.t1} vs ${g.t2}`, {
+          body: `Grupo ${g.group} · ${g.city} · Transmissão aberta!`,
+          icon: './logo.png',
+          tag: 'pre-' + g.id,
+          requireInteraction: true
+        });
+        n.onclick = () => { window.open(link, '_blank'); n.close(); };
       }
     }, delay);
   });
@@ -722,25 +520,30 @@ function schedulePreOpen(){
 
 // ─── NOTIFICAÇÕES ─────────────────────────────────────────────────────────
 function initNotifications(){
-  if(!('Notification' in window)) return;
-  if(Notification.permission==='granted'){
-    localStorage.setItem('notificationsEnabled','true');
+  if(!('Notification' in window)) { schedulePreOpen(); return; }
+
+  if(Notification.permission === 'granted'){
+    localStorage.setItem('notificationsEnabled', 'true');
     document.getElementById('notifBar').classList.add('hidden');
     schedulePreOpen();
-  } else if(Notification.permission!=='denied'){
-    if(localStorage.getItem('notificationsEnabled')==='true'){
+  } else if(Notification.permission !== 'denied'){
+    if(localStorage.getItem('notificationsEnabled') === 'true'){
       schedulePreOpen();
       document.getElementById('notifBar').classList.add('hidden');
     } else {
       document.getElementById('notifBar').classList.remove('hidden');
     }
-    document.getElementById('btnNotif').addEventListener('click',()=>{
-      Notification.requestPermission().then(p=>{
+    document.getElementById('btnNotif').addEventListener('click', () => {
+      Notification.requestPermission().then(p => {
         document.getElementById('notifBar').classList.add('hidden');
-        if(p==='granted'){ localStorage.setItem('notificationsEnabled','true'); schedulePreOpen(); }
+        if(p === 'granted'){
+          localStorage.setItem('notificationsEnabled', 'true');
+        }
+        schedulePreOpen();
       });
     });
   } else {
+    // Permissão negada — ainda agenda abertura de link
     schedulePreOpen();
   }
 }
@@ -751,7 +554,13 @@ games.forEach(g=>{ (byDate[g.date]=byDate[g.date]||[]).push(g); });
 const months=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const wdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const roundLbl={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
-const dateLbl={'2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13','2026-06-14':'Dom 14','2026-06-15':'Seg 15','2026-06-16':'Ter 16','2026-06-17':'Qua 17','2026-06-18':'Qui 18','2026-06-19':'Sex 19','2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22','2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25','2026-06-26':'Sex 26','2026-06-27':'Sáb 27'};
+const dateLbl={
+  '2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13','2026-06-14':'Dom 14',
+  '2026-06-15':'Seg 15','2026-06-16':'Ter 16','2026-06-17':'Qua 17','2026-06-18':'Qui 18',
+  '2026-06-19':'Sex 19','2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22',
+  '2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25','2026-06-26':'Sex 26',
+  '2026-06-27':'Sáb 27'
+};
 
 const tabsBar=document.getElementById('tabsBar');
 const mainEl=document.getElementById('mainContent');
@@ -794,9 +603,7 @@ sorted.forEach(date=>{
 });
 
 // ══════════════════════════════════════════════════════
-//  ASPIRADOR — entra 8s antes da troca de cada minuto
-//  chega ao countdown exatamente quando o minuto vira
-//  deixa apenas 1 estrela a cada posição (sem linha)
+//  ASPIRADOR
 // ══════════════════════════════════════════════════════
 function canarySVG(){
   return `<svg width="240" height="178" viewBox="0 0 240 178" xmlns="http://www.w3.org/2000/svg">
@@ -805,17 +612,13 @@ function canarySVG(){
 }
 
 const STAR_CHARS = ['✦','✧','✨','★','✩','⭐','💫','🌟'];
-
-// Controla emissão de UMA estrela por posição visitada
 let lastStarPos = {x:-9999, y:-9999};
-const STAR_MIN_DIST = 60; // px mínimos entre estrelas
+const STAR_MIN_DIST = 60;
 
 function spawnCleanStar(stage, x, y){
-  // distância desde a última estrela
   const dx = x - lastStarPos.x, dy = y - lastStarPos.y;
   if(Math.sqrt(dx*dx+dy*dy) < STAR_MIN_DIST) return;
   lastStarPos = {x, y};
-
   const s = document.createElement('div');
   s.className = 'clean-star';
   s.textContent = STAR_CHARS[Math.floor(Math.random()*STAR_CHARS.length)];
@@ -831,13 +634,11 @@ function spawnCleanStar(stage, x, y){
   setTimeout(()=>s.remove(), 1100);
 }
 
-// ── Animação manual RAF ──
 function easeOut(t){ return 1-Math.pow(1-t,3); }
 function easeInOut(t){ return t<0.5?2*t*t:-1+(4-2*t)*t; }
 function easeIn(t){ return t*t*t; }
 
 let canaryActive = false;
-let starInterval  = null;
 
 function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   const t0 = performance.now();
@@ -848,14 +649,8 @@ function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
     const cy = y0+(y1-y0)*e;
     wrap.style.left = cx+'px';
     wrap.style.top  = cy+'px';
-    // Uma estrela por posição significativa
     const r = wrap.getBoundingClientRect();
-    if(r.width > 0){
-      spawnCleanStar(stage,
-        r.left + r.width*0.5,
-        r.top  + r.height*0.6
-      );
-    }
+    if(r.width > 0){ spawnCleanStar(stage, r.left + r.width*0.5, r.top + r.height*0.6); }
     if(p<1){ requestAnimationFrame(step); }
     else { if(onDone) onDone(x1,y1); }
   }
@@ -865,60 +660,34 @@ function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
 function fireCanary(stolenText, targetEl){
   if(canaryActive) return;
   canaryActive = true;
-  lastStarPos = {x:-9999, y:-9999}; // reset trilha
-
+  lastStarPos = {x:-9999, y:-9999};
   const stage = document.getElementById('canary-stage');
   const W = window.innerWidth, H = window.innerHeight;
-
-  // Posição do countdown
   let tx = W/2-120, ty = H/2-89;
   if(targetEl){
     const r = targetEl.getBoundingClientRect();
     tx = Math.max(0, Math.min(W-250, r.left+r.width/2-120));
     ty = Math.max(0, Math.min(H-190, r.top+r.height/2-89));
   }
-
   const wrap = document.createElement('div');
   wrap.className = 'canary-wrap';
   wrap.style.cssText = 'position:absolute;left:-280px;top:'+Math.max(20,ty-20+Math.random()*40)+'px;pointer-events:none;';
-
   const stolen = document.createElement('div');
   stolen.className = 'canary-stolen';
   stolen.textContent = stolenText;
-
   const bird = document.createElement('div');
   bird.innerHTML = canarySVG();
-
   wrap.appendChild(stolen);
   wrap.appendChild(bird);
   stage.appendChild(wrap);
-
   const startY = parseFloat(wrap.style.top);
-
-  // Animação total ~8s:
-  // Fase 1: entra pela esquerda até 35% da tela (1.8s)
-  // Fase 2a: vai para canto sup-dir (1.1s)
-  // Fase 2b: vai para canto inf-esq (1.1s)
-  // Fase 2c: vai ao centro (0.7s)
-  // Fase 3: vai até o countdown — exatamente na troca de minuto (0.9s)
-  // Pausa 0.4s sobre o countdown
-  // Fase 4: sai pela direita (0.9s)
-  // Total estimado: 1.8+1.1+1.1+0.7+0.9+0.4+0.9 ≈ 6.9s → disparo 8s antes
-
   animSeg(wrap,stage, -280,startY, W*0.35,startY, 1800, easeOut, (x1,y1)=>{
-
     animSeg(wrap,stage, x1,y1, W*0.72,Math.max(20,H*0.14), 1100, easeInOut, (x2,y2)=>{
-
       animSeg(wrap,stage, x2,y2, Math.max(20,W*0.12),Math.min(H-200,H*0.70), 1100, easeInOut, (x3,y3)=>{
-
         animSeg(wrap,stage, x3,y3, W*0.48,H*0.44, 700, easeInOut, (x4,y4)=>{
-
-          // Fase 3: vai até o countdown — exibir o label roubado
           stolen.style.opacity = '1';
           animSeg(wrap,stage, x4,y4, tx,ty, 900, easeInOut, (xt,yt)=>{
-
             setTimeout(()=>{
-              // Fase 4: sai pela direita rapidão
               animSeg(wrap,stage, xt,yt, W+350,yt, 900, easeIn, ()=>{
                 wrap.remove();
                 canaryActive = false;
@@ -946,14 +715,10 @@ function fmtCd(ms){
   return      {text:`${ss}s`,                              cls:'urgent'};
 }
 
-// ── ASPIRADOR: dispara quando o relógio de parede marca :52
-// (8 segundos antes de virar o minuto → animação ~7s → chega em :00)
-// Funciona independente de quanto falta para o jogo.
 const canaryFired = new Set();
 
 function tick(){
   const now = Date.now();
-  // Segundos dentro do minuto atual (0-59) do relógio real
   const wallSec = Math.floor(now / 1000) % 60;
 
   // Jogo primário = próximo a começar
@@ -977,13 +742,11 @@ function tick(){
       lEl.textContent='para o início';
       cEl.classList.remove('live');
 
-      // Aspirador: dispara no :52 de cada minuto real, para o jogo primário
+      // Aspirador: dispara no :52 do relógio real, para o jogo primário
       if(primaryGame && g.id===primaryGame.id && wallSec===52 && !canaryActive){
-        // chave = jogo + minuto-epoch (evita re-disparar no mesmo minuto)
         const minuteKey = g.id + '_' + Math.floor(now / 60000);
         if(!canaryFired.has(minuteKey)){
           canaryFired.add(minuteKey);
-          // Mostra o valor atual do countdown como label roubado
           fireCanary(f.text, nEl);
         }
       }
