@@ -781,19 +781,22 @@ function fmtCd(ms){
   if(ms<=0) return null;
   const s=Math.floor(ms/1000), dd=Math.floor(s/86400),
         hh=Math.floor((s%86400)/3600), mm=Math.floor((s%3600)/60), ss=s%60;
-  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`,      cls:'far',   mins:dd*1440+hh*60+mm, secs:-1};
-  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`,      cls:'far',   mins:hh*60+mm,          secs:-1};
-  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`, cls:'soon', mins:hh*60+mm, secs:ss};
-  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`,       cls:'soon',  mins:mm,                secs:ss};
-  return      {text:`${ss}s`,                        cls:'urgent',mins:0,                 secs:ss};
+  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`,            cls:'far'};
+  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`,            cls:'far'};
+  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`,cls:'soon'};
+  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`,             cls:'soon'};
+  return      {text:`${ss}s`,                              cls:'urgent'};
 }
 
-// ── ASPIRADOR: dispara quando secs === 8 (8s antes de o minuto virar)
-// A animação demora ~7s e chega exatamente quando o minuto muda
+// ── ASPIRADOR: dispara quando o relógio de parede marca :52
+// (8 segundos antes de virar o minuto → animação ~7s → chega em :00)
+// Funciona independente de quanto falta para o jogo.
 const canaryFired = new Set();
 
 function tick(){
   const now = Date.now();
+  // Segundos dentro do minuto atual (0-59) do relógio real
+  const wallSec = Math.floor(now / 1000) % 60;
 
   // Jogo primário = próximo a começar
   let primaryGame = null;
@@ -816,16 +819,14 @@ function tick(){
       lEl.textContent='para o início';
       cEl.classList.remove('live');
 
-      // Aspirador: só para o jogo primário, quando secs == 8
-      if(primaryGame && g.id===primaryGame.id && f.secs===8 && !canaryActive){
-        const fireKey=g.id+'_'+f.mins;
-        if(!canaryFired.has(fireKey)){
-          canaryFired.add(fireKey);
-          let lbl;
-          if(f.mins>=60){ const h=Math.floor(f.mins/60),m=f.mins%60; lbl=m>0?`${h}h ${pad(m)}m`:`${h}h`; }
-          else if(f.mins>0){ lbl=f.mins+'m'; }
-          else { lbl='1m'; }
-          fireCanary(lbl, nEl);
+      // Aspirador: dispara no :52 de cada minuto real, para o jogo primário
+      if(primaryGame && g.id===primaryGame.id && wallSec===52 && !canaryActive){
+        // chave = jogo + minuto-epoch (evita re-disparar no mesmo minuto)
+        const minuteKey = g.id + '_' + Math.floor(now / 60000);
+        if(!canaryFired.has(minuteKey)){
+          canaryFired.add(minuteKey);
+          // Mostra o valor atual do countdown como label roubado
+          fireCanary(f.text, nEl);
         }
       }
     } else {
