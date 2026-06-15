@@ -187,7 +187,7 @@
   .live-dot { width: 7px; height: 7px; background: #fff; border-radius: 50%; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  .cd-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 18px; text-align: center; min-width: 140px; position: relative; overflow: visible; }
+  .cd-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 18px; text-align: center; min-width: 140px; }
   .cd-num { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
   .cd-num.far    { color: var(--txt); }
   .cd-num.soon   { color: #5DE8A8; }
@@ -199,7 +199,7 @@
   footer .dev { font-size: 11px; color: rgba(122,143,168,0.5); }
 
   /* ══════════════════════════════════
-     RODAPÉ DE RESULTADOS (ticker)
+     RODAPÉ TICKER
   ══════════════════════════════════ */
   #results-ticker {
     position: fixed;
@@ -226,27 +226,18 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    z-index: 2;
   }
-  #results-ticker .ticker-track {
-    flex: 1;
-    overflow: hidden;
-    height: 100%;
-    position: relative;
-  }
+  #results-ticker .ticker-track { flex: 1; overflow: hidden; height: 100%; }
   #results-ticker .ticker-inner {
     display: flex;
     align-items: center;
     height: 100%;
     white-space: nowrap;
-    animation: ticker-scroll 60s linear infinite;
+    animation: ticker-scroll 120s linear infinite;
     will-change: transform;
   }
   #results-ticker .ticker-inner:hover { animation-play-state: paused; }
-  @keyframes ticker-scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+  @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .ticker-item {
     display: inline-flex;
     align-items: center;
@@ -259,31 +250,13 @@
     color: var(--txt);
     border-right: 1px solid rgba(255,255,255,0.1);
   }
-  .ticker-item .t-score {
-    font-size: 18px;
-    font-weight: 900;
-    color: var(--amarelo);
-    letter-spacing: 0.08em;
-  }
-  .ticker-item .t-date {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-  }
-  .ticker-item .t-group {
-    font-size: 10px;
-    color: var(--verde);
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    background: rgba(0,168,107,0.15);
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
+  .ticker-item .t-score { font-size: 18px; font-weight: 900; color: var(--amarelo); letter-spacing: 0.08em; }
+  .ticker-item .t-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; }
+  .ticker-item .t-group { font-size: 10px; color: var(--verde); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
   #results-ticker.hidden { display: none; }
 
   /* ══════════════════════════════════
-     ASPIRADOR — stage e animação
+     ASPIRADOR — stage
   ══════════════════════════════════ */
   #canary-stage {
     position: fixed;
@@ -293,86 +266,44 @@
     z-index: 9999;
     overflow: hidden;
   }
-
   .canary-wrap {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0px;
     pointer-events: none;
+    gap: 0;
   }
-
   .canary-stolen {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 18px;
     color: #07111F;
     background: var(--amarelo);
-    padding: 3px 12px;
-    border-radius: 5px 5px 0 0;
+    padding: 4px 14px;
+    border-radius: 6px 6px 0 0;
     white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.25s;
     letter-spacing: 0.08em;
     position: relative;
     bottom: -2px;
     z-index: 2;
   }
 
-  .sparkle {
+  /* ── UMA estrela de limpeza (sem linha) ── */
+  .clean-star {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
     pointer-events: none;
-    animation: sparkle-pop 0.5s ease-out forwards;
+    animation: clean-star-pop 0.85s ease-out forwards;
+    z-index: 9998;
+    user-select: none;
+    line-height: 1;
   }
-  @keyframes sparkle-pop {
-    0%   { transform: scale(0) translateY(0);  opacity: 1; }
-    60%  { transform: scale(1.4) translateY(-8px); opacity: 0.8; }
-    100% { transform: scale(0) translateY(-14px); opacity: 0; }
-  }
-
-  /* LIMPEZA EM VÁRIOS CANTOS antes de trocar o countdown */
-  @keyframes sweep-path {
-    0%   { transform: translate(0px, 0px); opacity: 0; }
-    5%   { opacity: 1; }
-    /* Entra pelo lado esquerdo */
-    15%  { transform: translate(calc(100vw * 0.5), 0px); }
-    /* Vai para canto superior direito */
-    25%  { transform: translate(calc(100vw - 200px), 20px); }
-    /* Desce para o meio */
-    38%  { transform: translate(calc(100vw * 0.5), calc(100vh * 0.45)); }
-    /* Vai para canto inferior esquerdo */
-    50%  { transform: translate(60px, calc(100vh - 180px)); }
-    /* Vai para o target (centro) */
-    62%  { transform: translate(var(--target-x), var(--target-y)); }
-    /* Pausa no target */
-    72%  { transform: translate(var(--target-x), var(--target-y)); opacity: 1; }
-    /* Sai pela direita */
-    92%  { transform: translate(calc(100vw + 50px), var(--target-y)); opacity: 1; }
-    100% { transform: translate(calc(100vw + 200px), var(--target-y)); opacity: 0; }
-  }
-
-  .canary-flying {
-    animation: sweep-path 5.5s cubic-bezier(0.4, 0, 0.3, 1) forwards;
-  }
-
-  .canary-trail {
-    position: absolute;
-    height: 8px;
-    width: 0;
-    border-radius: 4px;
-    background: linear-gradient(90deg,
-      rgba(245,216,0,0) 0%,
-      rgba(245,216,0,0.55) 40%,
-      rgba(180,255,200,0.7) 70%,
-      rgba(255,255,255,0.85) 100%
-    );
-    pointer-events: none;
-    transform: translateY(-50%);
+  @keyframes clean-star-pop {
+    0%   { transform: scale(0) rotate(-30deg) translateY(0px);   opacity: 1; }
+    40%  { transform: scale(1.5) rotate(15deg) translateY(-6px);  opacity: 1; }
+    100% { transform: scale(0.5) rotate(40deg) translateY(-22px); opacity: 0; }
   }
 </style>
 </head>
@@ -392,11 +323,11 @@
     <div class="header-title">COPA DO MUNDO 2026 <em>— CALENDÁRIO</em></div>
     <div class="header-sub">Horário de Brasília · Fase de Grupos · 11 jun – 27 jun</div>
   </div>
-  </div>
-  <div class="legend">
-    <div class="leg"><div class="leg-dot com"></div> Horário comercial</div>
-    <div class="leg"><div class="leg-dot out"></div> Fora do comercial</div>
-  </div>
+ </div>
+ <div class="legend">
+  <div class="leg"><div class="leg-dot com"></div> Horário comercial</div>
+  <div class="leg"><div class="leg-dot out"></div> Fora do comercial</div>
+ </div>
 </header>
 
 <div class="notif-bar hidden" id="notifBar">
@@ -407,7 +338,6 @@
 <div class="tabs-wrap" id="tabsBar"></div>
 <main id="mainContent"></main>
 
-<!-- RODAPÉ TICKER DE RESULTADOS -->
 <div id="results-ticker" class="hidden">
   <div class="ticker-label">⚽ Resultados</div>
   <div class="ticker-track">
@@ -423,7 +353,7 @@
 <script>
 // ─── LOGO ────────────────────────────────────────────────────────────────────
 (function() {
-  const extensions = ['png', 'jpg', 'jpeg', 'svg', 'webp'];
+  const extensions = ['png','jpg','jpeg','svg','webp'];
   let tried = 0;
   function tryNext() {
     if (tried >= extensions.length) return;
@@ -431,9 +361,7 @@
     img.src = './logo.' + extensions[tried++];
     img.className = 'logo-img';
     img.alt = 'WAP – WAAW BY ALOK';
-    img.onload = function() {
-      document.getElementById('logoFallback').replaceWith(img);
-    };
+    img.onload = () => document.getElementById('logoFallback').replaceWith(img);
     img.onerror = tryNext;
   }
   tryNext();
@@ -454,8 +382,7 @@ const teams = {
   'Portugal':'pt','RD Congo':'cd','Uzbequistão':'uz','Colômbia':'co',
   'Inglaterra':'gb-eng','Croácia':'hr','Gana':'gh','Panamá':'pa',
 };
-
-function flagUrl(code){ return `https://flagcdn.com/w40/${code}.png`; }
+const flagUrl = code => `https://flagcdn.com/w40/${code}.png`;
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil    = n => n === 'Brasil';
 
@@ -466,8 +393,7 @@ const gameLinks = {
   'França vs Senegal':               'https://www.youtube.com/watch?v=m1vplAfSs_A',
   'Portugal vs RD Congo':            'https://www.youtube.com/watch?v=HpzKFDctbNw',
 };
-
-function gameKey(g){ return `${g.t1} vs ${g.t2}`; }
+const gameKey = g => `${g.t1} vs ${g.t2}`;
 
 const games = [
   {date:'2026-06-11',h:16,min:0,label:'16h',t1:'México',t2:'África do Sul',city:'Cidade do México',group:'A',round:1},
@@ -543,7 +469,6 @@ const games = [
   {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Argélia',t2:'Áustria',city:'Kansas City',group:'J',round:3},
   {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Jordânia',t2:'Argentina',city:'Dallas',group:'J',round:3},
 ];
-
 games.forEach((g,i) => g.id = 'g'+i);
 
 function kickoff(g){
@@ -551,58 +476,50 @@ function kickoff(g){
   return new Date(Date.UTC(y, mo-1, d, g.h+3, g.min, 0));
 }
 const GAME_DUR = 115*60*1000;
-
-function brasiliaToday(){
-  return new Date(Date.now() - 3*3600*1000).toISOString().slice(0,10);
-}
+const brasiliaToday = () => new Date(Date.now()-3*3600*1000).toISOString().slice(0,10);
 
 function teamHtml(name, isBr){
-  const code = teams[name] || 'un';
+  const code = teams[name]||'un';
   return `<span class="team${isBr?' brasil':''}"><img class="flag" src="${flagUrl(code)}" alt="${name}" loading="lazy" onerror="this.style.display='none'">${name}</span>`;
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS FICTÍCIOS (Copa do Mundo 2026)
-//  Serão exibidos no ticker do rodapé para os jogos
-//  cujo kickoff já passou.
-//  Na vida real você alimentaria esses dados via API.
+//  RESULTADOS REAIS — Rodada 1 (confirmados)
 // ══════════════════════════════════════════════════════
 const resultados = {
-  // Chave: "t1 vs t2" → placar "gols1-gols2"
-  // (exemplos representativos — troque pelos placares reais)
-  'México vs África do Sul':        '2-1',
-  'Coreia do Sul vs República Tcheca': '1-1',
-  'Canadá vs Bósnia e Herzegovina': '3-0',
-  'Estados Unidos vs Paraguai':     '2-0',
-  'Austrália vs Turquia':           '0-2',
-  'Catar vs Suíça':                 '0-3',
-  'Brasil vs Marrocos':             '2-0',
-  'Haiti vs Escócia':               '0-4',
-  'Alemanha vs Curaçao':            '5-0',
-  'Holanda vs Japão':               '2-1',
-  'Costa do Marfim vs Equador':     '1-1',
-  'Suécia vs Tunísia':              '2-0',
+  // Rodada 1 — resultados reais confirmados
+  'México vs África do Sul':          '2-0',
+  'Coreia do Sul vs República Tcheca':'2-1',
+  'Canadá vs Bósnia e Herzegovina':   '1-1',
+  'Estados Unidos vs Paraguai':       '4-1',
+  'Austrália vs Turquia':             '2-0',
+  'Catar vs Suíça':                   '1-1',
+  'Brasil vs Marrocos':               '1-1',
+  'Haiti vs Escócia':                 '0-1',
+  'Alemanha vs Curaçao':              '7-1',
+  'Holanda vs Japão':                 '2-2',
+  'Costa do Marfim vs Equador':       '1-0',
+  'Suécia vs Tunísia':                '5-1',
 };
 
 // ─── TICKER ────────────────────────────────────────────────────────────────
-function buildTicker() {
+function buildTicker(){
   const now = Date.now();
   const tickerEl = document.getElementById('results-ticker');
   const innerEl  = document.getElementById('tickerInner');
-
-  // Jogos já encerrados (kickoff + 115min < agora)
-  const finished = games.filter(g => kickoff(g).getTime() + GAME_DUR < now);
-  if (finished.length === 0) { tickerEl.classList.add('hidden'); return; }
-
+  const finished = games.filter(g => {
+    const k = kickoff(g).getTime();
+    return k + GAME_DUR < now && resultados[gameKey(g)];
+  });
+  if(!finished.length){ tickerEl.classList.add('hidden'); return; }
   tickerEl.classList.remove('hidden');
 
-  // Monta os itens (duplica para loop contínuo)
-  let html = '';
-  const makeItem = (g) => {
+  const makeItem = g => {
     const key = gameKey(g);
-    const score = resultados[key] || '? - ?';
-    const [s1, s2] = score.split('-').map(s => s.trim());
-    const dateStr = g.date.slice(8) + '/' + g.date.slice(5,7);
+    const score = resultados[key];
+    if(!score) return '';
+    const [s1,s2] = score.split('-').map(s=>s.trim());
+    const dateStr = g.date.slice(8)+'/'+g.date.slice(5,7);
     return `<span class="ticker-item">
       <span class="t-group">Grp ${g.group}</span>
       <img class="flag" src="${flagUrl(teams[g.t1]||'un')}" alt="${g.t1}" style="width:24px;height:17px" onerror="this.style.display='none'">
@@ -614,106 +531,55 @@ function buildTicker() {
     </span>`;
   };
 
-  // Duplica para loop sem corte
-  finished.forEach(g => html += makeItem(g));
-  finished.forEach(g => html += makeItem(g));
-
+  let html = '';
+  finished.forEach(g => { html += makeItem(g); });
+  finished.forEach(g => { html += makeItem(g); }); // duplica para loop
   innerEl.innerHTML = html;
 
-  // Ajusta velocidade proporcional à quantidade de itens
-  const totalPx = innerEl.scrollWidth / 2;
-  const speed = 80; // px/s
-  const dur = Math.max(20, totalPx / speed);
-  innerEl.style.animationDuration = dur + 's';
+  const totalPx = innerEl.scrollWidth/2;
+  innerEl.style.animationDuration = Math.max(40, totalPx/65)+'s';
 }
 
-// ══════════════════════════════════════════════════════
-//  ABERTURA AUTOMÁTICA 30 MINUTOS ANTES
-// ══════════════════════════════════════════════════════
+// ─── ABERTURA AUTOMÁTICA ───────────────────────────────────────────────────
 const firedPreOpen = new Set();
-
-function schedulePreOpen() {
+function schedulePreOpen(){
   const now = Date.now();
-  const THIRTY = 30 * 60 * 1000;
-
   games.forEach(g => {
     const link = gameLinks[gameKey(g)];
-    if (!link) return;
-    const k = kickoff(g).getTime();
-    const openAt = k - THIRTY;
-    const delay = openAt - now;
-
-    // Já passou ou muito longe (> 7 dias)
-    if (delay < 0 || delay > 7 * 24 * 3600 * 1000) return;
-
-    setTimeout(() => {
-      if (firedPreOpen.has(g.id)) return;
+    if(!link) return;
+    const delay = kickoff(g).getTime()-30*60*1000-now;
+    if(delay<0||delay>7*24*3600*1000) return;
+    setTimeout(()=>{
+      if(firedPreOpen.has(g.id)) return;
       firedPreOpen.add(g.id);
-
-      // Abre em tela cheia numa nova aba
-      const win = window.open(link, '_blank');
-      try {
-        if (win) {
-          win.moveTo(0, 0);
-          win.resizeTo(screen.width, screen.height);
-        }
-      } catch(e) {}
-
-      // Notificação push (se permitida)
-      if (Notification.permission === 'granted') {
-        const n = new Notification(`⚽ Em 30min: ${g.t1} vs ${g.t2}`, {
-          body: `Grupo ${g.group} · ${g.city} — Jogo abre em ${g.label} (Brasília)`,
-          icon: './logo.png',
-          tag: 'pre-jogo-' + g.id,
-          requireInteraction: true,
-        });
-        n.onclick = () => { window.open(link, '_blank'); n.close(); };
-      }
-
-      // Fallback: botão na interface caso o pop-up seja bloqueado
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        const colEl = document.getElementById('colcd-' + g.id);
-        if (colEl) {
-          const alertEl = document.createElement('a');
-          alertEl.href = link;
-          alertEl.target = '_blank';
-          alertEl.className = 'badge-live';
-          alertEl.innerHTML = '<span class="live-dot"></span> ABRIR JOGO';
-          alertEl.style.textDecoration = 'none';
-          colEl.insertBefore(alertEl, colEl.firstChild);
-        }
+      const win = window.open(link,'_blank');
+      try{ if(win){ win.moveTo(0,0); win.resizeTo(screen.width,screen.height); } }catch(e){}
+      if(Notification.permission==='granted'){
+        const n = new Notification(`⚽ Em 30min: ${g.t1} vs ${g.t2}`,{body:`Grupo ${g.group} · ${g.city}`,icon:'./logo.png',tag:'pre-'+g.id,requireInteraction:true});
+        n.onclick=()=>{ window.open(link,'_blank'); n.close(); };
       }
     }, delay);
   });
 }
 
 // ─── NOTIFICAÇÕES ─────────────────────────────────────────────────────────
-const notifBar = document.getElementById('notifBar');
-const btnNotif = document.getElementById('btnNotif');
-
-function initNotifications() {
-  if (!('Notification' in window)) return;
-
-  const enabled = localStorage.getItem('notificationsEnabled') === 'true';
-
-  if (Notification.permission === 'granted') {
-    localStorage.setItem('notificationsEnabled', 'true');
-    notifBar.classList.add('hidden');
+function initNotifications(){
+  if(!('Notification' in window)) return;
+  if(Notification.permission==='granted'){
+    localStorage.setItem('notificationsEnabled','true');
+    document.getElementById('notifBar').classList.add('hidden');
     schedulePreOpen();
-  } else if (Notification.permission !== 'denied') {
-    if (enabled) {
+  } else if(Notification.permission!=='denied'){
+    if(localStorage.getItem('notificationsEnabled')==='true'){
       schedulePreOpen();
-      notifBar.classList.add('hidden');
+      document.getElementById('notifBar').classList.add('hidden');
     } else {
-      notifBar.classList.remove('hidden');
+      document.getElementById('notifBar').classList.remove('hidden');
     }
-    btnNotif.addEventListener('click', () => {
-      Notification.requestPermission().then(perm => {
-        notifBar.classList.add('hidden');
-        if (perm === 'granted') {
-          localStorage.setItem('notificationsEnabled', 'true');
-          schedulePreOpen();
-        }
+    document.getElementById('btnNotif').addEventListener('click',()=>{
+      Notification.requestPermission().then(p=>{
+        document.getElementById('notifBar').classList.add('hidden');
+        if(p==='granted'){ localStorage.setItem('notificationsEnabled','true'); schedulePreOpen(); }
       });
     });
   } else {
@@ -722,313 +588,269 @@ function initNotifications() {
 }
 
 // ─── BUILD DOM ────────────────────────────────────────────────────────────────
-const byDate = {};
-games.forEach(g => { (byDate[g.date] = byDate[g.date]||[]).push(g); });
+const byDate={};
+games.forEach(g=>{ (byDate[g.date]=byDate[g.date]||[]).push(g); });
+const months=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const wdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const roundLbl={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
+const dateLbl={'2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13','2026-06-14':'Dom 14','2026-06-15':'Seg 15','2026-06-16':'Ter 16','2026-06-17':'Qua 17','2026-06-18':'Qui 18','2026-06-19':'Sex 19','2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22','2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25','2026-06-26':'Sex 26','2026-06-27':'Sáb 27'};
 
-const months   = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-const wdays    = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const roundLbl = {1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
-const dateLbl  = {
-  '2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13',
-  '2026-06-14':'Dom 14','2026-06-15':'Seg 15','2026-06-16':'Ter 16',
-  '2026-06-17':'Qua 17','2026-06-18':'Qui 18','2026-06-19':'Sex 19',
-  '2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22',
-  '2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25',
-  '2026-06-26':'Sex 26','2026-06-27':'Sáb 27',
-};
+const tabsBar=document.getElementById('tabsBar');
+const mainEl=document.getElementById('mainContent');
+const todayStr=brasiliaToday();
+const sorted=Object.keys(byDate).sort();
+let activeTab=sorted.includes(todayStr)?todayStr:sorted[0];
 
-const tabsBar  = document.getElementById('tabsBar');
-const mainEl   = document.getElementById('mainContent');
-const todayStr = brasiliaToday();
-const sorted   = Object.keys(byDate).sort();
-let activeTab  = sorted.includes(todayStr) ? todayStr : sorted[0];
-
-sorted.forEach(date => {
-  const dayG  = byDate[date];
-  const comCt = dayG.filter(g => isComercial(g.h)).length;
-  const isToday = date === todayStr;
-
-  const btn = document.createElement('button');
-  btn.className = 'tab-btn' + (comCt>0?' has-com':'') + (isToday?' hoje':'');
-  btn.dataset.date = date;
-  btn.textContent = (dateLbl[date]||date.slice(8)) + (isToday?' ★':'');
-  if (date===activeTab) btn.classList.add('active');
-  btn.addEventListener('click', () => switchTab(date));
+sorted.forEach(date=>{
+  const dayG=byDate[date];
+  const comCt=dayG.filter(g=>isComercial(g.h)).length;
+  const isToday=date===todayStr;
+  const btn=document.createElement('button');
+  btn.className='tab-btn'+(comCt>0?' has-com':'')+(isToday?' hoje':'');
+  btn.dataset.date=date;
+  btn.textContent=(dateLbl[date]||date.slice(8))+(isToday?' ★':'');
+  if(date===activeTab) btn.classList.add('active');
+  btn.addEventListener('click',()=>switchTab(date));
   tabsBar.appendChild(btn);
 
-  const sec = document.createElement('div');
-  sec.className = 'day-section' + (date===activeTab?' active':'');
-  sec.id = 'section-' + date;
-
-  const [y,m,d] = date.split('-');
-  const wd = new Date(date+'T12:00:00').getDay();
-  const rounds = [...new Set(dayG.map(g=>g.round))].sort();
-
-  let html = `
-    <div class="day-hdr">
-      <div>
-        <div class="day-title"><span class="dnum">${d}</span>${months[+m]} 2026</div>
-        <div class="day-round">${wdays[wd]} · ${rounds.map(r=>roundLbl[r]).join(' & ')}</div>
-      </div>
-      ${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}
-    </div>
-    <div class="games-list">`;
-
-  dayG.forEach(g => {
-    const com  = isComercial(g.h);
-    const b1   = isBrasil(g.t1), b2 = isBrasil(g.t2);
-    const link = gameLinks[gameKey(g)];
-    const watchBtn = link ? `
-      <a class="btn-watch" href="${link}" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        Assistir
-      </a>` : '';
-
-    html += `
-      <div class="game-card ${com?'com':'out'}" id="card-${g.id}">
-        <div class="col-time">
-          <div class="time-big">${g.label}</div>
-          <div class="time-lbl">Brasília</div>
-        </div>
-        <div class="col-match">
-          <div class="match-teams">
-            ${teamHtml(g.t1,b1)}
-            <span class="vs-sep">vs</span>
-            ${teamHtml(g.t2,b2)}
-          </div>
-          <div class="match-meta">
-            <span class="meta-grp">Grupo ${g.group}</span>
-            <span class="meta-city">📍 ${g.city}</span>
-          </div>
-          ${watchBtn}
-        </div>
-        <div class="col-cd" id="colcd-${g.id}">
-          ${com?'<span class="badge-com">Comercial</span>':''}
-          <div class="cd-box">
-            <div class="cd-num far" id="cdnum-${g.id}">--</div>
-            <div class="cd-lbl" id="cdlbl-${g.id}">calculando</div>
-          </div>
-        </div>
-      </div>`;
+  const sec=document.createElement('div');
+  sec.className='day-section'+(date===activeTab?' active':'');
+  sec.id='section-'+date;
+  const [y,m,d]=date.split('-');
+  const wd=new Date(date+'T12:00:00').getDay();
+  const rounds=[...new Set(dayG.map(g=>g.round))].sort();
+  let html=`<div class="day-hdr"><div><div class="day-title"><span class="dnum">${d}</span>${months[+m]} 2026</div><div class="day-round">${wdays[wd]} · ${rounds.map(r=>roundLbl[r]).join(' & ')}</div></div>${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}</div><div class="games-list">`;
+  dayG.forEach(g=>{
+    const com=isComercial(g.h), b1=isBrasil(g.t1), b2=isBrasil(g.t2);
+    const link=gameLinks[gameKey(g)];
+    const watchBtn=link?`<a class="btn-watch" href="${link}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Assistir</a>`:'';
+    html+=`<div class="game-card ${com?'com':'out'}" id="card-${g.id}">
+      <div class="col-time"><div class="time-big">${g.label}</div><div class="time-lbl">Brasília</div></div>
+      <div class="col-match"><div class="match-teams">${teamHtml(g.t1,b1)}<span class="vs-sep">vs</span>${teamHtml(g.t2,b2)}</div><div class="match-meta"><span class="meta-grp">Grupo ${g.group}</span><span class="meta-city">📍 ${g.city}</span></div>${watchBtn}</div>
+      <div class="col-cd" id="colcd-${g.id}">${com?'<span class="badge-com">Comercial</span>':''}<div class="cd-box"><div class="cd-num far" id="cdnum-${g.id}">--</div><div class="cd-lbl" id="cdlbl-${g.id}">calculando</div></div></div>
+    </div>`;
   });
-  html += '</div>';
-  sec.innerHTML = html;
+  html+='</div>';
+  sec.innerHTML=html;
   mainEl.appendChild(sec);
 });
 
 // ══════════════════════════════════════════════════════
-//  SVG DO ASPIRADOR (maior: 200×148)
+//  ASPIRADOR — entra 8s antes da troca de cada minuto
+//  chega ao countdown exatamente quando o minuto vira
+//  deixa apenas 1 estrela a cada posição (sem linha)
 // ══════════════════════════════════════════════════════
-function canarySVG(facingRight) {
-  const flip = facingRight ? '' : 'transform="scale(-1,1) translate(-200,0)"';
-  return `<svg class="canary-svg"
-    width="200" height="148"
-    viewBox="0 0 200 148"
-    xmlns="http://www.w3.org/2000/svg"
-    ${flip}>
-    <image href="./aspirador.png"
-       x="-15" y="-10"
-       width="230" height="166"
-       preserveAspectRatio="xMidYMid meet"/>
+function canarySVG(){
+  return `<svg width="240" height="178" viewBox="0 0 240 178" xmlns="http://www.w3.org/2000/svg">
+    <image href="./aspirador.png" x="-12" y="-10" width="264" height="198" preserveAspectRatio="xMidYMid meet"/>
   </svg>`;
 }
 
-function spawnSparkle(stage, x, y) {
+const STAR_CHARS = ['✦','✧','✨','★','✩','⭐','💫','🌟'];
+
+// Controla emissão de UMA estrela por posição visitada
+let lastStarPos = {x:-9999, y:-9999};
+const STAR_MIN_DIST = 60; // px mínimos entre estrelas
+
+function spawnCleanStar(stage, x, y){
+  // distância desde a última estrela
+  const dx = x - lastStarPos.x, dy = y - lastStarPos.y;
+  if(Math.sqrt(dx*dx+dy*dy) < STAR_MIN_DIST) return;
+  lastStarPos = {x, y};
+
   const s = document.createElement('div');
-  s.className = 'sparkle';
-  s.style.left = x + 'px';
-  s.style.top  = y + 'px';
-  s.style.background = Math.random() > 0.5 ? '#F5D800' : '#afffda';
-  s.style.width  = (5 + Math.random() * 8) + 'px';
-  s.style.height = s.style.width;
-  s.style.animationDelay = (Math.random() * 0.25) + 's';
+  s.className = 'clean-star';
+  s.textContent = STAR_CHARS[Math.floor(Math.random()*STAR_CHARS.length)];
+  const sz = 14 + Math.random()*14;
+  s.style.fontSize = sz+'px';
+  s.style.left = (x - sz/2)+'px';
+  s.style.top  = (y - sz/2)+'px';
+  const cols = ['#F5D800','#5DE8A8','#ffffff','#afffda','#ffe066','#a0f0ff'];
+  s.style.color = cols[Math.floor(Math.random()*cols.length)];
+  s.style.animationDelay = (Math.random()*0.08)+'s';
+  s.style.animationDuration = (0.65+Math.random()*0.35)+'s';
   stage.appendChild(s);
-  setTimeout(() => s.remove(), 800);
+  setTimeout(()=>s.remove(), 1100);
 }
 
-let canaryLocked = false;
-const lastMinsMap = {};
+// ── Animação manual RAF ──
+function easeOut(t){ return 1-Math.pow(1-t,3); }
+function easeInOut(t){ return t<0.5?2*t*t:-1+(4-2*t)*t; }
+function easeIn(t){ return t*t*t; }
 
-// ══════════════════════════════════════════════════════
-//  ANIMAÇÃO PRINCIPAL DO ASPIRADOR
-//  Percorre cantos + meio antes de trocar o número
-// ══════════════════════════════════════════════════════
-function fireCanary(stolenText, targetEl) {
-  if (canaryLocked) return;
-  canaryLocked = true;
+let canaryActive = false;
+let starInterval  = null;
+
+function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
+  const t0 = performance.now();
+  function step(now){
+    const p = Math.min((now-t0)/dur, 1);
+    const e = easeFn(p);
+    const cx = x0+(x1-x0)*e;
+    const cy = y0+(y1-y0)*e;
+    wrap.style.left = cx+'px';
+    wrap.style.top  = cy+'px';
+    // Uma estrela por posição significativa
+    const r = wrap.getBoundingClientRect();
+    if(r.width > 0){
+      spawnCleanStar(stage,
+        r.left + r.width*0.5,
+        r.top  + r.height*0.6
+      );
+    }
+    if(p<1){ requestAnimationFrame(step); }
+    else { if(onDone) onDone(x1,y1); }
+  }
+  requestAnimationFrame(step);
+}
+
+function fireCanary(stolenText, targetEl){
+  if(canaryActive) return;
+  canaryActive = true;
+  lastStarPos = {x:-9999, y:-9999}; // reset trilha
 
   const stage = document.getElementById('canary-stage');
+  const W = window.innerWidth, H = window.innerHeight;
 
-  // Posição do elemento target (countdown)
-  let targetTopPx = window.innerHeight * 0.45;
-  let targetX     = (window.innerWidth / 2) - 100;
-  let targetY     = targetTopPx;
-
-  if (targetEl) {
-    const rect = targetEl.getBoundingClientRect();
-    targetTopPx = rect.top + (rect.height / 2) - 74;
-    targetTopPx = Math.max(8, Math.min(window.innerHeight - 160, targetTopPx));
-    targetX = Math.max(0, rect.left + (rect.width / 2) - 100);
-    targetY = targetTopPx;
+  // Posição do countdown
+  let tx = W/2-120, ty = H/2-89;
+  if(targetEl){
+    const r = targetEl.getBoundingClientRect();
+    tx = Math.max(0, Math.min(W-250, r.left+r.width/2-120));
+    ty = Math.max(0, Math.min(H-190, r.top+r.height/2-89));
   }
 
-  // ── Trilha dinâmica ─────────────────────────────
-  const trail = document.createElement('div');
-  trail.className = 'canary-trail';
-  stage.appendChild(trail);
-
-  // ── Wrap do robô ────────────────────────────────
   const wrap = document.createElement('div');
-  wrap.className = 'canary-wrap canary-flying';
-  wrap.style.setProperty('--target-x', targetX + 'px');
-  wrap.style.setProperty('--target-y', targetTopPx + 'px');
-  wrap.style.top  = '0px';
-  wrap.style.left = '0px';
+  wrap.className = 'canary-wrap';
+  wrap.style.cssText = 'position:absolute;left:-280px;top:'+Math.max(20,ty-20+Math.random()*40)+'px;pointer-events:none;';
 
   const stolen = document.createElement('div');
   stolen.className = 'canary-stolen';
   stolen.textContent = stolenText;
 
-  const birdDiv = document.createElement('div');
-  birdDiv.innerHTML = canarySVG(true);
+  const bird = document.createElement('div');
+  bird.innerHTML = canarySVG();
 
   wrap.appendChild(stolen);
-  wrap.appendChild(birdDiv);
+  wrap.appendChild(bird);
   stage.appendChild(wrap);
 
-  // Mostra o badge com o número antigo quando chega ao target (~62% de 5.5s ≈ 3.4s)
-  setTimeout(() => { stolen.style.opacity = '1'; }, 3400);
+  const startY = parseFloat(wrap.style.top);
 
-  // Sparkles durante toda a animação
-  let sparkleInterval = setInterval(() => {
-    const rect = wrap.getBoundingClientRect();
-    if (rect.width === 0) return;
-    spawnSparkle(stage,
-      rect.left + Math.random() * rect.width,
-      rect.top  + rect.height * 0.6 + Math.random() * 20 - 10
-    );
-  }, 80);
+  // Animação total ~8s:
+  // Fase 1: entra pela esquerda até 35% da tela (1.8s)
+  // Fase 2a: vai para canto sup-dir (1.1s)
+  // Fase 2b: vai para canto inf-esq (1.1s)
+  // Fase 2c: vai ao centro (0.7s)
+  // Fase 3: vai até o countdown — exatamente na troca de minuto (0.9s)
+  // Pausa 0.4s sobre o countdown
+  // Fase 4: sai pela direita (0.9s)
+  // Total estimado: 1.8+1.1+1.1+0.7+0.9+0.4+0.9 ≈ 6.9s → disparo 8s antes
 
-  // Trilha: rastreia posição do robô para desenhar onde ele passou
-  let trailPoints = [];
-  let trackInterval = setInterval(() => {
-    const rect = wrap.getBoundingClientRect();
-    if (rect.width > 0) {
-      trailPoints.push({ x: rect.left + rect.width / 2, y: rect.top + rect.height * 0.6 });
-      // Atualiza a trilha (linha simples do começo ao centro atual)
-      if (trailPoints.length > 1) {
-        const first = trailPoints[0];
-        const last  = trailPoints[trailPoints.length - 1];
-        const dx = last.x - first.x;
-        const dy = last.y - first.y;
-        const len = Math.sqrt(dx*dx + dy*dy);
-        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-        trail.style.left   = first.x + 'px';
-        trail.style.top    = first.y + 'px';
-        trail.style.width  = len + 'px';
-        trail.style.transform = `rotate(${angle}deg)`;
-        trail.style.transformOrigin = '0 50%';
-        trail.style.opacity = '1';
-      }
-    }
-  }, 50);
+  animSeg(wrap,stage, -280,startY, W*0.35,startY, 1800, easeOut, (x1,y1)=>{
 
-  // Quando a animação termina: limpa e recarrega
-  wrap.addEventListener('animationend', () => {
-    clearInterval(sparkleInterval);
-    clearInterval(trackInterval);
-    trail.style.transition = 'opacity 0.4s';
-    trail.style.opacity = '0';
-    setTimeout(() => { trail.remove(); wrap.remove(); }, 450);
-    canaryLocked = false;
-    location.reload();
+    animSeg(wrap,stage, x1,y1, W*0.72,Math.max(20,H*0.14), 1100, easeInOut, (x2,y2)=>{
+
+      animSeg(wrap,stage, x2,y2, Math.max(20,W*0.12),Math.min(H-200,H*0.70), 1100, easeInOut, (x3,y3)=>{
+
+        animSeg(wrap,stage, x3,y3, W*0.48,H*0.44, 700, easeInOut, (x4,y4)=>{
+
+          // Fase 3: vai até o countdown — exibir o label roubado
+          stolen.style.opacity = '1';
+          animSeg(wrap,stage, x4,y4, tx,ty, 900, easeInOut, (xt,yt)=>{
+
+            setTimeout(()=>{
+              // Fase 4: sai pela direita rapidão
+              animSeg(wrap,stage, xt,yt, W+350,yt, 900, easeIn, ()=>{
+                wrap.remove();
+                canaryActive = false;
+                setTimeout(()=>location.reload(), 100);
+              });
+            }, 400);
+          });
+        });
+      });
+    });
   });
 }
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
-function pad(n){ return String(n).padStart(2,'0'); }
+const pad = n => String(n).padStart(2,'0');
 
 function fmtCd(ms){
   if(ms<=0) return null;
   const s=Math.floor(ms/1000), dd=Math.floor(s/86400),
         hh=Math.floor((s%86400)/3600), mm=Math.floor((s%3600)/60), ss=s%60;
-  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`, cls:'far',   mins: dd*1440+hh*60+mm, secs: -1};
-  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`, cls:'far',   mins: hh*60+mm,          secs: -1};
-  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`, cls:'soon',  mins: hh*60+mm, secs: ss};
-  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`, cls:'soon',  mins: mm,                secs: ss};
-  return      {text:`${ss}s`,                  cls:'urgent', mins: 0,                 secs: ss};
+  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`,      cls:'far',   mins:dd*1440+hh*60+mm, secs:-1};
+  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`,      cls:'far',   mins:hh*60+mm,          secs:-1};
+  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`, cls:'soon', mins:hh*60+mm, secs:ss};
+  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`,       cls:'soon',  mins:mm,                secs:ss};
+  return      {text:`${ss}s`,                        cls:'urgent',mins:0,                 secs:ss};
 }
+
+// ── ASPIRADOR: dispara quando secs === 8 (8s antes de o minuto virar)
+// A animação demora ~7s e chega exatamente quando o minuto muda
+const canaryFired = new Set();
 
 function tick(){
   const now = Date.now();
 
-  // Jogo mais próximo ainda não iniciado
-  let primaryGameId = null;
-  for (const g of games) {
-    const k = kickoff(g).getTime();
-    if (k - now > 0) { primaryGameId = g.id; break; }
+  // Jogo primário = próximo a começar
+  let primaryGame = null;
+  for(const g of games){
+    if(kickoff(g).getTime()-now > 0){ primaryGame=g; break; }
   }
 
-  games.forEach(g => {
-    const nEl = document.getElementById('cdnum-'+g.id);
-    const lEl = document.getElementById('cdlbl-'+g.id);
-    const cEl = document.getElementById('card-'+g.id);
+  games.forEach(g=>{
+    const nEl=document.getElementById('cdnum-'+g.id);
+    const lEl=document.getElementById('cdlbl-'+g.id);
+    const cEl=document.getElementById('card-'+g.id);
     if(!nEl) return;
 
-    const k       = kickoff(g).getTime();
-    const toStart = k - now;
+    const k=kickoff(g).getTime(), toStart=k-now;
 
-    if(toStart > 0){
-      const f = fmtCd(toStart);
-      const prevSecs = lastMinsMap[g.id+'_s'];
-      const curSecs  = f.secs;
-      const prevMins = lastMinsMap[g.id+'_m'];
-      const curMins  = f.mins;
+    if(toStart>0){
+      const f=fmtCd(toStart);
+      nEl.textContent=f.text;
+      nEl.className='cd-num '+f.cls;
+      lEl.textContent='para o início';
+      cEl.classList.remove('live');
 
-      // Dispara o aspirador quando o segundo ou o minuto muda
-      if (g.id === primaryGameId) {
-        const secChanged  = curSecs  >= 0 && prevSecs  !== undefined && curSecs  !== prevSecs;
-        const minChanged  = prevMins !== undefined && curMins  !== prevMins;
-        const shouldFire  = secChanged || (minChanged && curSecs < 0);
-
-        if (shouldFire) {
-          // Exibe o valor ANTERIOR no badge do aspirador
-          let stolenLabel;
-          if (prevSecs >= 0) {
-            stolenLabel = prevSecs + 's';
-          } else if (prevMins >= 60) {
-            const h = Math.floor(prevMins / 60);
-            const m = prevMins % 60;
-            stolenLabel = m > 0 ? `${h}h ${pad(m)}m` : `${h}h`;
-          } else {
-            stolenLabel = prevMins + 'm';
-          }
-          fireCanary(stolenLabel, nEl);
+      // Aspirador: só para o jogo primário, quando secs == 8
+      if(primaryGame && g.id===primaryGame.id && f.secs===8 && !canaryActive){
+        const fireKey=g.id+'_'+f.mins;
+        if(!canaryFired.has(fireKey)){
+          canaryFired.add(fireKey);
+          let lbl;
+          if(f.mins>=60){ const h=Math.floor(f.mins/60),m=f.mins%60; lbl=m>0?`${h}h ${pad(m)}m`:`${h}h`; }
+          else if(f.mins>0){ lbl=f.mins+'m'; }
+          else { lbl='1m'; }
+          fireCanary(lbl, nEl);
         }
       }
-
-      lastMinsMap[g.id+'_m'] = curMins;
-      lastMinsMap[g.id+'_s'] = curSecs;
-
-      nEl.textContent = f.text;
-      nEl.className   = 'cd-num ' + f.cls;
-      lEl.textContent = 'para o início';
-      cEl.classList.remove('live');
+    } else {
+      const elapsed=now-k;
+      if(elapsed<GAME_DUR){
+        nEl.textContent='AO VIVO'; nEl.className='cd-num urgent';
+        lEl.textContent='em andamento'; cEl.classList.add('live');
+      } else {
+        nEl.textContent='Encerrado'; nEl.className='cd-num done';
+        lEl.textContent=''; cEl.classList.remove('live');
+      }
     }
   });
 }
 
 tick();
-setInterval(tick, 1000);
+setInterval(tick,1000);
 
 function switchTab(date){
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.date===date));
-  document.querySelectorAll('.day-section').forEach(s => s.classList.toggle('active', s.id==='section-'+date));
-  const b = document.querySelector(`.tab-btn[data-date="${date}"]`);
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.date===date));
+  document.querySelectorAll('.day-section').forEach(s=>s.classList.toggle('active',s.id==='section-'+date));
+  const b=document.querySelector(`.tab-btn[data-date="${date}"]`);
   if(b) b.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 buildTicker();
 initNotifications();
 </script>
