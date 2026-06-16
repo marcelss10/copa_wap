@@ -216,11 +216,112 @@ footer .dev { font-size: 11px; color: rgba(122,143,168,0.5); }
     40%  { transform: scale(1.5) rotate(15deg) translateY(-6px);  opacity: 1; }
     100% { transform: scale(0.5) rotate(40deg) translateY(-22px); opacity: 0; }
   }
+
+  /* ── PLAYER CORNER ────────────────────────────────────── */
+  #player-corner {
+    position: fixed;
+    bottom: 56px; /* acima do ticker */
+    right: 0;
+    z-index: 300;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  #player-corner.hidden { opacity: 0; pointer-events: none; }
+
+  #player-bubble {
+    pointer-events: none;
+    margin-bottom: 18px;
+    margin-right: 8px;
+    position: relative;
+    background: #fff;
+    border-radius: 18px 18px 0 18px;
+    padding: 10px 15px;
+    max-width: 210px;
+    min-width: 150px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.38);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  #player-bubble::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 14px solid #fff;
+}
+  .bubble-days {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: #07111F;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .bubble-days span { color: #00A86B; }
+  .bubble-msg {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #07111F;
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .bubble-sub {
+    font-size: 10px;
+    color: #555;
+    font-family: 'Barlow', sans-serif;
+    text-align: center;
+    margin-top: 1px;
+  }
+  .emoji-flag {
+  width: 20px;          /* Deixa a bandeira do tamanho de um emoji */
+  height: auto;
+  display: inline-block;
+  vertical-align: middle; /* Alinha no centro da linha do texto */
+  margin-left: 5px;     /* Dá um espacinho do texto */
+}
+
+  #player-img {
+    width: 130px;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom;
+    display: block;
+    flex-shrink: 0;
+    filter: drop-shadow(2px 0 12px rgba(0,0,0,0.5));
+  }
 </style>
 </head>
 <body>
 
 <div id="canary-stage"></div>
+
+<!-- ── PLAYER CORNER ──────────────────────────────────────────────────── -->
+<div id="player-corner" class="hidden">
+  <div id="player-bubble">
+    <div class="bubble-days" id="bubbleDays">–</div>
+    <div class="bubble-msg" id="bubbleMsg">
+      para o BRASILLL! 
+      <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" class="emoji-flag">
+    </div>
+    <div class="bubble-sub" id="bubbleSub"></div>
+  </div>
+  <img id="player-img" src="./paqueta.png" alt="Paquetá" onerror="this.src='./neymar.png'">
+</div>
 
 <header>
  <div class="header-left">
@@ -297,14 +398,15 @@ const flagUrl = code => `https://flagcdn.com/w40/${code}.png`;
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil    = n => n === 'Brasil';
 
-// ─── LINKS PARA ASSISTIR (abre automaticamente 30min antes) ──────────────────
+// ─── LINKS PARA ASSISTIR ──────────────────────────────────────────────────────
 const gameLinks = {
-  'Canadá vs Bósnia e Herzegovina':  'https://www.youtube.com/watch?v=CRtjePKnGvA',
-  'Espanha vs Cabo Verde':           'https://www.youtube.com/watch?v=EYStZQ5FsVk',
-  'Bélgica vs Egito':                'https://www.youtube.com/watch?v=aclBHrhLQr4',
-  'França vs Senegal':               'https://www.youtube.com/watch?v=m1vplAfSs_A',
-  'Portugal vs RD Congo':            'https://www.youtube.com/watch?v=HpzKFDctbNw',
-  'Argentina vs Argélia':            'https://www.youtube.com/watch?v=RhpNoBWVQGA',
+  'Canadá vs Bósnia e Herzegovina':       'https://www.youtube.com/watch?v=CRtjePKnGvA',
+  'Espanha vs Cabo Verde':                'https://www.youtube.com/watch?v=EYStZQ5FsVk',
+  'Bélgica vs Egito':                     'https://www.youtube.com/watch?v=aclBHrhLQr4',
+  'França vs Senegal':                    'https://www.youtube.com/watch?v=m1vplAfSs_A',
+  'Portugal vs RD Congo':                 'https://www.youtube.com/watch?v=HpzKFDctbNw',
+  'Argentina vs Argélia':                 'https://www.youtube.com/watch?v=RhpNoBWVQGA',
+  'República Tcheca vs África do Sul':    'https://www.youtube.com/watch?v=61qIjGER86Q',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
@@ -414,7 +516,7 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS REAIS — atualizados em 15/06/2026
+//  RESULTADOS REAIS — atualizados em 16/06/2026
 // ══════════════════════════════════════════════════════
 const resultados = {
   'Canadá vs Bósnia e Herzegovina':   '1-1',
@@ -429,7 +531,8 @@ const resultados = {
   'Suécia vs Tunísia':                '5-1',
   'Espanha vs Cabo Verde':            '0-0',
   'Bélgica vs Egito':                 '1-1',
-  'Arabia Saudita vs Uruguai':        '1-1',
+  'Arábia Saudita vs Uruguai':        '1-1',
+  'Irã vs Nova Zelândia':             '2-2',
 };
 
 // ─── TICKER ────────────────────────────────────────────────────────────────
@@ -471,8 +574,6 @@ function buildTicker(){
 }
 
 // ─── ABERTURA AUTOMÁTICA — 30 MINUTOS antes de cada jogo com link ──────────
-// Funciona para TODOS os jogos que têm link em gameLinks.
-// A página deve estar aberta para o agendamento funcionar.
 const firedPreOpen = new Set();
 
 function schedulePreOpen(){
@@ -482,17 +583,15 @@ function schedulePreOpen(){
     if(!link) return;
 
     const kickoffMs = kickoff(g).getTime();
-    const openAt    = kickoffMs - 30 * 60 * 1000; // exatos 30 min antes
+    const openAt    = kickoffMs - 30 * 60 * 1000;
     const delay     = openAt - now;
 
-    // Só agenda se ainda falta tempo (janela: agora até 7 dias no futuro)
     if(delay < 0 || delay > 7 * 24 * 3600 * 1000) return;
 
     setTimeout(() => {
       if(firedPreOpen.has(g.id)) return;
       firedPreOpen.add(g.id);
 
-      // Abre em nova aba e tenta maximizar
       const win = window.open(link, '_blank');
       try {
         if(win){
@@ -501,7 +600,6 @@ function schedulePreOpen(){
         }
       } catch(e) {}
 
-      // Notificação push (se permitida)
       if(Notification.permission === 'granted'){
         const n = new Notification(`⚽ Em 30 min: ${g.t1} vs ${g.t2}`, {
           body: `Grupo ${g.group} · ${g.city} · Transmissão aberta!`,
@@ -540,7 +638,6 @@ function initNotifications(){
       });
     });
   } else {
-    // Permissão negada — ainda agenda abertura de link
     schedulePreOpen();
   }
 }
@@ -637,6 +734,12 @@ function easeIn(t){ return t*t*t; }
 
 let canaryActive = false;
 
+function setPlayerCornerVisible(visible){
+  const el = document.getElementById('player-corner');
+  if(visible){ el.classList.remove('hidden'); }
+  else        { el.classList.add('hidden'); }
+}
+
 function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   const t0 = performance.now();
   function step(now){
@@ -657,6 +760,7 @@ function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
 function fireCanary(stolenText, targetEl){
   if(canaryActive) return;
   canaryActive = true;
+  setPlayerCornerVisible(false); // esconde player durante aspirador
   lastStarPos = {x:-9999, y:-9999};
   const stage = document.getElementById('canary-stage');
   const W = window.innerWidth, H = window.innerHeight;
@@ -688,6 +792,7 @@ function fireCanary(stolenText, targetEl){
               animSeg(wrap,stage, xt,yt, W+350,yt, 900, easeIn, ()=>{
                 wrap.remove();
                 canaryActive = false;
+                setPlayerCornerVisible(true); // reexibe player após aspirador
                 setTimeout(()=>location.reload(), 100);
               });
             }, 400);
@@ -697,6 +802,92 @@ function fireCanary(stolenText, targetEl){
     });
   });
 }
+
+// ─── PLAYER CORNER — Paquetá / Neymar ────────────────────────────────────────
+(function(){
+  // Encontra o próximo jogo do Brasil
+  const brasilGames = games.filter(g => g.t1 === 'Brasil' || g.t2 === 'Brasil');
+
+  function getNextBrasilGame(){
+    const now = Date.now();
+    return brasilGames.find(g => kickoff(g).getTime() > now) || null;
+  }
+
+  function getDaysLabel(msLeft){
+    const totalSec = Math.floor(msLeft / 1000);
+    const days  = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins  = Math.floor((totalSec % 3600) / 60);
+
+   if(days >= 2){
+  return { big: days + (days === 1 ? ' dia' : ' dias'), msg: 'para o BRASILLL! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: '' };
+} else if(days === 1){
+  return { big: '1 dia', msg: 'e o Brasil joga! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: `${hours}h restantes` };
+} else if(hours > 0){
+  return { big: hours + 'h', msg: 'e o Brasil joga! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: `${mins} minutos` };
+} else if(mins > 0){
+  return { big: mins + 'min', msg: 'BRASIL JÁ JÁ! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">🔥', sub: 'prepara o coração!' };
+} else {
+  return { big: 'AGORA!', msg: 'BRASIL EM CAMPO! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">🔥', sub: '' };
+}
+  }
+
+  // Alternância entre paqueta e neymar
+  const players = [
+    { src: './paqueta.png',  alt: 'Paquetá' },
+    { src: './neymar.png',   alt: 'Neymar'  },
+  ];
+  let playerIdx = 0;
+  const imgEl    = document.getElementById('player-img');
+  const daysEl   = document.getElementById('bubbleDays');
+  const msgEl    = document.getElementById('bubbleMsg');
+  const subEl    = document.getElementById('bubbleSub');
+  const cornerEl = document.getElementById('player-corner');
+
+  function updateBubble(){
+    const nextGame = getNextBrasilGame();
+    if(!nextGame){
+      // Sem jogo futuro do Brasil — esconde
+      cornerEl.classList.add('hidden');
+      return;
+    }
+    const msLeft = kickoff(nextGame).getTime() - Date.now();
+    if(msLeft <= 0){
+      // Jogo ao vivo ou já aconteceu — esconde
+      cornerEl.classList.add('hidden');
+      return;
+    }
+ const lbl = getDaysLabel(msLeft);
+  daysEl.textContent = lbl.big;
+  msgEl.innerHTML    = lbl.msg; // <-- Corrigido para 'lbl.msg'
+  subEl.textContent  = lbl.sub;
+
+  // Só mostra se o aspirador não estiver ativo
+  if(!canaryActive){
+    cornerEl.classList.remove('hidden');
+  }
+}
+
+  function switchPlayer(){
+    if(canaryActive) return; // não troca enquanto aspirador está ativo
+    // fade out
+    imgEl.style.transition = 'opacity 0.4s';
+    imgEl.style.opacity = '0';
+    setTimeout(()=>{
+      playerIdx = (playerIdx + 1) % players.length;
+      imgEl.src = players[playerIdx].src;
+      imgEl.alt = players[playerIdx].alt;
+      imgEl.style.opacity = '1';
+    }, 420);
+  }
+
+  // Atualiza o contador a cada segundo
+  setInterval(updateBubble, 1000);
+  updateBubble();
+
+  // Alterna jogador a cada 8 segundos
+  setInterval(switchPlayer, 8000);
+})();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
 const pad = n => String(n).padStart(2,'0');
@@ -718,7 +909,6 @@ function tick(){
   const now = Date.now();
   const wallSec = Math.floor(now / 1000) % 60;
 
-  // Jogo primário = próximo a começar
   let primaryGame = null;
   for(const g of games){
     if(kickoff(g).getTime()-now > 0){ primaryGame=g; break; }
@@ -739,7 +929,6 @@ function tick(){
       lEl.textContent='para o início';
       cEl.classList.remove('live');
 
-      // Aspirador: dispara no :52 do relógio real, para o jogo primário
       if(primaryGame && g.id===primaryGame.id && wallSec===52 && !canaryActive){
         const minuteKey = g.id + '_' + Math.floor(now / 60000);
         if(!canaryFired.has(minuteKey)){
