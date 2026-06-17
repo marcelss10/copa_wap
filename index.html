@@ -426,12 +426,6 @@
 
 <div id="canary-stage"></div>
 
-<!-- ── GAME LAUNCH OVERLAY ────────────────────────────────────────────────── -->
-<!--
-  Este overlay aparece 30 minutos antes de cada jogo com link cadastrado.
-  Ele contorna o bloqueio de window.open() dos navegadores modernos,
-  exigindo um clique real do usuário para abrir a transmissão.
--->
 <div id="game-launch-overlay">
   <div class="overlay-card">
     <div class="overlay-icon">⚽</div>
@@ -461,10 +455,10 @@
 
 <!-- ── MESSI CORNER (informativo, lado esquerdo) ───────────────────────────── -->
 <div id="messi-corner">
-  <img id="messi-img" src="./diego.png" alt="Diego Messi" onerror="this.style.display='none'">
+  <img id="messi-img" src="./diego.png" alt="Conteúdo informativo" onerror="this.style.display='none'">
   <div id="messi-bubble">
-    <div class="messi-title">📊 Recorde na Copa</div>
-    <div class="messi-text">"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
+    <div class="messi-title" id="messi-bubble-title">📊 Recorde na Copa</div>
+    <div class="messi-text" id="messi-bubble-text">"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
   </div>
 </div>
 
@@ -665,29 +659,24 @@ function teamHtml(name, isBr){
 //  RESULTADOS REAIS — atualizados em 17/06/2026
 // ══════════════════════════════════════════════════════
 const resultados = {
-  'Holanda vs Japão':                 '2-2',
-  'Costa do Marfim vs Equador':       '1-0',
-  'Suécia vs Tunísia':                '5-1',
-  'Espanha vs Cabo Verde':            '0-0',
-  'Bélgica vs Egito':                 '1-1',
-  'Arábia Saudita vs Uruguai':        '1-1',
-  'Irã vs Nova Zelândia':             '2-2',
-  'França vs Senegal':                '3-1',
-  'Iraque vs Noruega':                '1-4',
-  'Argentina vs Argélia':             '3-0',
-  'Áustria vs Jordânia':              '3-1',
+  'Iraque vs Noruega':                 '1-4',
+  'Argentina vs Argélia':              '3-0',
+  // 17 Jun
+  'Áustria vs Jordânia':               '3-1',
+  'Portugal vs RD Congo':              '1-1',
+  'Inglaterra vs Croácia':             '4-2',
 };
 
 // Destaques especiais exibidos junto ao resultado no rodapé (ticker)
 const destaques = {
-  'Iraque vs Noruega':    '⭐ 2 gols de Haaland',
-  'Argentina vs Argélia': '⭐ 3 gols de Messi',
+  'Iraque vs Noruega':      '⭐ 2 gols de Haaland',
+  'Argentina vs Argélia':   '⭐ Hat-trick de Messi',
+  'Alemanha vs Curaçao':    '⭐ Goleada alemã 7-1',
+  'Inglaterra vs Croácia':  '⭐ 2 gols de H. Kane',
 };
 
 // ══════════════════════════════════════════════════════════════════════
 //  OVERLAY DE ABERTURA DE JOGO
-//  Exibe um overlay clicável antes do jogo — contorna o bloqueio de
-//  window.open() dos navegadores modernos que exigem interação real.
 // ══════════════════════════════════════════════════════════════════════
 const overlayShown = new Set();
 
@@ -708,7 +697,6 @@ function showGameOverlay(g, link, minutesLeft) {
   subEl.textContent   = `Grupo ${g.group} · ${g.city} · Clique para abrir a transmissão`;
   btnEl.href          = link;
 
-  // Atualiza o contador regressivo dentro do overlay
   let cdInterval = setInterval(() => {
     const diff = kickoff(g).getTime() - Date.now();
     if (diff <= 0) {
@@ -723,7 +711,6 @@ function showGameOverlay(g, link, minutesLeft) {
 
   overlay.classList.add('visible');
 
-  // Abre link + tela cheia quando clicar no botão
   btnEl.onclick = (e) => {
     e.preventDefault();
     const win = window.open(link, '_blank');
@@ -731,7 +718,6 @@ function showGameOverlay(g, link, minutesLeft) {
       try {
         win.moveTo(0, 0);
         win.resizeTo(screen.width, screen.height);
-        // Solicita tela cheia na nova aba após breve delay
         setTimeout(() => {
           try {
             if (win.document && win.document.documentElement) {
@@ -746,13 +732,11 @@ function showGameOverlay(g, link, minutesLeft) {
     clearInterval(cdInterval);
   };
 
-  // Dismiss
   dismissEl.onclick = () => {
     overlay.classList.remove('visible');
     clearInterval(cdInterval);
   };
 
-  // Notificação push (complementar)
   if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
     const n = new Notification(`⚽ Em ${minutesLeft} min: ${g.t1} vs ${g.t2}`, {
       body: `Grupo ${g.group} · ${g.city} · Clique para abrir!`,
@@ -764,7 +748,6 @@ function showGameOverlay(g, link, minutesLeft) {
   }
 }
 
-// ── Agenda o overlay 30 min antes de cada jogo com link ──────────────────────
 const overlayScheduled = new Set();
 
 function scheduleOverlays() {
@@ -777,22 +760,17 @@ function scheduleOverlays() {
     const openAt    = kickoffMs - 30 * 60 * 1000;
     const delay     = openAt - now;
 
-    // Agenda se ainda falta até 7 dias
     if (delay >= 0 && delay <= 7 * 24 * 3600 * 1000 && !overlayScheduled.has(g.id)) {
       overlayScheduled.add(g.id);
       setTimeout(() => showGameOverlay(g, link, 30), delay);
     }
 
-    // Se já passou da hora de mostrar mas o jogo ainda não começou, mostra agora
     if (delay < 0 && kickoffMs > now && !overlayShown.has(g.id)) {
       const minLeft = Math.max(0, Math.floor((kickoffMs - now) / 60000));
       showGameOverlay(g, link, minLeft);
     }
   });
 }
-
-
-// ══════════════════════════════════════════════════════════════════════
 
 // ─── NOTIFICAÇÕES ─────────────────────────────────────────────────────────
 function initNotifications(){
@@ -821,7 +799,6 @@ function initNotifications(){
       });
     });
   } else {
-    // Notificações negadas — ainda agenda o overlay visual
     scheduleOverlays();
   }
 }
@@ -1104,11 +1081,46 @@ function fireCanary(stolenText, targetEl){
   setInterval(switchPlayer, 8000);
 })();
 
-// ─── MESSI CORNER — informativo fixo (lado esquerdo) ─────────────────────────
+// ─── MESSI CORNER — alterna entre diego.png e zidane.png ─────────────────────
 (function(){
-  // Mantém visível o tempo todo, exceto durante a passagem do aspirador
-  // (controlado por setMessiCornerVisible dentro de fireCanary()).
+  const messiImgEl   = document.getElementById('messi-img');
+  const bubbleTitleEl= document.getElementById('messi-bubble-title');
+  const bubbleTextEl = document.getElementById('messi-bubble-text');
+
+  const infos = [
+    {
+      src:   './diego.png',
+      alt:   'Diego',
+      title: '📊 Recorde na Copa',
+      text:  '"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.'
+    },
+    {
+      src:   './zidane.png',
+      alt:   'Zidane',
+      title: '🧤 Filho de Zidane',
+      text:  'Théo Zidane, goleiro filho da lenda francesa, tomou 3 gols de Messi na derrota da Argélia por 3 a 0 — um encontro histórico entre gerações.'
+    }
+  ];
+
+  let idx = 0;
+
+  function switchInfo(){
+    if(canaryActive) return;
+    messiImgEl.style.transition = 'opacity 0.4s';
+    messiImgEl.style.opacity = '0';
+    setTimeout(()=>{
+      idx = (idx + 1) % infos.length;
+      const info = infos[idx];
+      messiImgEl.src           = info.src;
+      messiImgEl.alt           = info.alt;
+      bubbleTitleEl.textContent = info.title;
+      bubbleTextEl.textContent  = info.text;
+      messiImgEl.style.opacity = '1';
+    }, 420);
+  }
+
   if(!canaryActive){ setMessiCornerVisible(true); }
+  setInterval(switchInfo, 9000);
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
