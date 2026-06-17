@@ -196,6 +196,7 @@
   .ticker-item .t-score { font-size: 18px; font-weight: 900; color: var(--amarelo); letter-spacing: 0.08em; }
   .ticker-item .t-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; }
   .ticker-item .t-group { font-size: 10px; color: var(--verde); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
+  .ticker-item .t-highlight { font-size: 10px; color: #07111F; font-weight: 900; letter-spacing: 0.04em; background: var(--amarelo); padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
   #results-ticker.hidden { display: none; }
 
   #canary-stage {
@@ -364,6 +365,64 @@
     display: block; flex-shrink: 0;
     filter: drop-shadow(2px 0 12px rgba(0,0,0,0.5));
   }
+
+  /* ── MESSI CORNER (lado esquerdo) ────────────────────────────────────── */
+  #messi-corner {
+    position: fixed;
+    bottom: 56px;
+    left: 0;
+    z-index: 300;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  #messi-corner.hidden { opacity: 0; pointer-events: none; }
+
+  #messi-img {
+    width: 110px; height: auto;
+    object-fit: contain; object-position: bottom;
+    display: block; flex-shrink: 0;
+    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
+  }
+
+  #messi-bubble {
+    pointer-events: none;
+    margin-bottom: 18px;
+    margin-left: 8px;
+    position: relative;
+    background: #fff;
+    border-radius: 18px 18px 18px 0;
+    padding: 8px 12px;
+    max-width: 215px;
+    min-width: 160px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.38);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  #messi-bubble::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -14px;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 14px solid #fff;
+  }
+  .messi-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 11px; color: #00A86B;
+    letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;
+    margin-bottom: 1px;
+  }
+  .messi-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 9.5px; color: #1a1a1a; line-height: 1.28;
+  }
 </style>
 </head>
 <body>
@@ -401,6 +460,15 @@
     <div class="bubble-sub" id="bubbleSub"></div>
   </div>
   <img id="player-img" src="./paqueta.png" alt="Paquetá" onerror="this.src='./neymar.png'">
+</div>
+
+<!-- ── MESSI CORNER (informativo, lado esquerdo) ───────────────────────────── -->
+<div id="messi-corner">
+  <img id="messi-img" src="./diego.png" alt="Diego Messi" onerror="this.style.display='none'">
+  <div id="messi-bubble">
+    <div class="messi-title">📊 Recorde na Copa</div>
+    <div class="messi-text">"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
+  </div>
 </div>
 
 <header>
@@ -487,6 +555,7 @@ const gameLinks = {
   'Portugal vs RD Congo':                 'https://www.youtube.com/watch?v=HpzKFDctbNw',
   'Argentina vs Argélia':                 'https://www.youtube.com/watch?v=RhpNoBWVQGA',
   'República Tcheca vs África do Sul':    'https://www.youtube.com/watch?v=61qIjGER86Q',
+  'Suíça vs Bósnia e Herzegovina':        'https://www.youtube.com/watch?v=DL372r8XEDg',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
@@ -596,7 +665,7 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS REAIS — atualizados em 16/06/2026
+//  RESULTADOS REAIS — atualizados em 17/06/2026
 // ══════════════════════════════════════════════════════
 const resultados = {
   'Holanda vs Japão':                 '2-2',
@@ -607,7 +676,15 @@ const resultados = {
   'Arábia Saudita vs Uruguai':        '1-1',
   'Irã vs Nova Zelândia':             '2-2',
   'França vs Senegal':                '3-1',
-  'Norueha vs Iraquel':               '4-1',
+  'Iraque vs Noruega':                '1-4',
+  'Argentina vs Argélia':             '3-0',
+  'Áustria vs Jordânia':              '3-1',
+};
+
+// Destaques especiais exibidos junto ao resultado no rodapé (ticker)
+const destaques = {
+  'Iraque vs Noruega':    '⭐ 2 gols de Haaland',
+  'Argentina vs Argélia': '⭐ 3 gols de Messi',
 };
 
 // ══════════════════════════════════════════════════════════════════════
@@ -770,7 +847,9 @@ function buildTicker(){
     if(!score) return '';
     const [s1,s2] = score.split('-').map(s=>s.trim());
     const dateStr = g.date.slice(8)+'/'+g.date.slice(5,7);
+    const destaque = destaques[key];
     return `<span class="ticker-item">
+      ${destaque ? `<span class="t-highlight">${destaque}</span>` : ''}
       <span class="t-group">Grp ${g.group}</span>
       <img class="flag" src="${flagUrl(teams[g.t1]||'un')}" alt="${g.t1}" style="width:24px;height:17px" onerror="this.style.display='none'">
       ${g.t1}
@@ -888,6 +967,13 @@ function setPlayerCornerVisible(visible){
   else        { el.classList.add('hidden'); }
 }
 
+function setMessiCornerVisible(visible){
+  const el = document.getElementById('messi-corner');
+  if(!el) return;
+  if(visible){ el.classList.remove('hidden'); }
+  else        { el.classList.add('hidden'); }
+}
+
 function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   const t0 = performance.now();
   function step(now){
@@ -909,6 +995,7 @@ function fireCanary(stolenText, targetEl){
   if(canaryActive) return;
   canaryActive = true;
   setPlayerCornerVisible(false);
+  setMessiCornerVisible(false);
   lastStarPos = {x:-9999, y:-9999};
   const stage = document.getElementById('canary-stage');
   const W = window.innerWidth, H = window.innerHeight;
@@ -941,6 +1028,7 @@ function fireCanary(stolenText, targetEl){
                 wrap.remove();
                 canaryActive = false;
                 setPlayerCornerVisible(true);
+                setMessiCornerVisible(true);
                 setTimeout(()=>location.reload(), 100);
               });
             }, 400);
@@ -1017,6 +1105,13 @@ function fireCanary(stolenText, targetEl){
   setInterval(updateBubble, 1000);
   updateBubble();
   setInterval(switchPlayer, 8000);
+})();
+
+// ─── MESSI CORNER — informativo fixo (lado esquerdo) ─────────────────────────
+(function(){
+  // Mantém visível o tempo todo, exceto durante a passagem do aspirador
+  // (controlado por setMessiCornerVisible dentro de fireCanary()).
+  if(!canaryActive){ setMessiCornerVisible(true); }
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
