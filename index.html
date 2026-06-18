@@ -296,6 +296,7 @@
     letter-spacing: 0.06em; margin-top: 10px;
   }
 
+  /* ── PLAYER CORNER (direita) — espelho do messi-corner ── */
   #player-corner {
     position: fixed;
     bottom: 56px;
@@ -309,23 +310,21 @@
   }
   #player-corner.hidden { opacity: 0; pointer-events: none; }
 
- #player-bubble {
+  #player-bubble {
     pointer-events: none;
     margin-bottom: 18px;
     margin-right: 8px;
     position: relative;
     background: #fff;
-    border-radius: 18px 18px 0 18px;
-    padding: 14px 18px;      /* antes 10px 15px */
-    max-width: 300px;        /* antes 210px */
-    min-width: 260px;        /* antes 150px */
+    border-radius: 18px 18px 18px 0;
+    padding: 8px 12px;
+    max-width: 215px;
+    min-width: 160px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.38);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 4px;
+    gap: 2px;
   }
-
   #player-bubble::after {
     content: '';
     position: absolute;
@@ -337,32 +336,16 @@
     border-bottom: 12px solid transparent;
     border-left: 14px solid #fff;
   }
-  .bubble-days {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 28px; color: #07111F;
-    line-height: 1; letter-spacing: 0.02em;
-  }
-  .bubble-days span { color: #00A86B; }
-  .bubble-msg {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px; color: #07111F;
-    text-align: center; line-height: 1.3; letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .bubble-sub {
-    font-size: 10px; color: #555; font-family: 'Barlow', sans-serif;
-    text-align: center; margin-top: 1px;
-  }
   .emoji-flag {
     width: 20px; height: auto;
     display: inline-block; vertical-align: middle; margin-left: 5px;
   }
 
   #player-img {
-    width: 190px; height: auto;
+    width: 300px; height: auto;
     object-fit: contain; object-position: bottom;
     display: block; flex-shrink: 0;
-    filter: drop-shadow(2px 0 12px rgba(0,0,0,0.5));
+    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
   }
 
   #messi-corner {
@@ -428,7 +411,7 @@
   .messi-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 18px;      /* antes 11px */
+    font-size: 18px;
     color: #00A86B;
     letter-spacing: .04em;
     text-transform: uppercase;
@@ -437,11 +420,12 @@
   }
   .messi-text {
     font-family: 'Barlow', sans-serif;
-    font-size: 13px;      /* antes 9.5px */
+    font-size: 13px;
     color: #1a1a1a;
     line-height: 1.45;
     text-align: center;
   }
+  
 
 </style>
 </head>
@@ -463,17 +447,13 @@
   </div>
 </div>
 
-<!-- ── PLAYER CORNER ──────────────────────────────────────────────────────── -->
-<div id="player-corner" class="hidden">
+<!-- ── PLAYER CORNER (direita) — André & Goleiro ────────────────────────────── -->
+<div id="player-corner">
+  <img id="player-img" src="./andre.png" alt="André" onerror="this.style.display='none'">
   <div id="player-bubble">
-    <div class="bubble-days" id="bubbleDays">–</div>
-    <div class="bubble-msg" id="bubbleMsg">
-      para o BRASILLL!
-      <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" class="emoji-flag">
-    </div>
-    <div class="bubble-sub" id="bubbleSub"></div>
+    <div class="messi-title" id="playerBubbleTitle">⚽ Artilheiro da Noruega</div>
+    <div class="messi-text" id="playerBubbleText">"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.</div>
   </div>
-  <img id="player-img" src="./paqueta.png" alt="Paquetá" onerror="this.style.display='none'">
 </div>
 
 <!-- ── MESSI CORNER (informativo, lado esquerdo) ───────────────────────────── -->
@@ -481,7 +461,7 @@
   <img id="messi-img" src="./diego.png" alt="Conteúdo informativo" onerror="this.style.display='none'">
   <div id="messi-bubble">
     <div class="messi-title" id="messi-bubble-title">📊 Recorde na Copa</div>
-    <div class="messi-text" id="messi-bubble-text">"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
+    <div class="messi-text" id="messi-bubble-text">"<b>Diego</b>" Lionel "Mafioletti" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
   </div>
 </div>
 
@@ -1037,110 +1017,48 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — Paquetá & Goleiro (Alternando Texto e Imagem) ───────────
+// ─── PLAYER CORNER — André & Goleiro (lado direito, mesmo padrão do messi-corner) ──
 (function(){
-  const brasilGames = games.filter(g => g.t1 === 'Brasil' || g.t2 === 'Brasil');
+  const andreImgEl     = document.getElementById('player-img');
+  const bubbleTitleEl2 = document.getElementById('playerBubbleTitle');
+  const bubbleTextEl2  = document.getElementById('playerBubbleText');
+  const cornerEl2      = document.getElementById('player-corner');
 
-  function getNextBrasilGame(){
-    const now = Date.now();
-    return brasilGames.find(g => kickoff(g).getTime() > now) || null;
-  }
-
-  function getDaysLabel(msLeft){
-    const totalSec = Math.floor(msLeft / 1000);
-    const days  = Math.floor(totalSec / 86400);
-    const hours = Math.floor((totalSec % 86400) / 3600);
-    const mins  = Math.floor((totalSec % 3600) / 60);
-
-    if(days >= 2){
-      return { big: days + (days === 1 ? ' dia' : ' dias'), msg: 'para o BRASILLL! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: '' };
-    } else if(days === 1){
-      return { big: '1 dia', msg: 'e o Brasil joga! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: `${hours}h restantes` };
-    } else if(hours > 0){
-      return { big: hours + 'h', msg: 'e o Brasil joga! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">', sub: `${mins} minutos` };
-    } else if(mins > 0){
-      return { big: mins + 'min', msg: 'BRASIL JÁ JÁ! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">🔥', sub: 'prepara o coração!' };
-    } else {
-      return { big: 'AGORA!', msg: 'BRASIL EM CAMPO! <img src="https://flagcdn.com/w20/br.png" class="emoji-flag">🔥', sub: '' };
-    }
-  }
-
-  const imgEl    = document.getElementById('player-img');
-  const daysEl   = document.getElementById('bubbleDays');
-  const msgEl    = document.getElementById('bubbleMsg');
-  const subEl    = document.getElementById('bubbleSub');
-  const cornerEl = document.getElementById('player-corner');
-
-  const originalDaysClass = daysEl.className;
-  const originalMsgClass  = msgEl.className;
-
-  const brasilPlayers = [
-    { 
-      src: './paqueta.png', 
-      alt: 'Paquetá',
-      isTimeBubble: true 
+  const infos2 = [
+    {
+      src:   './andre.png',
+      alt:   'André',
+      title: '⚽ Artilheiro da Noruega',
+      text:  '"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.'
     },
-    { 
-      src: './goleiro.png', 
-      alt: 'Manuel Neuer',
-      isTimeBubble: false,
-      title: '🧤 VOCÊ SABIA? — Manuel "Heck" Neuer',
-      text: 'Assim como a WAP convocou o Guilherme Heck — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel Neuer de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!',
-      className: 'goleiro-img' // Adiciona uma classe específica para o goleiro
+    {
+      src:       './goleiro.png',
+      alt:       'Manuel Neuer',
+      className: 'goleiro-img',
+      title:     '🧤 VOCÊ SABIA? — Manuel "Heck" Neuer',
+      text:      'Assim como a WAP convocou o Guilherme Heck — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel Neuer de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!'
     }
   ];
-  let playerIdx = 0;
+  let idx2 = 0;
 
-  function switchBrasilPlayer(){
-    if(canaryActive || cornerEl.classList.contains('hidden')) return;
-    
-    imgEl.style.transition = 'opacity 0.4s';
-    imgEl.style.opacity = '0';
-    
-    setTimeout(() => {
-      playerIdx = (playerIdx + 1) % brasilPlayers.length;
-      const currentPlayer = brasilPlayers[playerIdx];
-      
-      imgEl.src = currentPlayer.src;
-      imgEl.alt = currentPlayer.alt;
-      imgEl.className = currentPlayer.className || ''; // Aplica a classe se existir, caso contrário limpa
-      
-      if (!currentPlayer.isTimeBubble) {
-        daysEl.className = 'messi-title';
-        msgEl.className  = 'messi-text';
-        
-        daysEl.textContent = currentPlayer.title;
-        msgEl.innerHTML    = currentPlayer.text;
-        if(subEl) subEl.textContent = ''; 
-      } else {
-        daysEl.className = originalDaysClass;
-        msgEl.className  = originalMsgClass;
-        updateBubble();
-      }
-      
-      imgEl.style.opacity = '1';
+  function switchInfo2(){
+    if(canaryActive) return;
+    andreImgEl.style.transition = 'opacity 0.4s';
+    andreImgEl.style.opacity = '0';
+    setTimeout(()=>{
+      idx2 = (idx2 + 1) % infos2.length;
+      const info = infos2[idx2];
+      andreImgEl.src             = info.src;
+      andreImgEl.alt             = info.alt;
+      andreImgEl.className       = info.className || '';
+      bubbleTitleEl2.textContent = info.title;
+      bubbleTextEl2.textContent  = info.text;
+      andreImgEl.style.opacity   = '1';
     }, 420);
   }
 
-  function updateBubble(){
-    const nextGame = getNextBrasilGame();
-    if(!nextGame){ cornerEl.classList.add('hidden'); return; }
-    const msLeft = kickoff(nextGame).getTime() - Date.now();
-    if(msLeft <= 0){ cornerEl.classList.add('hidden'); return; }
-    
-    if (brasilPlayers[playerIdx].isTimeBubble) {
-      const lbl = getDaysLabel(msLeft);
-      daysEl.textContent = lbl.big;
-      msgEl.innerHTML    = lbl.msg;
-      if(subEl) subEl.textContent = lbl.sub;
-    }
-    
-    if(!canaryActive){ cornerEl.classList.remove('hidden'); }
-  }
-
-  setInterval(updateBubble, 1000);
-  setInterval(switchBrasilPlayer, 20000);
-  updateBubble();
+  cornerEl2.classList.remove('hidden');
+  setInterval(switchInfo2, 20000);
 })();
 
 // ─── MESSI CORNER — alterna entre diego.png e treinador.png ──────────────────
