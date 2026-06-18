@@ -325,7 +325,7 @@
     align-items: center;
     gap: 4px;
   }
-  
+
   #player-bubble::after {
     content: '';
     position: absolute;
@@ -1139,7 +1139,7 @@ function fireCanary(stolenText, targetEl){
   }
 
   setInterval(updateBubble, 1000);
-  setInterval(switchBrasilPlayer, 9000);
+  setInterval(switchBrasilPlayer, 20000);
   updateBubble();
 })();
 
@@ -1184,7 +1184,7 @@ function fireCanary(stolenText, targetEl){
   }
 
   if(!canaryActive){ setMessiCornerVisible(true); }
-  setInterval(switchInfo, 9000);
+  setInterval(switchInfo, 20000);
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
