@@ -391,6 +391,13 @@
     filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
   }
 
+  .goleiro-img {
+   width: 250px; height: auto;
+    object-fit: contain; object-position: bottom;
+    display: block; flex-shrink: 0;
+    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
+  }
+
   #messi-bubble {
     pointer-events: none;
     margin-bottom: 18px;
@@ -1068,7 +1075,7 @@ function fireCanary(stolenText, targetEl){
       src: './goleiro.png', 
       alt: 'Manuel Neuer',
       isTimeBubble: false,
-      title: '🧤 VOCÊ SABIA? — Manuel "Neuer" Heck',
+      title: '🧤 VOCÊ SABIA? — Manuel "Heck" Neuer',
       text: 'Assim como a WAP convocou o Guilherme Heck — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel Neuer de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!',
       className: 'goleiro-img' // Adiciona uma classe específica para o goleiro
     }
