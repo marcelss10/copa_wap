@@ -378,7 +378,14 @@
   #messi-corner.hidden { opacity: 0; pointer-events: none; }
 
   #messi-img {
-    width: 190px; height: auto;
+    width: 300px; height: auto;
+    object-fit: contain; object-position: bottom;
+    display: block; flex-shrink: 0;
+    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
+  }
+
+  #messi-img.treinador-img {
+    width: 300px; height: auto;
     object-fit: contain; object-position: bottom;
     display: block; flex-shrink: 0;
     filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
@@ -547,6 +554,7 @@ const gameLinks = {
   'Argentina vs Argélia':                 'https://www.youtube.com/watch?v=RhpNoBWVQGA',
   'República Tcheca vs África do Sul':    'https://www.youtube.com/watch?v=61qIjGER86Q',
   'Suíça vs Bósnia e Herzegovina':        'https://www.youtube.com/watch?v=DL372r8XEDg',
+  'Estados Unidos vs Austrália':          'https://www.youtube.com/watch?v=_6cfUXA1UUw',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
@@ -1081,7 +1089,7 @@ function fireCanary(stolenText, targetEl){
   setInterval(switchPlayer, 8000);
 })();
 
-// ─── MESSI CORNER — alterna entre diego.png e zidane.png ─────────────────────
+// ─── MESSI CORNER — alterna entre diego.png e treinador.png ──────────────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
@@ -1095,10 +1103,11 @@ function fireCanary(stolenText, targetEl){
       text:  '"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.'
     },
     {
-      src:   './zidane.png',
-      alt:   'Zidane',
-      title: '🧤 Filho de Zidane',
-      text:  'Théo Zidane, goleiro filho da lenda francesa, tomou 3 gols de Messi na derrota da Argélia por 3 a 0 — um encontro histórico entre gerações.'
+      src:   './treinador.png',
+      alt:   'Dick Advocaat',
+      className: 'treinador-img',
+      title: '🏆 Recorde de experiência',
+      text:  'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA. Conduziu a seleção na qualificação e garantiu a vaga inédita do Curaçao no torneio.'
     }
   ];
 
@@ -1109,14 +1118,16 @@ function fireCanary(stolenText, targetEl){
     messiImgEl.style.transition = 'opacity 0.4s';
     messiImgEl.style.opacity = '0';
     setTimeout(()=>{
-      idx = (idx + 1) % infos.length;
-      const info = infos[idx];
-      messiImgEl.src           = info.src;
-      messiImgEl.alt           = info.alt;
-      bubbleTitleEl.textContent = info.title;
-      bubbleTextEl.textContent  = info.text;
-      messiImgEl.style.opacity = '1';
-    }, 420);
+    idx = (idx + 1) % infos.length;
+    const info = infos[idx];
+    messiImgEl.src            = info.src;
+    messiImgEl.alt            = info.alt;
+    // ← linha nova:
+    messiImgEl.className      = info.className || '';
+    bubbleTitleEl.textContent = info.title;
+    bubbleTextEl.textContent  = info.text;
+    messiImgEl.style.opacity  = '1';
+  }, 420);
   }
 
   if(!canaryActive){ setMessiCornerVisible(true); }
