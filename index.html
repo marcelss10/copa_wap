@@ -457,7 +457,7 @@
     </div>
     <div class="bubble-sub" id="bubbleSub"></div>
   </div>
-  <img id="player-img" src="./paqueta.png" alt="Paquetá" onerror="this.src='./neymar.png'">
+  <img id="player-img" src="./paqueta.png" alt="Paquetá" onerror="this.style.display='none'">
 </div>
 
 <!-- ── MESSI CORNER (informativo, lado esquerdo) ───────────────────────────── -->
@@ -1021,7 +1021,7 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — Paquetá / Neymar ────────────────────────────────────────
+// ─── PLAYER CORNER — Paquetá & Goleiro (Alternando Texto e Imagem) ───────────
 (function(){
   const brasilGames = games.filter(g => g.t1 === 'Brasil' || g.t2 === 'Brasil');
 
@@ -1049,44 +1049,82 @@ function fireCanary(stolenText, targetEl){
     }
   }
 
-  const players = [
-    { src: './paqueta.png', alt: 'Paquetá' },
-    { src: './neymar.png',  alt: 'Neymar'  },
-  ];
-  let playerIdx = 0;
   const imgEl    = document.getElementById('player-img');
   const daysEl   = document.getElementById('bubbleDays');
   const msgEl    = document.getElementById('bubbleMsg');
   const subEl    = document.getElementById('bubbleSub');
   const cornerEl = document.getElementById('player-corner');
 
+  const originalDaysClass = daysEl.className;
+  const originalMsgClass  = msgEl.className;
+
+  const brasilPlayers = [
+    { 
+      src: './paqueta.png', 
+      alt: 'Paquetá',
+      isTimeBubble: true 
+    },
+    { 
+      src: './goleiro.png', 
+      alt: 'Manuel Neuer',
+      isTimeBubble: false,
+      title: '🧤 VOCÊ SABIA? — Por Guilherme Heck',
+      text: 'Assim como a WAP convocou o Guilherme Heck — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel Neuer de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!',
+      className: 'goleiro-img' // Adiciona uma classe específica para o goleiro
+    }
+  ];
+  let playerIdx = 0;
+
+  function switchBrasilPlayer(){
+    if(canaryActive || cornerEl.classList.contains('hidden')) return;
+    
+    imgEl.style.transition = 'opacity 0.4s';
+    imgEl.style.opacity = '0';
+    
+    setTimeout(() => {
+      playerIdx = (playerIdx + 1) % brasilPlayers.length;
+      const currentPlayer = brasilPlayers[playerIdx];
+      
+      imgEl.src = currentPlayer.src;
+      imgEl.alt = currentPlayer.alt;
+      imgEl.className = currentPlayer.className || ''; // Aplica a classe se existir, caso contrário limpa
+      
+      if (!currentPlayer.isTimeBubble) {
+        daysEl.className = 'messi-title';
+        msgEl.className  = 'messi-text';
+        
+        daysEl.textContent = currentPlayer.title;
+        msgEl.innerHTML    = currentPlayer.text;
+        if(subEl) subEl.textContent = ''; 
+      } else {
+        daysEl.className = originalDaysClass;
+        msgEl.className  = originalMsgClass;
+        updateBubble();
+      }
+      
+      imgEl.style.opacity = '1';
+    }, 420);
+  }
+
   function updateBubble(){
     const nextGame = getNextBrasilGame();
     if(!nextGame){ cornerEl.classList.add('hidden'); return; }
     const msLeft = kickoff(nextGame).getTime() - Date.now();
     if(msLeft <= 0){ cornerEl.classList.add('hidden'); return; }
-    const lbl = getDaysLabel(msLeft);
-    daysEl.textContent = lbl.big;
-    msgEl.innerHTML    = lbl.msg;
-    subEl.textContent  = lbl.sub;
+    
+    if (brasilPlayers[playerIdx].isTimeBubble) {
+      const lbl = getDaysLabel(msLeft);
+      daysEl.textContent = lbl.big;
+      msgEl.innerHTML    = lbl.msg;
+      if(subEl) subEl.textContent = lbl.sub;
+    }
+    
     if(!canaryActive){ cornerEl.classList.remove('hidden'); }
   }
 
-  function switchPlayer(){
-    if(canaryActive) return;
-    imgEl.style.transition = 'opacity 0.4s';
-    imgEl.style.opacity = '0';
-    setTimeout(()=>{
-      playerIdx = (playerIdx + 1) % players.length;
-      imgEl.src = players[playerIdx].src;
-      imgEl.alt = players[playerIdx].alt;
-      imgEl.style.opacity = '1';
-    }, 420);
-  }
-
   setInterval(updateBubble, 1000);
+  setInterval(switchBrasilPlayer, 9000);
   updateBubble();
-  setInterval(switchPlayer, 8000);
 })();
 
 // ─── MESSI CORNER — alterna entre diego.png e treinador.png ──────────────────
@@ -1118,16 +1156,15 @@ function fireCanary(stolenText, targetEl){
     messiImgEl.style.transition = 'opacity 0.4s';
     messiImgEl.style.opacity = '0';
     setTimeout(()=>{
-    idx = (idx + 1) % infos.length;
-    const info = infos[idx];
-    messiImgEl.src            = info.src;
-    messiImgEl.alt            = info.alt;
-    // ← linha nova:
-    messiImgEl.className      = info.className || '';
-    bubbleTitleEl.textContent = info.title;
-    bubbleTextEl.textContent  = info.text;
-    messiImgEl.style.opacity  = '1';
-  }, 420);
+      idx = (idx + 1) % infos.length;
+      const info = infos[idx];
+      messiImgEl.src            = info.src;
+      messiImgEl.alt            = info.alt;
+      messiImgEl.className      = info.className || '';
+      bubbleTitleEl.textContent = info.title;
+      bubbleTextEl.textContent  = info.text;
+      messiImgEl.style.opacity  = '1';
+    }, 420);
   }
 
   if(!canaryActive){ setMessiCornerVisible(true); }
