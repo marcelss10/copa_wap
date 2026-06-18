@@ -296,7 +296,7 @@
     letter-spacing: 0.06em; margin-top: 10px;
   }
 
-  /* ── PLAYER CORNER (direita) — espelho do messi-corner ── */
+  /* ── PLAYER CORNER (direita) ── */
   #player-corner {
     position: fixed;
     bottom: 56px;
@@ -310,6 +310,7 @@
   }
   #player-corner.hidden { opacity: 0; pointer-events: none; }
 
+  /* bubble à esquerda da foto → seta aponta para DIREITA */
   #player-bubble {
     pointer-events: none;
     margin-bottom: 18px;
@@ -325,20 +326,19 @@
     flex-direction: column;
     gap: 2px;
   }
+  /* seta aponta para direita (em direção à foto) */
   #player-bubble::after {
     content: '';
     position: absolute;
     top: 50%;
     right: -14px;
+    left: auto;
     transform: translateY(-50%);
     width: 0; height: 0;
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     border-left: 14px solid #fff;
-  }
-  .emoji-flag {
-    width: 20px; height: auto;
-    display: inline-block; vertical-align: middle; margin-left: 5px;
+    border-right: none;
   }
 
   #player-img {
@@ -376,7 +376,7 @@
   }
 
   .goleiro-img {
-   width: 500px; height: auto;
+    width: 500px; height: auto;
     object-fit: contain; object-position: bottom;
     display: block; flex-shrink: 0;
     filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
@@ -425,8 +425,6 @@
     line-height: 1.45;
     text-align: center;
   }
-  
-
 </style>
 </head>
 <body>
@@ -447,21 +445,21 @@
   </div>
 </div>
 
-<!-- ── PLAYER CORNER (direita) — André & Goleiro ────────────────────────────── -->
+<!-- ── PLAYER CORNER (direita) — bubble à esquerda, foto à direita ── -->
 <div id="player-corner">
-  <img id="player-img" src="./andre.png" alt="André" onerror="this.style.display='none'">
   <div id="player-bubble">
     <div class="messi-title" id="playerBubbleTitle">⚽ Artilheiro da Noruega</div>
-    <div class="messi-text" id="playerBubbleText">"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.</div>
+    <div class="messi-text" id="playerBubbleText"><b>"Andre"</b> Erling "Feijo" <b>Haaland</b> é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.</div>
   </div>
+  <img id="player-img" src="./andre.png" alt="André" onerror="this.style.display='none'">
 </div>
 
-<!-- ── MESSI CORNER (informativo, lado esquerdo) ───────────────────────────── -->
+<!-- ── MESSI CORNER (esquerda) — foto à esquerda, bubble à direita ── -->
 <div id="messi-corner">
   <img id="messi-img" src="./diego.png" alt="Conteúdo informativo" onerror="this.style.display='none'">
   <div id="messi-bubble">
     <div class="messi-title" id="messi-bubble-title">📊 Recorde na Copa</div>
-    <div class="messi-text" id="messi-bubble-text">"<b>Diego</b>" Lionel "Mafioletti" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
+    <div class="messi-text" id="messi-bubble-text">"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
   </div>
 </div>
 
@@ -1017,7 +1015,7 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — André & Goleiro (lado direito, mesmo padrão do messi-corner) ──
+// ─── PLAYER CORNER — André & Goleiro (direita) ────────────────────────────────
 (function(){
   const andreImgEl     = document.getElementById('player-img');
   const bubbleTitleEl2 = document.getElementById('playerBubbleTitle');
@@ -1036,7 +1034,8 @@ function fireCanary(stolenText, targetEl){
       alt:       'Manuel Neuer',
       className: 'goleiro-img',
       title:     '🧤 VOCÊ SABIA? — Manuel "Heck" Neuer',
-      text:      'Assim como a WAP convocou o Guilherme Heck — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel Neuer de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!'
+      text:      'Assim como a WAP convocou o Guilherme <b>Heck</b> — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel <b>Neuer</b> de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!',
+      html:      true
     }
   ];
   let idx2 = 0;
@@ -1048,20 +1047,21 @@ function fireCanary(stolenText, targetEl){
     setTimeout(()=>{
       idx2 = (idx2 + 1) % infos2.length;
       const info = infos2[idx2];
-      andreImgEl.src             = info.src;
-      andreImgEl.alt             = info.alt;
-      andreImgEl.className       = info.className || '';
-      bubbleTitleEl2.textContent = info.title;
-      bubbleTextEl2.textContent  = info.text;
-      andreImgEl.style.opacity   = '1';
+      andreImgEl.src              = info.src;
+      andreImgEl.alt              = info.alt;
+      andreImgEl.className        = info.className || '';
+      bubbleTitleEl2.textContent  = info.title;
+      if(info.html){ bubbleTextEl2.innerHTML = info.text; }
+      else          { bubbleTextEl2.textContent = info.text; }
+      andreImgEl.style.opacity    = '1';
     }, 420);
   }
 
   cornerEl2.classList.remove('hidden');
-  setInterval(switchInfo2, 20000);
+  setInterval(switchInfo2, 15000);
 })();
 
-// ─── MESSI CORNER — alterna entre diego.png e treinador.png ──────────────────
+// ─── MESSI CORNER — diego / treinador / yamal (esquerda) ─────────────────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
@@ -1072,15 +1072,22 @@ function fireCanary(stolenText, targetEl){
       src:   './diego.png',
       alt:   'Diego',
       title: '📊 Recorde na Copa',
-      text:  '"Diego" Lionel "Mafioletti" Messi é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.'
+      text:  '"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.',
+      html:  true
     },
     {
-      src:   './treinador.png',
-      alt:   'Dick Advocaat',
+      src:       './treinador.png',
+      alt:       'Dick Advocaat',
       className: 'treinador-img',
-      title: '🏆 Recorde de experiência',
-      text:  'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA. Conduziu a seleção na qualificação e garantiu a vaga inédita do Curaçao no torneio.'
-    }
+      title:     '🏆 Recorde de experiência',
+      text:      'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA. Conduziu a seleção na qualificação e garantiu a vaga inédita do Curaçao no torneio.'
+    },
+    {
+      src:   './yamal.png',
+      alt:   'Lamine Yamal',
+      title: '⭐ Estrela da Espanha',
+      text:  'Aos 18 anos, Lamine "Rhikelme" Yamal é a principal estrela da Seleção Espanhola na Copa do Mundo da América do Norte.'
+}
   ];
 
   let idx = 0;
@@ -1096,13 +1103,14 @@ function fireCanary(stolenText, targetEl){
       messiImgEl.alt            = info.alt;
       messiImgEl.className      = info.className || '';
       bubbleTitleEl.textContent = info.title;
-      bubbleTextEl.textContent  = info.text;
+      if(info.html){ bubbleTextEl.innerHTML = info.text; }
+      else          { bubbleTextEl.textContent = info.text; }
       messiImgEl.style.opacity  = '1';
     }, 420);
   }
 
   if(!canaryActive){ setMessiCornerVisible(true); }
-  setInterval(switchInfo, 20000);
+  setInterval(switchInfo, 15000);
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
