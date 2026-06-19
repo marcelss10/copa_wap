@@ -375,6 +375,14 @@
     filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
   }
 
+  /* ── PATCH 1: Yamal menor que as demais ── */
+  .yamal-img {
+    width: 230px; height: auto;
+    object-fit: contain; object-position: bottom;
+    display: block; flex-shrink: 0;
+    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
+  }
+
   .goleiro-img {
     width: 500px; height: auto;
     object-fit: contain; object-position: bottom;
@@ -1015,7 +1023,7 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — André & Goleiro (direita) ────────────────────────────────
+// ─── PLAYER CORNER — André, Mbappé & Goleiro (direita) ───────────────────────
 (function(){
   const andreImgEl     = document.getElementById('player-img');
   const bubbleTitleEl2 = document.getElementById('playerBubbleTitle');
@@ -1028,6 +1036,12 @@ function fireCanary(stolenText, targetEl){
       alt:   'André',
       title: '⚽ Artilheiro da Noruega',
       text:  '"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.'
+    },
+    {
+      src:   './marta.png',
+      alt:   'Marta',
+      title: '⚽ VOCÊ SABIA? — Rainha das Copas',
+      text:  '"Ayanne" Marta "Maquine" disputou 6 edições da Copa do Mundo de Futebol Feminino (2003, 2007, 2011, 2015, 2019 e 2023). Ela detém o recorde absoluto de maior artilheira da história das Copas do Mundo, entre homens e mulheres, com um total de 17 gols marcados.'
     },
     {
       src:       './goleiro.png',
@@ -1058,10 +1072,10 @@ function fireCanary(stolenText, targetEl){
   }
 
   cornerEl2.classList.remove('hidden');
-  setInterval(switchInfo2, 15000);
+  setInterval(switchInfo2, 10000);
 })();
 
-// ─── MESSI CORNER — diego / treinador / yamal (esquerda) ─────────────────────
+// ─── MESSI CORNER — diego / ronaldo / treinador / yamal (esquerda) ───────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
@@ -1076,6 +1090,12 @@ function fireCanary(stolenText, targetEl){
       html:  true
     },
     {
+      src:   './ronaldo.png',
+      alt:   'Ronaldo Fenômeno',
+      title: '🏆 VOCÊ SABIA? — Artilheiro do Brasil',
+      text:  'O maior artilheiro do Brasil em Copas do Mundo é "Lucianio" Ronaldo "Custodio" Fenômeno, com 15 gols marcados em três edições do torneio (1998, 2002 e 2006).'
+    },
+    {
       src:       './treinador.png',
       alt:       'Dick Advocaat',
       className: 'treinador-img',
@@ -1083,11 +1103,12 @@ function fireCanary(stolenText, targetEl){
       text:      'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA. Conduziu a seleção na qualificação e garantiu a vaga inédita do Curaçao no torneio.'
     },
     {
-      src:   './yamal.png',
-      alt:   'Lamine Yamal',
-      title: '⭐ Estrela da Espanha',
-      text:  'Aos 18 anos, Lamine "Rhikelme" Yamal é a principal estrela da Seleção Espanhola na Copa do Mundo da América do Norte.'
-}
+      src:       './yamal.png',
+      alt:       'Lamine Yamal',
+      className: 'yamal-img',
+      title:     '⭐ Estrela da Espanha',
+      text:      'Aos 18 anos, Lamine "Rhikelme" Yamal é a principal estrela da Seleção Espanhola na Copa do Mundo da América do Norte.'
+    }
   ];
 
   let idx = 0;
@@ -1110,7 +1131,7 @@ function fireCanary(stolenText, targetEl){
   }
 
   if(!canaryActive){ setMessiCornerVisible(true); }
-  setInterval(switchInfo, 15000);
+  setInterval(switchInfo, 10000);
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
