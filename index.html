@@ -557,6 +557,8 @@ const gameLinks = {
   'República Tcheca vs África do Sul':    'https://www.youtube.com/watch?v=61qIjGER86Q',
   'Suíça vs Bósnia e Herzegovina':        'https://www.youtube.com/watch?v=DL372r8XEDg',
   'Estados Unidos vs Austrália':          'https://www.youtube.com/watch?v=_6cfUXA1UUw',
+  'Argentina vs Áustria':                 'https://www.youtube.com/watch?v=OweGZocHnjk',
+  'Portugal vs Uzbequistão':              'https://www.youtube.com/watch?v=pmWqrAV3PXo',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
@@ -1023,7 +1025,7 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — André, Mbappé & Goleiro (direita) ───────────────────────
+// ─── PLAYER CORNER — André, Alisson, Goleiro & Vozinha (direita) ───────────────────────
 (function(){
   const andreImgEl     = document.getElementById('player-img');
   const bubbleTitleEl2 = document.getElementById('playerBubbleTitle');
@@ -1038,10 +1040,10 @@ function fireCanary(stolenText, targetEl){
       text:  '"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.'
     },
     {
-      src:   './marta.png',
-      alt:   'Marta',
-      title: '⚽ VOCÊ SABIA? — Rainha das Copas',
-      text:  '"Ayanne" Marta "Maquine" disputou 6 edições da Copa do Mundo de Futebol Feminino (2003, 2007, 2011, 2015, 2019 e 2023). Ela detém o recorde absoluto de maior artilheira da história das Copas do Mundo, entre homens e mulheres, com um total de 17 gols marcados.'
+      src:   './alisson.png',
+      alt:   'Alisson',
+      title: '🧤 VOCÊ SABIA? — Goleiro do Brasil',
+      text:  '"Cícero" Alisson "Brandt" é o goleiro titular da Seleção Brasileira na Copa do Mundo de 2026, eleito um dos jogadores mais bonitos da Copa do Mundo de 2026!'
     },
     {
       src:       './goleiro.png',
@@ -1050,6 +1052,12 @@ function fireCanary(stolenText, targetEl){
       title:     '🧤 VOCÊ SABIA? — Manuel "Heck" Neuer',
       text:      'Assim como a WAP convocou o Guilherme <b>Heck</b> — ex-Paraná Clube — para o time, a Alemanha foi buscar Manuel <b>Neuer</b> de volta à aposentadoria. Aos 40 anos, Neuer retorna à seleção para sua 5ª Copa. Na WAP, o Guilherme também é titular!',
       html:      true
+    },
+    {
+      src:   './vozinha.png',
+      alt:   'Vozinha',
+      title: '🧤 VOCÊ SABIA? — Sensação de Cabo Verde',
+      text:  'O fenômeno goleiro "Wagner" Vozinha é o herói de Cabo Verde na Copa do Mundo. Aos 40 anos, se tornou sensação do futebol e, após a repercussão, passou a seguir 2 mil mulheres nas redes sociais (rsrs).'
     }
   ];
   let idx2 = 0;
@@ -1075,7 +1083,7 @@ function fireCanary(stolenText, targetEl){
   setInterval(switchInfo2, 10000);
 })();
 
-// ─── MESSI CORNER — diego / ronaldo / treinador / yamal (esquerda) ───────────
+// ─── MESSI CORNER — diego / vampeta / treinador / yamal / paquetá (esquerda) ───────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
@@ -1090,10 +1098,10 @@ function fireCanary(stolenText, targetEl){
       html:  true
     },
     {
-      src:   './ronaldo.png',
-      alt:   'Ronaldo Fenômeno',
-      title: '🏆 VOCÊ SABIA? — Artilheiro do Brasil',
-      text:  'O maior artilheiro do Brasil em Copas do Mundo é "Lucianio" Ronaldo "Custodio" Fenômeno, com 15 gols marcados em três edições do torneio (1998, 2002 e 2006).'
+      src:   './vampeta.png',
+      alt:   'Vampeta',
+      title: '🏆 VOCÊ SABIA? — Campeão do Mundo',
+      text:  '"Igor" Vampeta conquistou a Copa do Mundo FIFA de 2002, realizada na Coreia do Sul e no Japão.'
     },
     {
       src:       './treinador.png',
@@ -1108,6 +1116,12 @@ function fireCanary(stolenText, targetEl){
       className: 'yamal-img',
       title:     '⭐ Estrela da Espanha',
       text:      'Aos 18 anos, Lamine "Rhikelme" Yamal é a principal estrela da Seleção Espanhola na Copa do Mundo da América do Norte.'
+    },
+    {
+      src:   './paqueta.png',
+      alt:   'Lucas Paquetá',
+      title: '⭐ VOCÊ SABIA? — Meia de Criação',
+      text:  'Lucas "Ambrosio" Paquetá vem se destacando na Seleção como um meia de criação, e foi eleito o jogador mais bonito da Seleção 2026.'
     }
   ];
 
