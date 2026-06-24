@@ -456,10 +456,12 @@
 <!-- ── PLAYER CORNER (direita) — bubble à esquerda, foto à direita ── -->
 <div id="player-corner">
   <div id="player-bubble">
-    <div class="messi-title" id="playerBubbleTitle">⚽ Artilheiro da Noruega</div>
-    <div class="messi-text" id="playerBubbleText"><b>"Andre"</b> Erling "Feijo" <b>Haaland</b> é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.</div>
+    <div class="messi-title" id="playerBubbleTitle">🏆 HOMEM DAS COPAS — CR7 (CiceRo 7)</div>
+    <div class="messi-text" id="playerBubbleText">
+      <b>"CICERO"</b> Cristiano Ronaldo se torna o primeiro jogador a marcar em seis Copas. Talvez você não saiba, mas o <b>SIURRRR!</b> na verdade é em homenagem ao nome de Cicero em português de Portugal (fonte duvidosa rs).
+    </div>
   </div>
-  <img id="player-img" src="./andre.png" alt="André" onerror="this.style.display='none'">
+  <img id="player-img" src="./cr7.png" alt="CR7" onerror="this.style.display='none'">
 </div>
 
 <!-- ── MESSI CORNER (esquerda) — foto à esquerda, bubble à direita ── -->
@@ -1033,17 +1035,17 @@ function fireCanary(stolenText, targetEl){
   const cornerEl2      = document.getElementById('player-corner');
 
   const infos2 = [
-    {
-      src:   './andre.png',
-      alt:   'André',
-      title: '⚽ Artilheiro da Noruega',
-      text:  '"Andre" Erling "Feijo" Haaland é o maior artilheiro da Noruega em Copas do Mundo. O atacante assumiu o recorde absoluto logo em sua estreia no Mundial, superando a antiga marca que pertencia a Kjetil Rekdal, que marcou dois gols ao longo de sua trajetória.'
+        {
+      src: './andre.png',
+      alt: 'André',
+      title: '⭐ Melhor meio-campista da Croácia!',
+      text: 'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.'
     },
-    {
-      src:   './alisson.png',
-      alt:   'Alisson',
-      title: '🧤 VOCÊ SABIA? — Goleiro do Brasil',
-      text:  '"Cícero" Alisson "Brandt" é o goleiro titular da Seleção Brasileira na Copa do Mundo de 2026, eleito um dos jogadores mais bonitos da Copa do Mundo de 2026!'
+        {
+      src: './cr7.png',
+      alt: 'CR7',
+      title: '🏆 HOMEM DAS COPAS — CR7 (CiceRo 7)',
+      text: '"CICERO" Cristiano Ronaldo se torna o primeiro jogador a marcar em seis Copas. Talvez você não saiba, mas o SIURRRR! na verdade é em homenagem ao nome de Cicero em português de Portugal (fonte duvidosa rs).'
     },
     {
       src:   './bruno.png',
@@ -1053,11 +1055,11 @@ function fireCanary(stolenText, targetEl){
       html:  true
     },
     {
-      src:   './vozinha.png',
-      alt:   'Vozinha',
-      title: '🧤 VOCÊ SABIA? — Sensação de Cabo Verde',
-      text:  'O fenômeno goleiro "Wagner" Vozinha é o herói de Cabo Verde na Copa do Mundo. Aos 40 anos, se tornou sensação do futebol e, após a repercussão, passou a seguir 2 mil mulheres nas redes sociais (rsrs).'
-    }
+  src: './brunao.png',
+  alt: 'Alexandre',
+  title: '🏆 VOCÊ SABIA?',
+  text: 'Amir "BRUNÃO" Murillo, de 30 anos, é o principal destaque e lateral-direito do Beşiktaş e da Seleção do Panamá.'
+   }
   ];
   let idx2 = 0;
 
@@ -1097,10 +1099,10 @@ function fireCanary(stolenText, targetEl){
       html:  true
     },
     {
-      src:   './alexandre.png',
-      alt:   'Alexandre',
-      title: '🏆 VOCÊ SABIA? — Maestro da Bélgica',
-      text:  '"Fernandinho" Kevin De "Alexandre" Bruyne é o principal maestro e capitão da Seleção da Bélgica, sendo peça fundamental na chamada \"geração de ouro\" do país.'
+      src: './canarinho.png',
+      alt: 'Canarinho',
+      title: '🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?',
+      text: 'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!'
     },
     {
       src:       './treinador.png',
