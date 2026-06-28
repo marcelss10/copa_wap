@@ -12,19 +12,29 @@
     --laranja: #F26522;
     --laranja2: #FFAA44;
     --verde-br: #00C878;
-    --bg: #07111F;
-    --bg2: #0D1E33;
-    --card: #112540;
+    --verde-escuro: #005C3A;
+    --verde-claro: #00D97A;
+    --bg: #061810;
+    --bg2: #0A2218;
+    --card: #0D2B1C;
     --txt: #EDF2F8;
     --muted: #7A8FA8;
-    --border: rgba(255,255,255,0.07);
+    --border: rgba(0,200,100,0.13);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 56px; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse at 20% 0%, rgba(0,168,107,0.08) 0%, transparent 60%),
+                      radial-gradient(ellipse at 80% 100%, rgba(245,216,0,0.05) 0%, transparent 60%);
+    color: var(--txt);
+    min-height: 100vh;
+    padding-bottom: 56px;
+  }
 
   header {
-    background: var(--bg2);
-    border-bottom: 3px solid var(--verde);
+    background: linear-gradient(135deg, #0A2218 0%, #0D2B1C 60%, #061810 100%);
+    border-bottom: 3px solid var(--amarelo);
     padding: 16px 32px;
     display: flex;
     align-items: center;
@@ -33,6 +43,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 24px rgba(0,168,107,0.18);
   }
   .header-left { display: flex; align-items: center; gap: 16px; }
   .logo-img { height: 48px; width: auto; display: block; border-radius: 6px; }
@@ -41,7 +52,31 @@
   .logo-waaw { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.09em; color: rgba(255,255,255,0.8); white-space: nowrap; }
   .header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.03em; line-height: 1.1; }
   .header-title em { color: var(--amarelo); font-style: normal; }
-  .header-sub { font-size: 12px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
+  .header-sub { font-size: 12px; color: #5DE8A8; margin-top: 3px; letter-spacing: 0.04em; }
+
+  /* HEXA BANNER */
+  .hexa-banner {
+    background: linear-gradient(90deg, var(--verde-escuro) 0%, #004d30 40%, #1a5c00 70%, var(--verde-escuro) 100%);
+    border-bottom: 2px solid var(--amarelo);
+    padding: 8px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amarelo);
+    text-shadow: 0 0 20px rgba(245,216,0,0.4);
+    animation: hexaPulse 3s ease-in-out infinite;
+  }
+  @keyframes hexaPulse {
+    0%,100%{ text-shadow: 0 0 12px rgba(245,216,0,0.3); }
+    50%    { text-shadow: 0 0 30px rgba(245,216,0,0.7), 0 0 60px rgba(245,216,0,0.3); }
+  }
+  .hexa-flag { font-size: 20px; }
 
   .notif-bar {
     background: rgba(0,168,107,0.12);
@@ -79,7 +114,15 @@
   .leg-dot.com { background: var(--amarelo); }
   .leg-dot.out { background: var(--muted); opacity: 0.5; }
 
-  .tabs-wrap { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 28px; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+  .tabs-wrap {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
   .tabs-wrap::-webkit-scrollbar { display: none; }
   .tab-btn {
     background: none; border: none; border-bottom: 3px solid transparent;
@@ -90,9 +133,28 @@
   }
   .tab-btn:hover { color: var(--txt); }
   .tab-btn.active { color: var(--amarelo); border-bottom-color: var(--amarelo); }
-  .tab-btn.has-com::after { content: ''; position: absolute; top: 9px; right: 8px; width: 5px; height: 5px; background: var(--verde); border-radius: 50%; }
+  .tab-btn.has-com::after { content: ''; position: absolute; top: 9px; right: 8px; width: 5px; height: 5px; background: var(--verde-claro); border-radius: 50%; }
   .tab-btn.hoje { color: #5DE8A8; }
   .tab-btn.hoje.active { color: var(--amarelo); }
+  .tab-btn.brasil-tab { color: var(--verde-claro) !important; }
+  .tab-btn.brasil-tab.active { color: var(--amarelo) !important; border-bottom-color: var(--amarelo) !important; }
+
+  /* Fase badge */
+  .fase-label {
+    padding: 4px 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--border);
+    color: var(--amarelo);
+    align-self: center;
+    white-space: nowrap;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.8;
+  }
 
   main { max-width: 1100px; margin: 0 auto; padding: 28px 24px 80px; }
   .day-section { display: none; }
@@ -101,8 +163,9 @@
   .day-hdr { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
   .day-title { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; line-height: 1; }
   .day-title .dnum { color: var(--amarelo); font-size: 60px; margin-right: 6px; }
-  .day-round { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde); margin-top: 5px; }
-  .day-com-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(245,216,0,0.1); border: 1px solid rgba(245,216,0,0.25); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--amarelo); letter-spacing: 0.05em; margin-bottom: 4px; }
+  .day-round { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-claro); margin-top: 5px; }
+  .day-com-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(245,216,0,0.1); border: 1px solid rgba(245,216,0,0.3); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--amarelo); letter-spacing: 0.05em; margin-bottom: 4px; }
+  .day-brasil-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,200,120,0.12); border: 1px solid rgba(0,200,120,0.4); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 900; color: var(--verde-claro); letter-spacing: 0.08em; margin-bottom: 4px; text-transform: uppercase; animation: hexaPulse 2s ease-in-out infinite; }
 
   .games-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -120,12 +183,18 @@
   }
   .game-card:hover { transform: translateX(4px); }
   .game-card.com {
-    border-left-color: var(--laranja);
-    background: linear-gradient(100deg, rgba(242,101,34,0.06) 0%, var(--card) 45%);
+    border-left-color: var(--amarelo);
+    background: linear-gradient(100deg, rgba(245,216,0,0.06) 0%, var(--card) 45%);
   }
   .game-card.out {
-    border-left-color: rgba(255,255,255,0.13);
-    opacity: 0.52;
+    border-left-color: rgba(255,255,255,0.1);
+    opacity: 0.55;
+  }
+  .game-card.brasil-game {
+    border-left-color: var(--verde-claro) !important;
+    background: linear-gradient(100deg, rgba(0,200,120,0.1) 0%, var(--card) 45%) !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 20px rgba(0,200,120,0.12);
   }
   .game-card.live {
     border-left-color: #FF4040 !important;
@@ -139,30 +208,33 @@
   }
   .col-time { text-align: center; }
   .time-big { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; line-height: 1; }
-  .game-card.com .time-big { color: var(--laranja); }
+  .game-card.com .time-big { color: var(--amarelo); }
   .game-card.out .time-big { color: var(--muted); }
+  .game-card.brasil-game .time-big { color: var(--verde-claro); }
   .game-card.live .time-big { color: #FF7777; }
   .time-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
   .match-teams { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 3px; }
   .team { display: inline-flex; align-items: center; gap: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; line-height: 1; }
-  .team.brasil { color: var(--verde-br); }
+  .team.brasil { color: var(--verde-claro); font-size: 17px; }
   .flag { display: inline-block; width: 20px; height: 14px; border-radius: 2px; object-fit: cover; vertical-align: middle; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.35); }
   .vs-sep { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); padding: 0 1px; flex-shrink: 0; }
   .match-meta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-  .meta-grp { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,0.06); border-radius: 3px; padding: 1px 5px; color: var(--muted); }
+  .meta-grp { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(0,200,100,0.1); border-radius: 3px; padding: 1px 5px; color: var(--verde-claro); }
+  .meta-grp.knockout { background: rgba(245,216,0,0.12); color: var(--amarelo); }
   .meta-city { font-size: 10px; color: var(--muted); }
   .btn-watch { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,60,60,0.35); color: #FF7777; border-radius: 5px; padding: 4px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
   .btn-watch:hover { background: rgba(255,0,0,0.25); border-color: rgba(255,60,60,0.7); color: #fff; }
   .btn-watch svg { flex-shrink: 0; }
   .col-cd { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-  .badge-com { display: inline-block; background: var(--laranja); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+  .badge-com { display: inline-block; background: var(--amarelo); color: #000; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+  .badge-brasil { display: inline-block; background: var(--verde-claro); color: #061810; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
   .badge-live { display: inline-flex; align-items: center; gap: 4px; background: #FF4040; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; animation: blink 1.1s steps(1) infinite; }
   .live-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .cd-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 10px; text-align: center; min-width: 90px; }
+  .cd-box { background: rgba(0,200,100,0.06); border: 1px solid rgba(0,200,100,0.18); border-radius: 8px; padding: 6px 10px; text-align: center; min-width: 90px; }
   .cd-num { font-family: 'Barlow Condensed', sans-serif; font-size: 21px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
   .cd-num.far    { color: var(--txt); }
-  .cd-num.soon   { color: var(--laranja2); }
+  .cd-num.soon   { color: var(--amarelo); }
   .cd-num.urgent { color: #FF9944; }
   .cd-num.done   { color: var(--muted); font-size: 12px; }
   .cd-lbl { font-size: 8px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
@@ -172,11 +244,11 @@
 
   #results-ticker {
     position: fixed; bottom: 0; left: 0; right: 0; height: 48px;
-    background: #07111F; border-top: 2px solid var(--verde); z-index: 200;
+    background: #061810; border-top: 2px solid var(--amarelo); z-index: 200;
     display: flex; align-items: center; overflow: hidden;
   }
   #results-ticker .ticker-label {
-    flex-shrink: 0; background: var(--verde); color: #fff;
+    flex-shrink: 0; background: var(--amarelo); color: #061810;
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px;
     letter-spacing: 0.1em; text-transform: uppercase; padding: 0 16px;
     height: 100%; display: flex; align-items: center; white-space: nowrap;
@@ -184,7 +256,7 @@
   #results-ticker .ticker-track { flex: 1; overflow: hidden; height: 100%; }
   #results-ticker .ticker-inner {
     display: flex; align-items: center; height: 100%; white-space: nowrap;
-    animation: ticker-scroll 120s linear infinite; will-change: transform;
+    animation: ticker-scroll 90s linear infinite; will-change: transform;
   }
   #results-ticker .ticker-inner:hover { animation-play-state: paused; }
   @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -195,8 +267,9 @@
   }
   .ticker-item .t-score { font-size: 18px; font-weight: 900; color: var(--amarelo); letter-spacing: 0.08em; }
   .ticker-item .t-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; }
-  .ticker-item .t-group { font-size: 10px; color: var(--verde); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
-  .ticker-item .t-highlight { font-size: 10px; color: #07111F; font-weight: 900; letter-spacing: 0.04em; background: var(--amarelo); padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+  .ticker-item .t-group { font-size: 10px; color: var(--verde-claro); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
+  .ticker-item .t-highlight { font-size: 10px; color: #061810; font-weight: 900; letter-spacing: 0.04em; background: var(--amarelo); padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+  .ticker-item .t-brasil { font-size: 10px; color: #061810; font-weight: 900; background: var(--verde-claro); padding: 1px 7px; border-radius: 3px; }
   #results-ticker.hidden { display: none; }
 
   #canary-stage {
@@ -206,7 +279,7 @@
   .canary-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; pointer-events: none; gap: 0; }
   .canary-stolen {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px;
-    color: #07111F; background: var(--amarelo); padding: 4px 14px;
+    color: #061810; background: var(--amarelo); padding: 4px 14px;
     border-radius: 6px 6px 0 0; white-space: nowrap; opacity: 0;
     transition: opacity 0.25s; letter-spacing: 0.08em; position: relative; bottom: -2px; z-index: 2;
   }
@@ -226,7 +299,7 @@
     position: fixed;
     inset: 0;
     z-index: 9000;
-    background: rgba(7,17,31,0.92);
+    background: rgba(6,24,16,0.94);
     backdrop-filter: blur(6px);
     align-items: center;
     justify-content: center;
@@ -234,205 +307,84 @@
     gap: 0;
     cursor: pointer;
   }
-  #game-launch-overlay.visible {
-    display: flex;
-    animation: overlayIn 0.4s ease;
-  }
-  @keyframes overlayIn {
-    from { opacity: 0; transform: scale(0.97); }
-    to   { opacity: 1; transform: scale(1); }
-  }
+  #game-launch-overlay.visible { display: flex; animation: overlayIn 0.4s ease; }
+  @keyframes overlayIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
   .overlay-card {
     background: var(--card);
-    border: 2px solid var(--verde);
+    border: 2px solid var(--amarelo);
     border-radius: 20px;
     padding: 36px 44px;
     text-align: center;
     max-width: 480px;
     width: 90vw;
-    box-shadow: 0 0 60px rgba(0,168,107,0.25);
+    box-shadow: 0 0 60px rgba(245,216,0,0.18);
     animation: overlayPulse 2s ease-in-out infinite;
   }
   @keyframes overlayPulse {
-    0%,100%{ box-shadow: 0 0 40px rgba(0,168,107,0.2); }
-    50%    { box-shadow: 0 0 80px rgba(0,168,107,0.45); }
+    0%,100%{ box-shadow: 0 0 40px rgba(245,216,0,0.15); }
+    50%    { box-shadow: 0 0 80px rgba(245,216,0,0.35); }
   }
   .overlay-icon { font-size: 56px; margin-bottom: 12px; }
-  .overlay-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 36px; line-height: 1;
-    color: var(--amarelo); letter-spacing: 0.03em;
-    margin-bottom: 8px;
-  }
-  .overlay-match {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 22px;
-    color: var(--txt); letter-spacing: 0.02em;
-    margin-bottom: 6px;
-  }
-  .overlay-sub {
-    font-size: 13px; color: var(--muted); margin-bottom: 28px;
-  }
+  .overlay-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: var(--amarelo); letter-spacing: 0.03em; margin-bottom: 8px; }
+  .overlay-match { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 22px; color: var(--txt); letter-spacing: 0.02em; margin-bottom: 6px; }
+  .overlay-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
   .overlay-btn {
     display: inline-flex; align-items: center; gap: 10px;
     background: var(--verde); color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 20px; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 14px 36px;
-    border-radius: 10px; border: none; cursor: pointer;
-    transition: opacity .15s, transform .12s;
-    box-shadow: 0 4px 24px rgba(0,168,107,0.4);
-    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 14px 36px; border-radius: 10px; border: none; cursor: pointer;
+    transition: opacity .15s, transform .12s; box-shadow: 0 4px 24px rgba(0,168,107,0.4); text-decoration: none;
   }
   .overlay-btn:hover { opacity: 0.88; transform: scale(1.03); }
-  .overlay-dismiss {
-    margin-top: 18px; font-size: 12px; color: var(--muted);
-    cursor: pointer; text-decoration: underline;
-  }
+  .overlay-dismiss { margin-top: 18px; font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: underline; }
   .overlay-dismiss:hover { color: var(--txt); }
-  .overlay-countdown {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px; font-weight: 700; color: var(--verde);
-    letter-spacing: 0.06em; margin-top: 10px;
-  }
+  .overlay-countdown { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--verde-claro); letter-spacing: 0.06em; margin-top: 10px; }
 
-  /* ── PLAYER CORNER (direita) ── */
+  /* ── PLAYER CORNER ── */
   #player-corner {
-    position: fixed;
-    bottom: 56px;
-    right: 0;
-    z-index: 300;
-    display: flex;
-    align-items: flex-end;
-    gap: 0;
-    pointer-events: none;
-    transition: opacity 0.4s;
+    position: fixed; bottom: 56px; right: 0; z-index: 300;
+    display: flex; align-items: flex-end; gap: 0;
+    pointer-events: none; transition: opacity 0.4s;
   }
   #player-corner.hidden { opacity: 0; pointer-events: none; }
-
-  /* bubble à esquerda da foto → seta aponta para DIREITA */
   #player-bubble {
-    pointer-events: none;
-    margin-bottom: 18px;
-    margin-right: 8px;
-    position: relative;
-    background: #fff;
-    border-radius: 18px 18px 18px 0;
-    padding: 8px 12px;
-    max-width: 215px;
-    min-width: 160px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.38);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    pointer-events: none; margin-bottom: 18px; margin-right: 8px; position: relative;
+    background: #fff; border-radius: 18px 18px 18px 0; padding: 8px 12px;
+    max-width: 215px; min-width: 160px; box-shadow: 0 4px 24px rgba(0,0,0,0.38);
+    display: flex; flex-direction: column; gap: 2px;
   }
-  /* seta aponta para direita (em direção à foto) */
   #player-bubble::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -14px;
-    left: auto;
-    transform: translateY(-50%);
-    width: 0; height: 0;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-left: 14px solid #fff;
-    border-right: none;
+    content: ''; position: absolute; top: 50%; right: -14px; left: auto;
+    transform: translateY(-50%); width: 0; height: 0;
+    border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+    border-left: 14px solid #fff; border-right: none;
   }
-
-  #player-img {
-    width: 300px; height: auto;
-    object-fit: contain; object-position: bottom;
-    display: block; flex-shrink: 0;
-    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
-  }
+  #player-img { width: 300px; height: auto; object-fit: contain; object-position: bottom; display: block; flex-shrink: 0; filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5)); }
 
   #messi-corner {
-    position: fixed;
-    bottom: 56px;
-    left: 0;
-    z-index: 300;
-    display: flex;
-    align-items: flex-end;
-    gap: 0;
-    pointer-events: none;
-    transition: opacity 0.4s;
+    position: fixed; bottom: 56px; left: 0; z-index: 300;
+    display: flex; align-items: flex-end; gap: 0;
+    pointer-events: none; transition: opacity 0.4s;
   }
   #messi-corner.hidden { opacity: 0; pointer-events: none; }
-
-  #messi-img {
-    width: 300px; height: auto;
-    object-fit: contain; object-position: bottom;
-    display: block; flex-shrink: 0;
-    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
-  }
-
-  #messi-img.treinador-img {
-    width: 300px; height: auto;
-    object-fit: contain; object-position: bottom;
-    display: block; flex-shrink: 0;
-    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
-  }
-
-  /* ── PATCH 1: Yamal menor que as demais ── */
-  .yamal-img {
-    width: 230px; height: auto;
-    object-fit: contain; object-position: bottom;
-    display: block; flex-shrink: 0;
-    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
-  }
-
-  .goleiro-img {
-    width: 500px; height: auto;
-    object-fit: contain; object-position: bottom;
-    display: block; flex-shrink: 0;
-    filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5));
-  }
-
+  #messi-img { width: 300px; height: auto; object-fit: contain; object-position: bottom; display: block; flex-shrink: 0; filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5)); }
+  #messi-img.treinador-img { width: 300px; }
+  .yamal-img { width: 230px; height: auto; object-fit: contain; object-position: bottom; display: block; flex-shrink: 0; filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5)); }
+  .goleiro-img { width: 500px; height: auto; object-fit: contain; object-position: bottom; display: block; flex-shrink: 0; filter: drop-shadow(-2px 0 12px rgba(0,0,0,0.5)); }
   #messi-bubble {
-    pointer-events: none;
-    margin-bottom: 18px;
-    margin-left: 8px;
-    position: relative;
-    background: #fff;
-    border-radius: 18px 18px 18px 0;
-    padding: 8px 12px;
-    max-width: 215px;
-    min-width: 160px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.38);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    pointer-events: none; margin-bottom: 18px; margin-left: 8px; position: relative;
+    background: #fff; border-radius: 18px 18px 18px 0; padding: 8px 12px;
+    max-width: 215px; min-width: 160px; box-shadow: 0 4px 24px rgba(0,0,0,0.38);
+    display: flex; flex-direction: column; gap: 2px;
   }
   #messi-bubble::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -14px;
-    transform: translateY(-50%);
-    width: 0; height: 0;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
+    content: ''; position: absolute; top: 50%; left: -14px;
+    transform: translateY(-50%); width: 0; height: 0;
+    border-top: 12px solid transparent; border-bottom: 12px solid transparent;
     border-right: 14px solid #fff;
   }
-  .messi-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    color: #00A86B;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    line-height: 1.15;
-    text-align: center;
-  }
-  .messi-text {
-    font-family: 'Barlow', sans-serif;
-    font-size: 13px;
-    color: #1a1a1a;
-    line-height: 1.45;
-    text-align: center;
-  }
+  .messi-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: #00A86B; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; text-align: center; }
+  .messi-text { font-family: 'Barlow', sans-serif; font-size: 13px; color: #1a1a1a; line-height: 1.45; text-align: center; }
 </style>
 </head>
 <body>
@@ -445,26 +397,22 @@
     <div class="overlay-title" id="overlay-title">JOGO EM BREVE!</div>
     <div class="overlay-match" id="overlay-match"></div>
     <div class="overlay-sub" id="overlay-sub"></div>
-    <a class="overlay-btn" id="overlay-btn" href="#" target="_blank" rel="noopener">
-      ▶ ABRIR TRANSMISSÃO EM TELA CHEIA
-    </a>
+    <a class="overlay-btn" id="overlay-btn" href="#" target="_blank" rel="noopener">▶ ABRIR TRANSMISSÃO EM TELA CHEIA</a>
     <div class="overlay-countdown" id="overlay-countdown"></div>
     <div class="overlay-dismiss" id="overlay-dismiss">Fechar e assistir depois</div>
   </div>
 </div>
 
-<!-- ── PLAYER CORNER (direita) — bubble à esquerda, foto à direita ── -->
+<!-- PLAYER CORNER direita -->
 <div id="player-corner">
   <div id="player-bubble">
-    <div class="messi-title" id="playerBubbleTitle">🏆 HOMEM DAS COPAS — CR7 (CiceRo 7)</div>
-    <div class="messi-text" id="playerBubbleText">
-      <b>"CICERO"</b> Cristiano Ronaldo se torna o primeiro jogador a marcar em seis Copas. Talvez você não saiba, mas o <b>SIURRRR!</b> na verdade é em homenagem ao nome de Cicero em português de Portugal (fonte duvidosa rs).
-    </div>
+    <div class="messi-title" id="playerBubbleTitle">🛡️ XERIFE DA MEUCA — WESLEY</div>
+    <div class="messi-text" id="playerBubbleText">Casemiro <b>"WESLEY"</b> é o principal volante de contenção e um dos líderes da Seleção Brasileira na Copa do Mundo de 2026.</div>
   </div>
-  <img id="player-img" src="./cr7.png" alt="CR7" onerror="this.style.display='none'">
+  <img id="player-img" src="./casemiro.png" alt="Casemiro" onerror="this.style.display='none'">
 </div>
 
-<!-- ── MESSI CORNER (esquerda) — foto à esquerda, bubble à direita ── -->
+<!-- MESSI CORNER esquerda -->
 <div id="messi-corner">
   <img id="messi-img" src="./diego.png" alt="Conteúdo informativo" onerror="this.style.display='none'">
   <div id="messi-bubble">
@@ -483,7 +431,7 @@
     </div>
     <div>
       <div class="header-title">COPA DO MUNDO 2026 <em>— CALENDÁRIO</em></div>
-      <div class="header-sub">Horário de Brasília · Fase de Grupos · 11 jun – 27 jun</div>
+      <div class="header-sub">🇧🇷 Horário de Brasília · Grupos + Mata-Mata · 11 jun – 19 jul</div>
     </div>
   </div>
   <div class="legend">
@@ -491,6 +439,12 @@
     <div class="leg"><div class="leg-dot out"></div> Fora do comercial</div>
   </div>
 </header>
+
+<div class="hexa-banner">
+  <span class="hexa-flag">🇧🇷</span>
+  ⭐⭐⭐⭐⭐ BRASIL — EM BUSCA DO HEXA! VAMOS BRASIL! ⭐⭐⭐⭐⭐⭐
+  <span class="hexa-flag">🇧🇷</span>
+</div>
 
 <div class="notif-bar hidden" id="notifBar">
   <span>🔔 <strong>Ative as notificações</strong> para ser avisado antes dos jogos.</span>
@@ -508,7 +462,7 @@
 </div>
 
 <footer>
-  Horário comercial: <strong>09h às 18h</strong> (horário de Brasília) · Fase de Grupos · Copa do Mundo FIFA 2026
+  Horário comercial: <strong>09h às 18h</strong> (horário de Brasília) · Copa do Mundo FIFA 2026 · Grupos + Mata-Mata
   <div class="dev">Desenvolvedor Marcel Ambrosio</div>
 </footer>
 
@@ -548,113 +502,125 @@ const flagUrl = code => `https://flagcdn.com/w40/${code}.png`;
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil    = n => n === 'Brasil';
 
-// ─── LINKS PARA ASSISTIR ──────────────────────────────────────────────────────
+// ─── LINKS ────────────────────────────────────────────────────────────────────
 const gameLinks = {
-  'Canadá vs Bósnia e Herzegovina':       'https://www.youtube.com/watch?v=CRtjePKnGvA',
-  'Espanha vs Cabo Verde':                'https://www.youtube.com/watch?v=EYStZQ5FsVk',
-  'Bélgica vs Egito':                     'https://www.youtube.com/watch?v=aclBHrhLQr4',
-  'França vs Senegal':                    'https://www.youtube.com/watch?v=m1vplAfSs_A',
-  'Portugal vs RD Congo':                 'https://www.youtube.com/watch?v=HpzKFDctbNw',
-  'Argentina vs Argélia':                 'https://www.youtube.com/watch?v=RhpNoBWVQGA',
-  'República Tcheca vs África do Sul':    'https://www.youtube.com/watch?v=61qIjGER86Q',
-  'Suíça vs Bósnia e Herzegovina':        'https://www.youtube.com/watch?v=DL372r8XEDg',
-  'Estados Unidos vs Austrália':          'https://www.youtube.com/watch?v=_6cfUXA1UUw',
-  'Argentina vs Áustria':                 'https://www.youtube.com/watch?v=OweGZocHnjk',
-  'Portugal vs Uzbequistão':              'https://www.youtube.com/watch?v=pmWqrAV3PXo',
+  'Canadá vs Bósnia e Herzegovina':    'https://www.youtube.com/watch?v=CRtjePKnGvA',
+  'Espanha vs Cabo Verde':             'https://www.youtube.com/watch?v=EYStZQ5FsVk',
+  'Bélgica vs Egito':                  'https://www.youtube.com/watch?v=aclBHrhLQr4',
+  'França vs Senegal':                 'https://www.youtube.com/watch?v=m1vplAfSs_A',
+  'Portugal vs RD Congo':              'https://www.youtube.com/watch?v=HpzKFDctbNw',
+  'Argentina vs Argélia':              'https://www.youtube.com/watch?v=RhpNoBWVQGA',
+  'República Tcheca vs África do Sul': 'https://www.youtube.com/watch?v=61qIjGER86Q',
+  'Suíça vs Bósnia e Herzegovina':     'https://www.youtube.com/watch?v=DL372r8XEDg',
+  'Estados Unidos vs Austrália':       'https://www.youtube.com/watch?v=_6cfUXA1UUw',
+  'Argentina vs Áustria':              'https://www.youtube.com/watch?v=OweGZocHnjk',
+  'Portugal vs Uzbequistão':           'https://www.youtube.com/watch?v=pmWqrAV3PXo',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
-const games = [
-  // ── 11 JUN ──
-  {date:'2026-06-11',h:16,min:0,label:'16h',t1:'México',t2:'África do Sul',city:'Cidade do México',group:'A',round:1},
-  {date:'2026-06-11',h:23,min:0,label:'23h',t1:'Coreia do Sul',t2:'República Tcheca',city:'Guadalajara',group:'A',round:1},
-  // ── 12 JUN ──
-  {date:'2026-06-12',h:16,min:0,label:'16h',t1:'Canadá',t2:'Bósnia e Herzegovina',city:'Toronto',group:'B',round:1},
-  {date:'2026-06-12',h:22,min:0,label:'22h',t1:'Estados Unidos',t2:'Paraguai',city:'Los Angeles',group:'D',round:1},
-  // ── 13 JUN ──
-  {date:'2026-06-13',h:1,min:0,label:'01h',t1:'Austrália',t2:'Turquia',city:'Vancouver',group:'D',round:1},
-  {date:'2026-06-13',h:16,min:0,label:'16h',t1:'Catar',t2:'Suíça',city:'San Francisco',group:'B',round:1},
-  {date:'2026-06-13',h:19,min:0,label:'19h',t1:'Brasil',t2:'Marrocos',city:'Nova York/NJ',group:'C',round:1},
-  {date:'2026-06-13',h:22,min:0,label:'22h',t1:'Haiti',t2:'Escócia',city:'Boston',group:'C',round:1},
-  // ── 14 JUN ──
-  {date:'2026-06-14',h:14,min:0,label:'14h',t1:'Alemanha',t2:'Curaçao',city:'Houston',group:'E',round:1},
-  {date:'2026-06-14',h:17,min:0,label:'17h',t1:'Holanda',t2:'Japão',city:'Dallas',group:'F',round:1},
-  {date:'2026-06-14',h:20,min:0,label:'20h',t1:'Costa do Marfim',t2:'Equador',city:'Filadélfia',group:'E',round:1},
-  {date:'2026-06-14',h:23,min:0,label:'23h',t1:'Suécia',t2:'Tunísia',city:'Monterrey',group:'F',round:1},
-  // ── 15 JUN ──
-  {date:'2026-06-15',h:13,min:0,label:'13h',t1:'Espanha',t2:'Cabo Verde',city:'Atlanta',group:'H',round:1},
-  {date:'2026-06-15',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Egito',city:'Seattle',group:'G',round:1},
-  {date:'2026-06-15',h:19,min:0,label:'19h',t1:'Arábia Saudita',t2:'Uruguai',city:'Miami',group:'H',round:1},
-  {date:'2026-06-15',h:22,min:0,label:'22h',t1:'Irã',t2:'Nova Zelândia',city:'Los Angeles',group:'G',round:1},
-  // ── 16 JUN ──
-  {date:'2026-06-16',h:16,min:0,label:'16h',t1:'França',t2:'Senegal',city:'Nova York/NJ',group:'I',round:1},
-  {date:'2026-06-16',h:19,min:0,label:'19h',t1:'Iraque',t2:'Noruega',city:'Boston',group:'I',round:1},
-  {date:'2026-06-16',h:22,min:0,label:'22h',t1:'Argentina',t2:'Argélia',city:'Kansas City',group:'J',round:1},
-  // ── 17 JUN ──
-  {date:'2026-06-17',h:1,min:0,label:'01h',t1:'Áustria',t2:'Jordânia',city:'San Francisco',group:'J',round:1},
-  {date:'2026-06-17',h:14,min:0,label:'14h',t1:'Portugal',t2:'RD Congo',city:'Houston',group:'K',round:1},
-  {date:'2026-06-17',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Croácia',city:'Dallas',group:'L',round:1},
-  {date:'2026-06-17',h:20,min:0,label:'20h',t1:'Gana',t2:'Panamá',city:'Toronto',group:'L',round:1},
-  {date:'2026-06-17',h:23,min:0,label:'23h',t1:'Uzbequistão',t2:'Colômbia',city:'Cidade do México',group:'K',round:1},
-  // ── 18 JUN ──
-  {date:'2026-06-18',h:13,min:0,label:'13h',t1:'República Tcheca',t2:'África do Sul',city:'Atlanta',group:'A',round:2},
-  {date:'2026-06-18',h:16,min:0,label:'16h',t1:'Suíça',t2:'Bósnia e Herzegovina',city:'Los Angeles',group:'B',round:2},
-  {date:'2026-06-18',h:19,min:0,label:'19h',t1:'Canadá',t2:'Catar',city:'Vancouver',group:'B',round:2},
-  {date:'2026-06-18',h:22,min:0,label:'22h',t1:'México',t2:'Coreia do Sul',city:'Guadalajara',group:'A',round:2},
-  // ── 19 JUN ──
-  {date:'2026-06-19',h:1,min:0,label:'01h',t1:'Turquia',t2:'Paraguai',city:'San Francisco',group:'D',round:2},
-  {date:'2026-06-19',h:16,min:0,label:'16h',t1:'Estados Unidos',t2:'Austrália',city:'Seattle',group:'D',round:2},
-  {date:'2026-06-19',h:19,min:0,label:'19h',t1:'Escócia',t2:'Marrocos',city:'Boston',group:'C',round:2},
-  {date:'2026-06-19',h:22,min:0,label:'22h',t1:'Brasil',t2:'Haiti',city:'Filadélfia',group:'C',round:2},
-  // ── 20 JUN ──
-  {date:'2026-06-20',h:14,min:0,label:'14h',t1:'Holanda',t2:'Suécia',city:'Houston',group:'F',round:2},
-  {date:'2026-06-20',h:17,min:0,label:'17h',t1:'Alemanha',t2:'Costa do Marfim',city:'Toronto',group:'E',round:2},
-  {date:'2026-06-20',h:21,min:0,label:'21h',t1:'Equador',t2:'Curaçao',city:'Kansas City',group:'E',round:2},
-  // ── 21 JUN ──
-  {date:'2026-06-21',h:1,min:0,label:'01h',t1:'Tunísia',t2:'Japão',city:'Monterrey',group:'F',round:2},
-  {date:'2026-06-21',h:13,min:0,label:'13h',t1:'Espanha',t2:'Arábia Saudita',city:'Atlanta',group:'H',round:2},
-  {date:'2026-06-21',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Irã',city:'Los Angeles',group:'G',round:2},
-  {date:'2026-06-21',h:19,min:0,label:'19h',t1:'Uruguai',t2:'Cabo Verde',city:'Miami',group:'H',round:2},
-  {date:'2026-06-21',h:22,min:0,label:'22h',t1:'Nova Zelândia',t2:'Egito',city:'Vancouver',group:'G',round:2},
-  // ── 22 JUN ──
-  {date:'2026-06-22',h:14,min:0,label:'14h',t1:'Argentina',t2:'Áustria',city:'Dallas',group:'J',round:2},
-  {date:'2026-06-22',h:18,min:0,label:'18h',t1:'França',t2:'Iraque',city:'Filadélfia',group:'I',round:2},
-  {date:'2026-06-22',h:21,min:0,label:'21h',t1:'Noruega',t2:'Senegal',city:'Nova York/NJ',group:'I',round:2},
-  // ── 23 JUN ──
-  {date:'2026-06-23',h:0,min:0,label:'00h',t1:'Jordânia',t2:'Argélia',city:'San Francisco',group:'J',round:2},
-  {date:'2026-06-23',h:14,min:0,label:'14h',t1:'Portugal',t2:'Uzbequistão',city:'Houston',group:'K',round:2},
-  {date:'2026-06-23',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Gana',city:'Boston',group:'L',round:2},
-  {date:'2026-06-23',h:20,min:0,label:'20h',t1:'Panamá',t2:'Croácia',city:'Toronto',group:'L',round:2},
-  {date:'2026-06-23',h:23,min:0,label:'23h',t1:'Colômbia',t2:'RD Congo',city:'Guadalajara',group:'K',round:2},
-  // ── 24 JUN ──
-  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Suíça',t2:'Canadá',city:'Vancouver',group:'B',round:3},
-  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Bósnia e Herzegovina',t2:'Catar',city:'Seattle',group:'B',round:3},
-  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Escócia',t2:'Brasil',city:'Miami',group:'C',round:3},
-  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Marrocos',t2:'Haiti',city:'Atlanta',group:'C',round:3},
-  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'República Tcheca',t2:'México',city:'Cidade do México',group:'A',round:3},
-  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'África do Sul',t2:'Coreia do Sul',city:'Monterrey',group:'A',round:3},
-  // ── 25 JUN ──
-  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Equador',t2:'Alemanha',city:'Nova York/NJ',group:'E',round:3},
-  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Curaçao',t2:'Costa do Marfim',city:'Filadélfia',group:'E',round:3},
-  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Japão',t2:'Suécia',city:'Dallas',group:'F',round:3},
-  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Tunísia',t2:'Holanda',city:'Kansas City',group:'F',round:3},
-  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Turquia',t2:'Estados Unidos',city:'Los Angeles',group:'D',round:3},
-  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Paraguai',t2:'Austrália',city:'San Francisco',group:'D',round:3},
-  // ── 26 JUN ──
-  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Noruega',t2:'França',city:'Boston',group:'I',round:3},
-  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Senegal',t2:'Iraque',city:'Toronto',group:'I',round:3},
-  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Cabo Verde',t2:'Arábia Saudita',city:'Houston',group:'H',round:3},
-  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Uruguai',t2:'Espanha',city:'Guadalajara',group:'H',round:3},
-  // ── 27 JUN ──
-  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Egito',t2:'Irã',city:'Seattle',group:'G',round:3},
-  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Nova Zelândia',t2:'Bélgica',city:'Vancouver',group:'G',round:3},
-  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Panamá',t2:'Inglaterra',city:'Nova York/NJ',group:'L',round:3},
-  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Croácia',t2:'Gana',city:'Filadélfia',group:'L',round:3},
-  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'Colômbia',t2:'Portugal',city:'Miami',group:'K',round:3},
-  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'RD Congo',t2:'Uzbequistão',city:'Atlanta',group:'K',round:3},
-  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Argélia',t2:'Áustria',city:'Kansas City',group:'J',round:3},
-  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Jordânia',t2:'Argentina',city:'Dallas',group:'J',round:3},
+// ─── FASE DE GRUPOS ──────────────────────────────────────────────────────────
+const gamesGrupos = [
+  {date:'2026-06-11',h:16,min:0,label:'16h',t1:'México',t2:'África do Sul',city:'Cidade do México',group:'A',round:1,fase:'grupos'},
+  {date:'2026-06-11',h:23,min:0,label:'23h',t1:'Coreia do Sul',t2:'República Tcheca',city:'Guadalajara',group:'A',round:1,fase:'grupos'},
+  {date:'2026-06-12',h:16,min:0,label:'16h',t1:'Canadá',t2:'Bósnia e Herzegovina',city:'Toronto',group:'B',round:1,fase:'grupos'},
+  {date:'2026-06-12',h:22,min:0,label:'22h',t1:'Estados Unidos',t2:'Paraguai',city:'Los Angeles',group:'D',round:1,fase:'grupos'},
+  {date:'2026-06-13',h:1,min:0,label:'01h',t1:'Austrália',t2:'Turquia',city:'Vancouver',group:'D',round:1,fase:'grupos'},
+  {date:'2026-06-13',h:16,min:0,label:'16h',t1:'Catar',t2:'Suíça',city:'San Francisco',group:'B',round:1,fase:'grupos'},
+  {date:'2026-06-13',h:19,min:0,label:'19h',t1:'Brasil',t2:'Marrocos',city:'Nova York/NJ',group:'C',round:1,fase:'grupos'},
+  {date:'2026-06-13',h:22,min:0,label:'22h',t1:'Haiti',t2:'Escócia',city:'Boston',group:'C',round:1,fase:'grupos'},
+  {date:'2026-06-14',h:14,min:0,label:'14h',t1:'Alemanha',t2:'Curaçao',city:'Houston',group:'E',round:1,fase:'grupos'},
+  {date:'2026-06-14',h:17,min:0,label:'17h',t1:'Holanda',t2:'Japão',city:'Dallas',group:'F',round:1,fase:'grupos'},
+  {date:'2026-06-14',h:20,min:0,label:'20h',t1:'Costa do Marfim',t2:'Equador',city:'Filadélfia',group:'E',round:1,fase:'grupos'},
+  {date:'2026-06-14',h:23,min:0,label:'23h',t1:'Suécia',t2:'Tunísia',city:'Monterrey',group:'F',round:1,fase:'grupos'},
+  {date:'2026-06-15',h:13,min:0,label:'13h',t1:'Espanha',t2:'Cabo Verde',city:'Atlanta',group:'H',round:1,fase:'grupos'},
+  {date:'2026-06-15',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Egito',city:'Seattle',group:'G',round:1,fase:'grupos'},
+  {date:'2026-06-15',h:19,min:0,label:'19h',t1:'Arábia Saudita',t2:'Uruguai',city:'Miami',group:'H',round:1,fase:'grupos'},
+  {date:'2026-06-15',h:22,min:0,label:'22h',t1:'Irã',t2:'Nova Zelândia',city:'Los Angeles',group:'G',round:1,fase:'grupos'},
+  {date:'2026-06-16',h:16,min:0,label:'16h',t1:'França',t2:'Senegal',city:'Nova York/NJ',group:'I',round:1,fase:'grupos'},
+  {date:'2026-06-16',h:19,min:0,label:'19h',t1:'Iraque',t2:'Noruega',city:'Boston',group:'I',round:1,fase:'grupos'},
+  {date:'2026-06-16',h:22,min:0,label:'22h',t1:'Argentina',t2:'Argélia',city:'Kansas City',group:'J',round:1,fase:'grupos'},
+  {date:'2026-06-17',h:1,min:0,label:'01h',t1:'Áustria',t2:'Jordânia',city:'San Francisco',group:'J',round:1,fase:'grupos'},
+  {date:'2026-06-17',h:14,min:0,label:'14h',t1:'Portugal',t2:'RD Congo',city:'Houston',group:'K',round:1,fase:'grupos'},
+  {date:'2026-06-17',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Croácia',city:'Dallas',group:'L',round:1,fase:'grupos'},
+  {date:'2026-06-17',h:20,min:0,label:'20h',t1:'Gana',t2:'Panamá',city:'Toronto',group:'L',round:1,fase:'grupos'},
+  {date:'2026-06-17',h:23,min:0,label:'23h',t1:'Uzbequistão',t2:'Colômbia',city:'Cidade do México',group:'K',round:1,fase:'grupos'},
+  {date:'2026-06-18',h:13,min:0,label:'13h',t1:'República Tcheca',t2:'África do Sul',city:'Atlanta',group:'A',round:2,fase:'grupos'},
+  {date:'2026-06-18',h:16,min:0,label:'16h',t1:'Suíça',t2:'Bósnia e Herzegovina',city:'Los Angeles',group:'B',round:2,fase:'grupos'},
+  {date:'2026-06-18',h:19,min:0,label:'19h',t1:'Canadá',t2:'Catar',city:'Vancouver',group:'B',round:2,fase:'grupos'},
+  {date:'2026-06-18',h:22,min:0,label:'22h',t1:'México',t2:'Coreia do Sul',city:'Guadalajara',group:'A',round:2,fase:'grupos'},
+  {date:'2026-06-19',h:1,min:0,label:'01h',t1:'Turquia',t2:'Paraguai',city:'San Francisco',group:'D',round:2,fase:'grupos'},
+  {date:'2026-06-19',h:16,min:0,label:'16h',t1:'Estados Unidos',t2:'Austrália',city:'Seattle',group:'D',round:2,fase:'grupos'},
+  {date:'2026-06-19',h:19,min:0,label:'19h',t1:'Escócia',t2:'Marrocos',city:'Boston',group:'C',round:2,fase:'grupos'},
+  {date:'2026-06-19',h:22,min:0,label:'22h',t1:'Brasil',t2:'Haiti',city:'Filadélfia',group:'C',round:2,fase:'grupos'},
+  {date:'2026-06-20',h:14,min:0,label:'14h',t1:'Holanda',t2:'Suécia',city:'Houston',group:'F',round:2,fase:'grupos'},
+  {date:'2026-06-20',h:17,min:0,label:'17h',t1:'Alemanha',t2:'Costa do Marfim',city:'Toronto',group:'E',round:2,fase:'grupos'},
+  {date:'2026-06-20',h:21,min:0,label:'21h',t1:'Equador',t2:'Curaçao',city:'Kansas City',group:'E',round:2,fase:'grupos'},
+  {date:'2026-06-21',h:1,min:0,label:'01h',t1:'Tunísia',t2:'Japão',city:'Monterrey',group:'F',round:2,fase:'grupos'},
+  {date:'2026-06-21',h:13,min:0,label:'13h',t1:'Espanha',t2:'Arábia Saudita',city:'Atlanta',group:'H',round:2,fase:'grupos'},
+  {date:'2026-06-21',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Irã',city:'Los Angeles',group:'G',round:2,fase:'grupos'},
+  {date:'2026-06-21',h:19,min:0,label:'19h',t1:'Uruguai',t2:'Cabo Verde',city:'Miami',group:'H',round:2,fase:'grupos'},
+  {date:'2026-06-21',h:22,min:0,label:'22h',t1:'Nova Zelândia',t2:'Egito',city:'Vancouver',group:'G',round:2,fase:'grupos'},
+  {date:'2026-06-22',h:14,min:0,label:'14h',t1:'Argentina',t2:'Áustria',city:'Dallas',group:'J',round:2,fase:'grupos'},
+  {date:'2026-06-22',h:18,min:0,label:'18h',t1:'França',t2:'Iraque',city:'Filadélfia',group:'I',round:2,fase:'grupos'},
+  {date:'2026-06-22',h:21,min:0,label:'21h',t1:'Noruega',t2:'Senegal',city:'Nova York/NJ',group:'I',round:2,fase:'grupos'},
+  {date:'2026-06-23',h:0,min:0,label:'00h',t1:'Jordânia',t2:'Argélia',city:'San Francisco',group:'J',round:2,fase:'grupos'},
+  {date:'2026-06-23',h:14,min:0,label:'14h',t1:'Portugal',t2:'Uzbequistão',city:'Houston',group:'K',round:2,fase:'grupos'},
+  {date:'2026-06-23',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Gana',city:'Boston',group:'L',round:2,fase:'grupos'},
+  {date:'2026-06-23',h:20,min:0,label:'20h',t1:'Panamá',t2:'Croácia',city:'Toronto',group:'L',round:2,fase:'grupos'},
+  {date:'2026-06-23',h:23,min:0,label:'23h',t1:'Colômbia',t2:'RD Congo',city:'Guadalajara',group:'K',round:2,fase:'grupos'},
+  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Suíça',t2:'Canadá',city:'Vancouver',group:'B',round:3,fase:'grupos'},
+  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Bósnia e Herzegovina',t2:'Catar',city:'Seattle',group:'B',round:3,fase:'grupos'},
+  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Escócia',t2:'Brasil',city:'Miami',group:'C',round:3,fase:'grupos'},
+  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Marrocos',t2:'Haiti',city:'Atlanta',group:'C',round:3,fase:'grupos'},
+  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'República Tcheca',t2:'México',city:'Cidade do México',group:'A',round:3,fase:'grupos'},
+  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'África do Sul',t2:'Coreia do Sul',city:'Monterrey',group:'A',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Equador',t2:'Alemanha',city:'Nova York/NJ',group:'E',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Curaçao',t2:'Costa do Marfim',city:'Filadélfia',group:'E',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Japão',t2:'Suécia',city:'Dallas',group:'F',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Tunísia',t2:'Holanda',city:'Kansas City',group:'F',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Turquia',t2:'Estados Unidos',city:'Los Angeles',group:'D',round:3,fase:'grupos'},
+  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Paraguai',t2:'Austrália',city:'San Francisco',group:'D',round:3,fase:'grupos'},
+  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Noruega',t2:'França',city:'Boston',group:'I',round:3,fase:'grupos'},
+  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Senegal',t2:'Iraque',city:'Toronto',group:'I',round:3,fase:'grupos'},
+  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Cabo Verde',t2:'Arábia Saudita',city:'Houston',group:'H',round:3,fase:'grupos'},
+  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Uruguai',t2:'Espanha',city:'Guadalajara',group:'H',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Egito',t2:'Irã',city:'Seattle',group:'G',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Nova Zelândia',t2:'Bélgica',city:'Vancouver',group:'G',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Panamá',t2:'Inglaterra',city:'Nova York/NJ',group:'L',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Croácia',t2:'Gana',city:'Filadélfia',group:'L',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'Colômbia',t2:'Portugal',city:'Miami',group:'K',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'RD Congo',t2:'Uzbequistão',city:'Atlanta',group:'K',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Argélia',t2:'Áustria',city:'Kansas City',group:'J',round:3,fase:'grupos'},
+  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Jordânia',t2:'Argentina',city:'Dallas',group:'J',round:3,fase:'grupos'},
 ];
+
+// ─── MATA-MATA (16-AVOS) ──────────────────────────────────────────────────────
+const gamesMata = [
+  // 28 JUN
+  {date:'2026-06-28',h:16,min:0,label:'16h',t1:'África do Sul',t2:'Canadá',city:'Los Angeles',group:'16-AVOS',round:1,fase:'mata'},
+  // 29 JUN
+  {date:'2026-06-29',h:14,min:0,label:'14h',t1:'Brasil',t2:'Japão',city:'Houston',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-06-29',h:17,min:30,label:'17:30h',t1:'Alemanha',t2:'Paraguai',city:'Dallas',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-06-29',h:22,min:0,label:'22h',t1:'Holanda',t2:'Marrocos',city:'Toronto',group:'16-AVOS',round:1,fase:'mata'},
+  // 30 JUN
+  {date:'2026-06-30',h:14,min:0,label:'14h',t1:'Costa do Marfim',t2:'Noruega',city:'Seattle',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-06-30',h:18,min:0,label:'18h',t1:'França',t2:'Suécia',city:'Miami',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-06-30',h:22,min:0,label:'22h',t1:'México',t2:'Equador',city:'Cidade do México',group:'16-AVOS',round:1,fase:'mata'},
+  // 01 JUL
+  {date:'2026-07-01',h:13,min:0,label:'13h',t1:'Inglaterra',t2:'RD Congo',city:'Nova York/NJ',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-01',h:17,min:0,label:'17h',t1:'Bélgica',t2:'Senegal',city:'Atlanta',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-01',h:21,min:0,label:'21h',t1:'Estados Unidos',t2:'Bósnia e Herzegovina',city:'Kansas City',group:'16-AVOS',round:1,fase:'mata'},
+  // 02 JUL
+  {date:'2026-07-02',h:16,min:0,label:'16h',t1:'Espanha',t2:'Áustria',city:'San Francisco',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-02',h:20,min:0,label:'20h',t1:'Portugal',t2:'Croácia',city:'Toronto',group:'16-AVOS',round:1,fase:'mata'},
+  // 03 JUL
+  {date:'2026-07-03',h:0,min:0,label:'00h',t1:'Suíça',t2:'Argélia',city:'Vancouver',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-03',h:15,min:0,label:'15h',t1:'Austrália',t2:'Egito',city:'Boston',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-03',h:19,min:0,label:'19h',t1:'Argentina',t2:'Cabo Verde',city:'Dallas',group:'16-AVOS',round:1,fase:'mata'},
+  {date:'2026-07-03',h:22,min:30,label:'22:30h',t1:'Colômbia',t2:'Gana',city:'Atlanta',group:'16-AVOS',round:1,fase:'mata'},
+];
+
+const games = [...gamesGrupos, ...gamesMata];
 games.forEach((g,i) => g.id = 'g'+i);
 
 function kickoff(g){
@@ -670,128 +636,104 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS REAIS — atualizados em 17/06/2026
+//  RESULTADOS — apenas 25, 26 e 27/06 (mais recentes)
 // ══════════════════════════════════════════════════════
 const resultados = {
-  'Iraque vs Noruega':                 '1-4',
-  'Argentina vs Argélia':              '3-0',
-  // 17 Jun
-  'Áustria vs Jordânia':               '3-1',
-  'Portugal vs RD Congo':              '1-1',
-  'Inglaterra vs Croácia':             '4-2',
+  // 25 Jun
+  'Equador vs Alemanha':            '2-1',
+  'Curaçao vs Costa do Marfim':     '0-2',
+  'Japão vs Suécia':                '1-1',
+  'Tunísia vs Holanda':             '1-3',
+  'Turquia vs Estados Unidos':      '3-2',
+  'Paraguai vs Austrália':          '0-0',
+  // 26 Jun
+  'Noruega vs França':              '1-4',
+  'Senegal vs Iraque':              '4-0',
+  'Cabo Verde vs Arábia Saudita':   '1-0',
+  'Uruguai vs Espanha':             '0-1',
+  // 27 Jun
+  'Egito vs Irã':                   '1-1',
+  'Nova Zelândia vs Bélgica':       '0-2',
+  'Panamá vs Inglaterra':           '0-3',
+  'Croácia vs Gana':                '2-1',
+  'Colômbia vs Portugal':           '1-2',
+  'RD Congo vs Uzbequistão':        '3-1',
+  'Argélia vs Áustria':             '3-3',
+  'Jordânia vs Argentina':          '0-2',
 };
 
-// Destaques especiais exibidos junto ao resultado no rodapé (ticker)
 const destaques = {
-  'Iraque vs Noruega':      '⭐ 2 gols de Haaland',
-  'Argentina vs Argélia':   '⭐ Hat-trick de Messi',
-  'Alemanha vs Curaçao':    '⭐ Goleada alemã 7-1',
-  'Inglaterra vs Croácia':  '⭐ 2 gols de H. Kane',
+  'Noruega vs França':         '⭐ 3 gols Dembélé',
+  'Senegal vs Iraque':         '⭐ Goleada 4-0',
+  'Turquia vs Estados Unidos': '⭐ Virada turca',
+  'Colômbia vs Portugal':      '⭐ Brasil vs Japão',
+  'Jordânia vs Argentina':     '⭐ Argentina no mata-mata',
+  'Escócia vs Brasil':         '🇧🇷 BRASIL 3-0! HEXA VEM!',
 };
 
 // ══════════════════════════════════════════════════════════════════════
-//  OVERLAY DE ABERTURA DE JOGO
+//  OVERLAY
 // ══════════════════════════════════════════════════════════════════════
 const overlayShown = new Set();
-
 function showGameOverlay(g, link, minutesLeft) {
   if (overlayShown.has(g.id)) return;
   overlayShown.add(g.id);
-
-  const overlay  = document.getElementById('game-launch-overlay');
-  const titleEl  = document.getElementById('overlay-title');
-  const matchEl  = document.getElementById('overlay-match');
-  const subEl    = document.getElementById('overlay-sub');
-  const btnEl    = document.getElementById('overlay-btn');
-  const cdEl     = document.getElementById('overlay-countdown');
-  const dismissEl= document.getElementById('overlay-dismiss');
-
+  const overlay   = document.getElementById('game-launch-overlay');
+  const titleEl   = document.getElementById('overlay-title');
+  const matchEl   = document.getElementById('overlay-match');
+  const subEl     = document.getElementById('overlay-sub');
+  const btnEl     = document.getElementById('overlay-btn');
+  const cdEl      = document.getElementById('overlay-countdown');
+  const dismissEl = document.getElementById('overlay-dismiss');
   titleEl.textContent = minutesLeft > 0 ? `⚽ EM ${minutesLeft} MIN!` : '⚽ JOGO COMEÇANDO!';
   matchEl.textContent = `${g.t1} vs ${g.t2}`;
-  subEl.textContent   = `Grupo ${g.group} · ${g.city} · Clique para abrir a transmissão`;
+  subEl.textContent   = `${g.group} · ${g.city} · Clique para abrir a transmissão`;
   btnEl.href          = link;
-
   let cdInterval = setInterval(() => {
     const diff = kickoff(g).getTime() - Date.now();
-    if (diff <= 0) {
-      cdEl.textContent = '🔴 AO VIVO AGORA!';
-      clearInterval(cdInterval);
-    } else {
-      const m = Math.floor(diff / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
+    if (diff <= 0) { cdEl.textContent = '🔴 AO VIVO AGORA!'; clearInterval(cdInterval); }
+    else {
+      const m = Math.floor(diff / 60000), s = Math.floor((diff % 60000) / 1000);
       cdEl.textContent = `Começa em ${m}m ${String(s).padStart(2,'0')}s`;
     }
   }, 1000);
-
   overlay.classList.add('visible');
-
   btnEl.onclick = (e) => {
     e.preventDefault();
-    const win = window.open(link, '_blank');
-    if (win) {
-      try {
-        win.moveTo(0, 0);
-        win.resizeTo(screen.width, screen.height);
-        setTimeout(() => {
-          try {
-            if (win.document && win.document.documentElement) {
-              const el = win.document.documentElement;
-              if (el.requestFullscreen) el.requestFullscreen();
-            }
-          } catch(e) {}
-        }, 1500);
-      } catch(e) {}
-    }
+    window.open(link, '_blank');
     overlay.classList.remove('visible');
     clearInterval(cdInterval);
   };
-
-  dismissEl.onclick = () => {
-    overlay.classList.remove('visible');
-    clearInterval(cdInterval);
-  };
-
+  dismissEl.onclick = () => { overlay.classList.remove('visible'); clearInterval(cdInterval); };
   if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
     const n = new Notification(`⚽ Em ${minutesLeft} min: ${g.t1} vs ${g.t2}`, {
-      body: `Grupo ${g.group} · ${g.city} · Clique para abrir!`,
-      icon: './logo.png',
-      tag: 'pre-' + g.id,
-      requireInteraction: true
+      body: `${g.group} · ${g.city}`, icon: './logo.png', tag: 'pre-' + g.id, requireInteraction: true
     });
     n.onclick = () => { window.open(link, '_blank'); n.close(); };
   }
 }
 
 const overlayScheduled = new Set();
-
 function scheduleOverlays() {
   const now = Date.now();
   games.forEach(g => {
     const link = gameLinks[gameKey(g)];
     if (!link) return;
-
     const kickoffMs = kickoff(g).getTime();
-    const openAt    = kickoffMs - 30 * 60 * 1000;
-    const delay     = openAt - now;
-
-    if (delay >= 0 && delay <= 7 * 24 * 3600 * 1000 && !overlayScheduled.has(g.id)) {
+    const openAt = kickoffMs - 30 * 60 * 1000;
+    const delay  = openAt - now;
+    if (delay >= 0 && delay <= 7*24*3600*1000 && !overlayScheduled.has(g.id)) {
       overlayScheduled.add(g.id);
       setTimeout(() => showGameOverlay(g, link, 30), delay);
     }
-
     if (delay < 0 && kickoffMs > now && !overlayShown.has(g.id)) {
-      const minLeft = Math.max(0, Math.floor((kickoffMs - now) / 60000));
-      showGameOverlay(g, link, minLeft);
+      showGameOverlay(g, link, Math.max(0, Math.floor((kickoffMs - now) / 60000)));
     }
   });
 }
 
-// ─── NOTIFICAÇÕES ─────────────────────────────────────────────────────────
 function initNotifications(){
-  if(!('Notification' in window)){
-    scheduleOverlays();
-    return;
-  }
+  if(!('Notification' in window)){ scheduleOverlays(); return; }
   if(Notification.permission === 'granted'){
     localStorage.setItem('notificationsEnabled', 'true');
     document.getElementById('notifBar').classList.add('hidden');
@@ -806,15 +748,11 @@ function initNotifications(){
     document.getElementById('btnNotif').addEventListener('click', () => {
       Notification.requestPermission().then(p => {
         document.getElementById('notifBar').classList.add('hidden');
-        if(p === 'granted'){
-          localStorage.setItem('notificationsEnabled', 'true');
-        }
+        if(p === 'granted') localStorage.setItem('notificationsEnabled', 'true');
         scheduleOverlays();
       });
     });
-  } else {
-    scheduleOverlays();
-  }
+  } else { scheduleOverlays(); }
 }
 
 // ─── TICKER ────────────────────────────────────────────────────────────────
@@ -822,9 +760,11 @@ function buildTicker(){
   const now = Date.now();
   const tickerEl = document.getElementById('results-ticker');
   const innerEl  = document.getElementById('tickerInner');
+  // Só exibe resultados de 25, 26 e 27/jun
+  const allowedDates = ['2026-06-25','2026-06-26','2026-06-27'];
   const finished = games.filter(g => {
     const k = kickoff(g).getTime();
-    return k + GAME_DUR < now && resultados[gameKey(g)];
+    return k + GAME_DUR < now && resultados[gameKey(g)] && allowedDates.includes(g.date);
   });
   if(!finished.length){ tickerEl.classList.add('hidden'); return; }
   tickerEl.classList.remove('hidden');
@@ -836,8 +776,10 @@ function buildTicker(){
     const [s1,s2] = score.split('-').map(s=>s.trim());
     const dateStr = g.date.slice(8)+'/'+g.date.slice(5,7);
     const destaque = destaques[key];
+    const temBrasil = (g.t1==='Brasil'||g.t2==='Brasil');
     return `<span class="ticker-item">
-      ${destaque ? `<span class="t-highlight">${destaque}</span>` : ''}
+      ${temBrasil ? `<span class="t-brasil">🇧🇷 BRASIL</span>` : ''}
+      ${destaque && !temBrasil ? `<span class="t-highlight">${destaque}</span>` : ''}
       <span class="t-group">Grp ${g.group}</span>
       <img class="flag" src="${flagUrl(teams[g.t1]||'un')}" alt="${g.t1}" style="width:24px;height:17px" onerror="this.style.display='none'">
       ${g.t1}
@@ -852,8 +794,7 @@ function buildTicker(){
   finished.forEach(g => { html += makeItem(g); });
   finished.forEach(g => { html += makeItem(g); });
   innerEl.innerHTML = html;
-
-  const totalPx = innerEl.scrollWidth/2;
+  const totalPx = innerEl.scrollWidth / 2;
   innerEl.style.animationDuration = Math.max(40, totalPx/65)+'s';
 }
 
@@ -862,13 +803,15 @@ const byDate={};
 games.forEach(g=>{ (byDate[g.date]=byDate[g.date]||[]).push(g); });
 const months=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const wdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const roundLbl={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
+const roundLblGrupos={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
 const dateLbl={
   '2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13','2026-06-14':'Dom 14',
   '2026-06-15':'Seg 15','2026-06-16':'Ter 16','2026-06-17':'Qua 17','2026-06-18':'Qui 18',
   '2026-06-19':'Sex 19','2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22',
   '2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25','2026-06-26':'Sex 26',
-  '2026-06-27':'Sáb 27'
+  '2026-06-27':'Sáb 27',
+  '2026-06-28':'Dom 28','2026-06-29':'Seg 29','2026-06-30':'Ter 30',
+  '2026-07-01':'Qua 01/Jul','2026-07-02':'Qui 02','2026-07-03':'Sex 03',
 };
 
 const tabsBar=document.getElementById('tabsBar');
@@ -877,14 +820,38 @@ const todayStr=brasiliaToday();
 const sorted=Object.keys(byDate).sort();
 let activeTab=sorted.includes(todayStr)?todayStr:sorted[0];
 
+// Separador visual entre grupos e mata-mata
+let lastFase = null;
+
 sorted.forEach(date=>{
   const dayG=byDate[date];
   const comCt=dayG.filter(g=>isComercial(g.h)).length;
   const isToday=date===todayStr;
+  const hasBrasil=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
+  const isMata=dayG[0].fase==='mata';
+
+  // Inserir label de fase na tab bar
+  if(isMata && lastFase !== 'mata'){
+    const lbl = document.createElement('div');
+    lbl.className = 'fase-label';
+    lbl.textContent = '⚔️ MATA-MATA';
+    tabsBar.appendChild(lbl);
+    lastFase = 'mata';
+  } else if(!isMata && lastFase === null) {
+    const lbl = document.createElement('div');
+    lbl.className = 'fase-label';
+    lbl.textContent = '🏆 GRUPOS';
+    tabsBar.appendChild(lbl);
+    lastFase = 'grupos';
+  }
+
   const btn=document.createElement('button');
-  btn.className='tab-btn'+(comCt>0?' has-com':'')+(isToday?' hoje':'');
+  btn.className='tab-btn'+(comCt>0?' has-com':'')+(isToday?' hoje':'')+(hasBrasil?' brasil-tab':'');
   btn.dataset.date=date;
-  btn.textContent=(dateLbl[date]||date.slice(8))+(isToday?' ★':'');
+  let btnLabel = dateLbl[date]||date.slice(8);
+  if(isToday) btnLabel += ' ★';
+  if(hasBrasil) btnLabel = '🇧🇷 '+btnLabel;
+  btn.textContent=btnLabel;
   if(date===activeTab) btn.classList.add('active');
   btn.addEventListener('click',()=>switchTab(date));
   tabsBar.appendChild(btn);
@@ -895,15 +862,48 @@ sorted.forEach(date=>{
   const [y,m,d]=date.split('-');
   const wd=new Date(date+'T12:00:00').getDay();
   const rounds=[...new Set(dayG.map(g=>g.round))].sort();
-  let html=`<div class="day-hdr"><div><div class="day-title"><span class="dnum">${d}</span>${months[+m]} 2026</div><div class="day-round">${wdays[wd]} · ${rounds.map(r=>roundLbl[r]).join(' & ')}</div></div>${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}</div><div class="games-list">`;
+
+  let roundLabel;
+  if(isMata){
+    roundLabel = '16-Avos de Final — Mata-Mata';
+  } else {
+    roundLabel = rounds.map(r=>roundLblGrupos[r]).join(' & ');
+  }
+
+  const hasBrasilDay=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
+
+  let html=`<div class="day-hdr">
+    <div>
+      <div class="day-title"><span class="dnum">${d}</span>${months[+m]} 2026</div>
+      <div class="day-round">${wdays[wd]} · ${roundLabel}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+      ${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}
+      ${hasBrasilDay?`<div class="day-brasil-badge">🇧🇷 JOGO DO BRASIL — HEXA!</div>`:''}
+      ${isMata?`<div class="day-com-badge" style="color:#00D97A;border-color:rgba(0,200,120,0.4);background:rgba(0,200,120,0.08);">⚔️ FASE ELIMINATÓRIA</div>`:''}
+    </div>
+  </div>
+  <div class="games-list">`;
+
   dayG.forEach(g=>{
     const com=isComercial(g.h), b1=isBrasil(g.t1), b2=isBrasil(g.t2);
+    const temBr=b1||b2;
     const link=gameLinks[gameKey(g)];
     const watchBtn=link?`<a class="btn-watch" href="${link}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Assistir</a>`:'';
-    html+=`<div class="game-card ${com?'com':'out'}" id="card-${g.id}">
+    const cardClass = temBr ? 'brasil-game' : (com ? 'com' : 'out');
+    const grpClass = g.fase==='mata' ? 'knockout' : '';
+    const grpLabel = g.fase==='mata' ? '16-avos' : `Grupo ${g.group}`;
+    html+=`<div class="game-card ${cardClass}" id="card-${g.id}">
       <div class="col-time"><div class="time-big">${g.label}</div><div class="time-lbl">Brasília</div></div>
-      <div class="col-match"><div class="match-teams">${teamHtml(g.t1,b1)}<span class="vs-sep">vs</span>${teamHtml(g.t2,b2)}</div><div class="match-meta"><span class="meta-grp">Grupo ${g.group}</span><span class="meta-city">📍 ${g.city}</span></div>${watchBtn}</div>
-      <div class="col-cd" id="colcd-${g.id}">${com?'<span class="badge-com">Comercial</span>':''}<div class="cd-box"><div class="cd-num far" id="cdnum-${g.id}">--</div><div class="cd-lbl" id="cdlbl-${g.id}">calculando</div></div></div>
+      <div class="col-match">
+        <div class="match-teams">${teamHtml(g.t1,b1)}<span class="vs-sep">vs</span>${teamHtml(g.t2,b2)}</div>
+        <div class="match-meta"><span class="meta-grp ${grpClass}">${grpLabel}</span><span class="meta-city">📍 ${g.city}</span></div>
+        ${watchBtn}
+      </div>
+      <div class="col-cd" id="colcd-${g.id}">
+        ${temBr?'<span class="badge-brasil">🇧🇷 Brasil</span>':(com?'<span class="badge-com">Comercial</span>':'')}
+        <div class="cd-box"><div class="cd-num far" id="cdnum-${g.id}">--</div><div class="cd-lbl" id="cdlbl-${g.id}">calculando</div></div>
+      </div>
     </div>`;
   });
   html+='</div>';
@@ -919,11 +919,9 @@ function canarySVG(){
     <image href="./aspirador.png" x="-12" y="-10" width="264" height="198" preserveAspectRatio="xMidYMid meet"/>
   </svg>`;
 }
-
 const STAR_CHARS = ['✦','✧','✨','★','✩','⭐','💫','🌟'];
 let lastStarPos = {x:-9999, y:-9999};
 const STAR_MIN_DIST = 60;
-
 function spawnCleanStar(stage, x, y){
   const dx = x - lastStarPos.x, dy = y - lastStarPos.y;
   if(Math.sqrt(dx*dx+dy*dy) < STAR_MIN_DIST) return;
@@ -942,35 +940,26 @@ function spawnCleanStar(stage, x, y){
   stage.appendChild(s);
   setTimeout(()=>s.remove(), 1100);
 }
-
 function easeOut(t){ return 1-Math.pow(1-t,3); }
 function easeInOut(t){ return t<0.5?2*t*t:-1+(4-2*t)*t; }
 function easeIn(t){ return t*t*t; }
-
 let canaryActive = false;
-
 function setPlayerCornerVisible(visible){
   const el = document.getElementById('player-corner');
-  if(visible){ el.classList.remove('hidden'); }
-  else        { el.classList.add('hidden'); }
+  if(visible){ el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
 }
-
 function setMessiCornerVisible(visible){
   const el = document.getElementById('messi-corner');
   if(!el) return;
-  if(visible){ el.classList.remove('hidden'); }
-  else        { el.classList.add('hidden'); }
+  if(visible){ el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
 }
-
 function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   const t0 = performance.now();
   function step(now){
     const p = Math.min((now-t0)/dur, 1);
     const e = easeFn(p);
-    const cx = x0+(x1-x0)*e;
-    const cy = y0+(y1-y0)*e;
-    wrap.style.left = cx+'px';
-    wrap.style.top  = cy+'px';
+    const cx = x0+(x1-x0)*e, cy = y0+(y1-y0)*e;
+    wrap.style.left = cx+'px'; wrap.style.top = cy+'px';
     const r = wrap.getBoundingClientRect();
     if(r.width > 0){ spawnCleanStar(stage, r.left + r.width*0.5, r.top + r.height*0.6); }
     if(p<1){ requestAnimationFrame(step); }
@@ -978,12 +967,10 @@ function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   }
   requestAnimationFrame(step);
 }
-
 function fireCanary(stolenText, targetEl){
   if(canaryActive) return;
   canaryActive = true;
-  setPlayerCornerVisible(false);
-  setMessiCornerVisible(false);
+  setPlayerCornerVisible(false); setMessiCornerVisible(false);
   lastStarPos = {x:-9999, y:-9999};
   const stage = document.getElementById('canary-stage');
   const W = window.innerWidth, H = window.innerHeight;
@@ -1001,8 +988,7 @@ function fireCanary(stolenText, targetEl){
   stolen.textContent = stolenText;
   const bird = document.createElement('div');
   bird.innerHTML = canarySVG();
-  wrap.appendChild(stolen);
-  wrap.appendChild(bird);
+  wrap.appendChild(stolen); wrap.appendChild(bird);
   stage.appendChild(wrap);
   const startY = parseFloat(wrap.style.top);
   animSeg(wrap,stage, -280,startY, W*0.35,startY, 1800, easeOut, (x1,y1)=>{
@@ -1013,10 +999,8 @@ function fireCanary(stolenText, targetEl){
           animSeg(wrap,stage, x4,y4, tx,ty, 900, easeInOut, (xt,yt)=>{
             setTimeout(()=>{
               animSeg(wrap,stage, xt,yt, W+350,yt, 900, easeIn, ()=>{
-                wrap.remove();
-                canaryActive = false;
-                setPlayerCornerVisible(true);
-                setMessiCornerVisible(true);
+                wrap.remove(); canaryActive = false;
+                setPlayerCornerVisible(true); setMessiCornerVisible(true);
                 setTimeout(()=>location.reload(), 100);
               });
             }, 400);
@@ -1027,43 +1011,19 @@ function fireCanary(stolenText, targetEl){
   });
 }
 
-// ─── PLAYER CORNER — André, Alisson, Goleiro & Vozinha (direita) ───────────────────────
+// ─── PLAYER CORNER ────────────────────────────────────────────────────────
 (function(){
   const andreImgEl     = document.getElementById('player-img');
   const bubbleTitleEl2 = document.getElementById('playerBubbleTitle');
   const bubbleTextEl2  = document.getElementById('playerBubbleText');
   const cornerEl2      = document.getElementById('player-corner');
-
   const infos2 = [
-        {
-      src: './andre.png',
-      alt: 'André',
-      title: '⭐ Melhor meio-campista da Croácia!',
-      text: 'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.'
-    },
-      {
-      src: './lucas.png',
-      alt: 'Rui Patrício',
-      title: '🧤 TRÊS COPAS DO MUNDO — Rui "LUCAS" Patrício',
-      text: 'O ex-goleiro Rui "<b>LUCAS</b>" Patrício representou a Seleção Portuguesa em três Copas do Mundo da FIFA: 2014, 2018 e 2022.',
-      html: true
-    },
-    {
-      src:   './bruno.png',
-      alt:   'Otamendi',
-      title: '🛡️ VOCÊ SABIA? — Nicolás "BRUNO" Otamendi',
-      text:  'Nicolás "<b>Bruno</b>" Otamendi é um consagrado zagueiro argentino, jogando pelo River Plate e um dos grandes líderes da Seleção Argentina — com a qual conquistou a Copa do Mundo em 2022.',
-      html:  true
-    },
-    {
-    src: './lea.png',
-    alt: 'Leandro',
-    title: '🏆 VOCÊ SABIA?',
-    text: 'Leandro "GENOVESKI" Rúben Dias é peça fundamental na zaga da Seleção Portuguesa na Copa do Mundo de 2026.'
-  }
+    { src:'./andre.png', alt:'André', title:'⭐ Melhor meio-campista da Croácia!', text:'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.' },
+    { src:'./lucas.png', alt:'Rui Patrício', title:'🧤 TRÊS COPAS DO MUNDO — Rui "LUCAS" Patrício', text:'O ex-goleiro Rui "<b>LUCAS</b>" Patrício representou a Seleção Portuguesa em três Copas do Mundo da FIFA: 2014, 2018 e 2022.', html:true },
+    { src:'./bruno.png', alt:'Otamendi', title:'🛡️ VOCÊ SABIA? — Nicolás "BRUNO" Otamendi', text:'Nicolás "<b>Bruno</b>" Otamendi é um consagrado zagueiro argentino, jogando pelo River Plate e um dos grandes líderes da Seleção Argentina — com a qual conquistou a Copa do Mundo em 2022.', html:true },
+    { src:'./lea.png', alt:'Leandro', title:'🏆 VOCÊ SABIA?', text:'Leandro "GENOVESKI" Rúben Dias é peça fundamental na zaga da Seleção Portuguesa na Copa do Mundo de 2026.' }
   ];
   let idx2 = 0;
-
   function switchInfo2(){
     if(canaryActive) return;
     andreImgEl.style.transition = 'opacity 0.4s';
@@ -1071,66 +1031,29 @@ function fireCanary(stolenText, targetEl){
     setTimeout(()=>{
       idx2 = (idx2 + 1) % infos2.length;
       const info = infos2[idx2];
-      andreImgEl.src              = info.src;
-      andreImgEl.alt              = info.alt;
-      andreImgEl.className        = info.className || '';
-      bubbleTitleEl2.textContent  = info.title;
-      if(info.html){ bubbleTextEl2.innerHTML = info.text; }
-      else          { bubbleTextEl2.textContent = info.text; }
-      andreImgEl.style.opacity    = '1';
+      andreImgEl.src = info.src; andreImgEl.alt = info.alt; andreImgEl.className = info.className || '';
+      bubbleTitleEl2.textContent = info.title;
+      if(info.html){ bubbleTextEl2.innerHTML = info.text; } else { bubbleTextEl2.textContent = info.text; }
+      andreImgEl.style.opacity = '1';
     }, 420);
   }
-
   cornerEl2.classList.remove('hidden');
   setInterval(switchInfo2, 10000);
 })();
 
-// ─── MESSI CORNER — diego / vampeta / treinador / yamal / paquetá (esquerda) ───────────
+// ─── MESSI CORNER ─────────────────────────────────────────────────────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
   const bubbleTextEl = document.getElementById('messi-bubble-text');
-
   const infos = [
-    {
-      src:   './diego.png',
-      alt:   'Diego',
-      title: '📊 Recorde na Copa',
-      text:  '"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.',
-      html:  true
-    },
-    {
-      src: './canarinho.png',
-      alt: 'Canarinho',
-      title: '🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?',
-      text: 'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!'
-    },
-    {
-      src:       './treinador.png',
-      alt:       'Dick Advocaat',
-      className: 'treinador-img',
-      title:     '🏆 Recorde de experiência',
-      text:      'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA. Conduziu a seleção na qualificação e garantiu a vaga inédita do Curaçao no torneio.'
-    },
-    {
-      src: './nathan.png',
-      alt: 'Nathan',
-      className: 'yamal-img',
-      title: '⚔️ Dividida feia na Copa',
-      text: 'Dividida feia na Copa, Thomas "GASPERI" Delaney x "Nathan" Youssef Msakni. Lesionado, meia titular da Dinamarca é cortado e está fora da Copa do Mundo.'
-    },
-     {
-      src:       './diogo.png',
-      alt:       'Pepe Reina',
-      className: 'goleiro-img',
-      title:     '🧤 VOCÊ SABIA? — Pepe "DIOGO" Reina',
-      text:      'Pepe "<b>Diogo</b>" Reina é um dos goleiros mais vitoriosos e longevos do futebol europeu. O espanhol fez parte do histórico grupo da Seleção Espanhola que conquistou a Copa do Mundo de 2010.',
-      html:      true
-    }
+    { src:'./diego.png', alt:'Diego', title:'📊 Recorde na Copa', text:'"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.', html:true },
+    { src:'./canarinho.png', alt:'Canarinho', title:'🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?', text:'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!' },
+    { src:'./treinador.png', alt:'Dick Advocaat', className:'treinador-img', title:'🏆 Recorde de experiência', text:'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA.' },
+    { src:'./nathan.png', alt:'Nathan', className:'yamal-img', title:'⚔️ Dividida feia na Copa', text:'Dividida feia na Copa, Thomas "GASPERI" Delaney x "Nathan" Youssef Msakni. Lesionado, meia titular da Dinamarca é cortado e está fora da Copa do Mundo.' },
+    { src:'./diogo.png', alt:'Pepe Reina', className:'goleiro-img', title:'🧤 VOCÊ SABIA? — Pepe "DIOGO" Reina', text:'Pepe "<b>Diogo</b>" Reina é um dos goleiros mais vitoriosos e longevos do futebol europeu. O espanhol fez parte do histórico grupo da Seleção Espanhola que conquistou a Copa do Mundo de 2010.', html:true }
   ];
-
   let idx = 0;
-
   function switchInfo(){
     if(canaryActive) return;
     messiImgEl.style.transition = 'opacity 0.4s';
@@ -1138,66 +1061,46 @@ function fireCanary(stolenText, targetEl){
     setTimeout(()=>{
       idx = (idx + 1) % infos.length;
       const info = infos[idx];
-      messiImgEl.src            = info.src;
-      messiImgEl.alt            = info.alt;
-      messiImgEl.className      = info.className || '';
+      messiImgEl.src = info.src; messiImgEl.alt = info.alt; messiImgEl.className = info.className || '';
       bubbleTitleEl.textContent = info.title;
-      if(info.html){ bubbleTextEl.innerHTML = info.text; }
-      else          { bubbleTextEl.textContent = info.text; }
-      messiImgEl.style.opacity  = '1';
+      if(info.html){ bubbleTextEl.innerHTML = info.text; } else { bubbleTextEl.textContent = info.text; }
+      messiImgEl.style.opacity = '1';
     }, 420);
   }
-
   if(!canaryActive){ setMessiCornerVisible(true); }
   setInterval(switchInfo, 10000);
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
 const pad = n => String(n).padStart(2,'0');
-
 function fmtCd(ms){
   if(ms<=0) return null;
-  const s=Math.floor(ms/1000), dd=Math.floor(s/86400),
-        hh=Math.floor((s%86400)/3600), mm=Math.floor((s%3600)/60), ss=s%60;
-  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`,            cls:'far'};
-  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`,            cls:'far'};
-  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`,cls:'soon'};
-  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`,             cls:'soon'};
-  return      {text:`${ss}s`,                              cls:'urgent'};
+  const s=Math.floor(ms/1000), dd=Math.floor(s/86400), hh=Math.floor((s%86400)/3600), mm=Math.floor((s%3600)/60), ss=s%60;
+  if(dd>0)  return {text:`${dd}d ${pad(hh)}h`,             cls:'far'};
+  if(hh>=2) return {text:`${hh}h ${pad(mm)}m`,             cls:'far'};
+  if(hh>=1) return {text:`${hh}h ${pad(mm)}m ${pad(ss)}s`, cls:'soon'};
+  if(mm>0)  return {text:`${mm}m ${pad(ss)}s`,              cls:'soon'};
+  return       {text:`${ss}s`,                              cls:'urgent'};
 }
-
 const canaryFired = new Set();
-
 function tick(){
   const now = Date.now();
   const wallSec = Math.floor(now / 1000) % 60;
-
   let primaryGame = null;
-  for(const g of games){
-    if(kickoff(g).getTime()-now > 0){ primaryGame=g; break; }
-  }
-
+  for(const g of games){ if(kickoff(g).getTime()-now > 0){ primaryGame=g; break; } }
   games.forEach(g=>{
     const nEl=document.getElementById('cdnum-'+g.id);
     const lEl=document.getElementById('cdlbl-'+g.id);
     const cEl=document.getElementById('card-'+g.id);
     if(!nEl) return;
-
     const k=kickoff(g).getTime(), toStart=k-now;
-
     if(toStart>0){
       const f=fmtCd(toStart);
-      nEl.textContent=f.text;
-      nEl.className='cd-num '+f.cls;
-      lEl.textContent='para o início';
-      cEl.classList.remove('live');
-
+      nEl.textContent=f.text; nEl.className='cd-num '+f.cls;
+      lEl.textContent='para o início'; cEl.classList.remove('live');
       if(primaryGame && g.id===primaryGame.id && wallSec===52 && !canaryActive){
         const minuteKey = g.id + '_' + Math.floor(now / 60000);
-        if(!canaryFired.has(minuteKey)){
-          canaryFired.add(minuteKey);
-          fireCanary(f.text, nEl);
-        }
+        if(!canaryFired.has(minuteKey)){ canaryFired.add(minuteKey); fireCanary(f.text, nEl); }
       }
     } else {
       const elapsed=now-k;
@@ -1211,7 +1114,6 @@ function tick(){
     }
   });
 }
-
 tick();
 setInterval(tick,1000);
 
