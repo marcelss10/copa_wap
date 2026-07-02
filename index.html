@@ -914,19 +914,20 @@ function fireCanary(stolenText, targetEl){
   const cornerEl2      = document.getElementById('player-corner');
   const infos2 = [
     { src:'./andre.png', alt:'André', title:'⭐ Melhor meio-campista da Croácia!', text:'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.' },
-    { 
-  src: './ever.png', 
-  alt: 'Héctor Moreno', 
-  title: '⚽ QUATRO COPAS DO MUNDO — Héctor "EWERSON" Moreno', 
-  text: 'O zagueiro mexicano Héctor "EWERSON" Moreno disputou quatro Copas do Mundo pela Seleção Mexicana: 2010 (África do Sul), 2014 (Brasil), 2018 (Rússia) e 2022 (Catar)', 
+   { 
+  src: './xande.png', 
+  alt: 'Pedro Neto', 
+  title: ' DESTAQUE DE PORTUGAL — Pedro "ALEXANDRE" Neto', 
+  text: 'O atacante português Pedro "ALEXANDRE" Neto é um dos grandes destaques da Seleção de Portugal na Copa do Mundo, chamando atenção pela velocidade, dribles e poder de decisão no ataque.', 
   html: true 
-    },
-    {
-  src:'./veiga.png',
-  alt:'Xabi Alonso',
-  title:'🎯 VOCÊ SABIA? — Xabi Alonso',
-  text:'"VEIGA" Xabi Alonso foi campeão da Copa do Mundo FIFA de 2010 com a seleção da Espanha'
-  },
+   },
+   { 
+  src:'./tozo.png',
+  alt:'Gianni Infantino',
+  title:'🏆 VOCÊ SABIA? — Gianni "TOZO" Infantino',
+  text:'"JOAO" Gianni "TOZO" <b>Infantino</b> é o atual presidente da FIFA. O suíço-italiano assumiu o comando da entidade em 2016 e lidera a organização das principais competições do futebol mundial, incluindo a Copa do Mundo.',
+  html:true
+   },
   {
   src: './simi.png',
   alt: 'Diego Simeone',
@@ -958,7 +959,13 @@ function fireCanary(stolenText, targetEl){
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
   const bubbleTextEl = document.getElementById('messi-bubble-text');
   const infos = [
-    { src:'./diego.png', alt:'Diego', title:'📊 Recorde na Copa', text:'"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.', html:true },
+   { 
+  src:'./marcus.png',
+  alt:'Marcus',
+  title:'🇧🇷 HERÓI DA CLASSIFICAÇÃO',
+  text:'"MARCUS" Gabriel Martinelli é um dos grandes destaques da Seleção Brasileira na Copa do Mundo de 2026. O atacante foi o herói da classificação do Brasil para as oitavas de final ao marcar o gol da virada.',
+  html:true
+   },
     { src:'./canarinho.png', alt:'Canarinho', title:'🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?', text:'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!' },
     { src:'./treinador.png', alt:'Dick Advocaat', className:'treinador-img', title:'🏆 Recorde de experiência', text:'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA.' },
     {
@@ -968,7 +975,14 @@ function fireCanary(stolenText, targetEl){
   title:'🏆 Ángel "ROVER" Di María',
   text:'Ángel "ROVER" Di María é um dos maiores ídolos da história da Seleção Argentina, sendo peça-chave na conquista da Copa do Mundo de 2022.'
    },
-    { src:'./diogo.png', alt:'Pepe Reina', className:'goleiro-img', title:'🧤 VOCÊ SABIA? — Pepe "DIOGO" Reina', text:'Pepe "<b>Diogo</b>" Reina é um dos goleiros mais vitoriosos e longevos do futebol europeu. O espanhol fez parte do histórico grupo da Seleção Espanhola que conquistou a Copa do Mundo de 2010.', html:true }
+   { 
+  src:'./francisco.png',
+  alt:'Francisco',
+  className:'goleiro-img',
+  title:'📸 FOTOGÊNICO DENTRO E FORA DE CAMPO — Francisco "LUCAS" Conceição',
+  text:'Francisco "LUCAS" Conceição é um atacante de 23 anos que defende a Seleção Portuguesa e a Juventus. Além do talento em campo, o português também chama atenção pelo estilo e pelas fotos marcantes, sendo um dos jogadores mais fotogênicos da Copa.',
+  html:true
+   },
   ];
   let idx = 0;
   function switchInfo(){
