@@ -431,7 +431,7 @@
     </div>
     <div>
       <div class="header-title">COPA DO MUNDO 2026 <em>— CALENDÁRIO</em></div>
-      <div class="header-sub">🇧🇷 Horário de Brasília · Grupos + Mata-Mata · 11 jun – 19 jul</div>
+      <div class="header-sub">🇧🇷 Horário de Brasília · Mata-Mata · 11 jun – 19 jul</div>
     </div>
   </div>
   <div class="legend">
@@ -462,7 +462,7 @@
 </div>
 
 <footer>
-  Horário comercial: <strong>09h às 18h</strong> (horário de Brasília) · Copa do Mundo FIFA 2026 · Grupos + Mata-Mata
+  Horário comercial: <strong>09h às 18h</strong> (horário de Brasília) · Copa do Mundo FIFA 2026 · Mata-Mata
   <div class="dev">Desenvolvedor Marcel Ambrosio</div>
 </footer>
 
@@ -504,105 +504,17 @@ const isBrasil    = n => n === 'Brasil';
 
 // ─── LINKS ────────────────────────────────────────────────────────────────────
 const gameLinks = {
-  'Canadá vs Bósnia e Herzegovina':    'https://www.youtube.com/watch?v=CRtjePKnGvA',
-  'Espanha vs Cabo Verde':             'https://www.youtube.com/watch?v=EYStZQ5FsVk',
-  'Bélgica vs Egito':                  'https://www.youtube.com/watch?v=aclBHrhLQr4',
-  'França vs Senegal':                 'https://www.youtube.com/watch?v=m1vplAfSs_A',
-  'Portugal vs RD Congo':              'https://www.youtube.com/watch?v=HpzKFDctbNw',
-  'Argentina vs Argélia':              'https://www.youtube.com/watch?v=RhpNoBWVQGA',
-  'República Tcheca vs África do Sul': 'https://www.youtube.com/watch?v=61qIjGER86Q',
-  'Suíça vs Bósnia e Herzegovina':     'https://www.youtube.com/watch?v=DL372r8XEDg',
-  'Estados Unidos vs Austrália':       'https://www.youtube.com/watch?v=_6cfUXA1UUw',
-  'Argentina vs Áustria':              'https://www.youtube.com/watch?v=OweGZocHnjk',
-  'Portugal vs Uzbequistão':           'https://www.youtube.com/watch?v=pmWqrAV3PXo',
+  'Espanha vs Áustria':   'https://www.youtube.com/watch?v=__xDLB2Pi0w',
+  'Austrália vs Egito':   'https://www.youtube.com/watch?v=OwVHSCdF37g',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
-// ─── FASE DE GRUPOS ──────────────────────────────────────────────────────────
-const gamesGrupos = [
-  {date:'2026-06-11',h:16,min:0,label:'16h',t1:'México',t2:'África do Sul',city:'Cidade do México',group:'A',round:1,fase:'grupos'},
-  {date:'2026-06-11',h:23,min:0,label:'23h',t1:'Coreia do Sul',t2:'República Tcheca',city:'Guadalajara',group:'A',round:1,fase:'grupos'},
-  {date:'2026-06-12',h:16,min:0,label:'16h',t1:'Canadá',t2:'Bósnia e Herzegovina',city:'Toronto',group:'B',round:1,fase:'grupos'},
-  {date:'2026-06-12',h:22,min:0,label:'22h',t1:'Estados Unidos',t2:'Paraguai',city:'Los Angeles',group:'D',round:1,fase:'grupos'},
-  {date:'2026-06-13',h:1,min:0,label:'01h',t1:'Austrália',t2:'Turquia',city:'Vancouver',group:'D',round:1,fase:'grupos'},
-  {date:'2026-06-13',h:16,min:0,label:'16h',t1:'Catar',t2:'Suíça',city:'San Francisco',group:'B',round:1,fase:'grupos'},
-  {date:'2026-06-13',h:19,min:0,label:'19h',t1:'Brasil',t2:'Marrocos',city:'Nova York/NJ',group:'C',round:1,fase:'grupos'},
-  {date:'2026-06-13',h:22,min:0,label:'22h',t1:'Haiti',t2:'Escócia',city:'Boston',group:'C',round:1,fase:'grupos'},
-  {date:'2026-06-14',h:14,min:0,label:'14h',t1:'Alemanha',t2:'Curaçao',city:'Houston',group:'E',round:1,fase:'grupos'},
-  {date:'2026-06-14',h:17,min:0,label:'17h',t1:'Holanda',t2:'Japão',city:'Dallas',group:'F',round:1,fase:'grupos'},
-  {date:'2026-06-14',h:20,min:0,label:'20h',t1:'Costa do Marfim',t2:'Equador',city:'Filadélfia',group:'E',round:1,fase:'grupos'},
-  {date:'2026-06-14',h:23,min:0,label:'23h',t1:'Suécia',t2:'Tunísia',city:'Monterrey',group:'F',round:1,fase:'grupos'},
-  {date:'2026-06-15',h:13,min:0,label:'13h',t1:'Espanha',t2:'Cabo Verde',city:'Atlanta',group:'H',round:1,fase:'grupos'},
-  {date:'2026-06-15',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Egito',city:'Seattle',group:'G',round:1,fase:'grupos'},
-  {date:'2026-06-15',h:19,min:0,label:'19h',t1:'Arábia Saudita',t2:'Uruguai',city:'Miami',group:'H',round:1,fase:'grupos'},
-  {date:'2026-06-15',h:22,min:0,label:'22h',t1:'Irã',t2:'Nova Zelândia',city:'Los Angeles',group:'G',round:1,fase:'grupos'},
-  {date:'2026-06-16',h:16,min:0,label:'16h',t1:'França',t2:'Senegal',city:'Nova York/NJ',group:'I',round:1,fase:'grupos'},
-  {date:'2026-06-16',h:19,min:0,label:'19h',t1:'Iraque',t2:'Noruega',city:'Boston',group:'I',round:1,fase:'grupos'},
-  {date:'2026-06-16',h:22,min:0,label:'22h',t1:'Argentina',t2:'Argélia',city:'Kansas City',group:'J',round:1,fase:'grupos'},
-  {date:'2026-06-17',h:1,min:0,label:'01h',t1:'Áustria',t2:'Jordânia',city:'San Francisco',group:'J',round:1,fase:'grupos'},
-  {date:'2026-06-17',h:14,min:0,label:'14h',t1:'Portugal',t2:'RD Congo',city:'Houston',group:'K',round:1,fase:'grupos'},
-  {date:'2026-06-17',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Croácia',city:'Dallas',group:'L',round:1,fase:'grupos'},
-  {date:'2026-06-17',h:20,min:0,label:'20h',t1:'Gana',t2:'Panamá',city:'Toronto',group:'L',round:1,fase:'grupos'},
-  {date:'2026-06-17',h:23,min:0,label:'23h',t1:'Uzbequistão',t2:'Colômbia',city:'Cidade do México',group:'K',round:1,fase:'grupos'},
-  {date:'2026-06-18',h:13,min:0,label:'13h',t1:'República Tcheca',t2:'África do Sul',city:'Atlanta',group:'A',round:2,fase:'grupos'},
-  {date:'2026-06-18',h:16,min:0,label:'16h',t1:'Suíça',t2:'Bósnia e Herzegovina',city:'Los Angeles',group:'B',round:2,fase:'grupos'},
-  {date:'2026-06-18',h:19,min:0,label:'19h',t1:'Canadá',t2:'Catar',city:'Vancouver',group:'B',round:2,fase:'grupos'},
-  {date:'2026-06-18',h:22,min:0,label:'22h',t1:'México',t2:'Coreia do Sul',city:'Guadalajara',group:'A',round:2,fase:'grupos'},
-  {date:'2026-06-19',h:1,min:0,label:'01h',t1:'Turquia',t2:'Paraguai',city:'San Francisco',group:'D',round:2,fase:'grupos'},
-  {date:'2026-06-19',h:16,min:0,label:'16h',t1:'Estados Unidos',t2:'Austrália',city:'Seattle',group:'D',round:2,fase:'grupos'},
-  {date:'2026-06-19',h:19,min:0,label:'19h',t1:'Escócia',t2:'Marrocos',city:'Boston',group:'C',round:2,fase:'grupos'},
-  {date:'2026-06-19',h:22,min:0,label:'22h',t1:'Brasil',t2:'Haiti',city:'Filadélfia',group:'C',round:2,fase:'grupos'},
-  {date:'2026-06-20',h:14,min:0,label:'14h',t1:'Holanda',t2:'Suécia',city:'Houston',group:'F',round:2,fase:'grupos'},
-  {date:'2026-06-20',h:17,min:0,label:'17h',t1:'Alemanha',t2:'Costa do Marfim',city:'Toronto',group:'E',round:2,fase:'grupos'},
-  {date:'2026-06-20',h:21,min:0,label:'21h',t1:'Equador',t2:'Curaçao',city:'Kansas City',group:'E',round:2,fase:'grupos'},
-  {date:'2026-06-21',h:1,min:0,label:'01h',t1:'Tunísia',t2:'Japão',city:'Monterrey',group:'F',round:2,fase:'grupos'},
-  {date:'2026-06-21',h:13,min:0,label:'13h',t1:'Espanha',t2:'Arábia Saudita',city:'Atlanta',group:'H',round:2,fase:'grupos'},
-  {date:'2026-06-21',h:16,min:0,label:'16h',t1:'Bélgica',t2:'Irã',city:'Los Angeles',group:'G',round:2,fase:'grupos'},
-  {date:'2026-06-21',h:19,min:0,label:'19h',t1:'Uruguai',t2:'Cabo Verde',city:'Miami',group:'H',round:2,fase:'grupos'},
-  {date:'2026-06-21',h:22,min:0,label:'22h',t1:'Nova Zelândia',t2:'Egito',city:'Vancouver',group:'G',round:2,fase:'grupos'},
-  {date:'2026-06-22',h:14,min:0,label:'14h',t1:'Argentina',t2:'Áustria',city:'Dallas',group:'J',round:2,fase:'grupos'},
-  {date:'2026-06-22',h:18,min:0,label:'18h',t1:'França',t2:'Iraque',city:'Filadélfia',group:'I',round:2,fase:'grupos'},
-  {date:'2026-06-22',h:21,min:0,label:'21h',t1:'Noruega',t2:'Senegal',city:'Nova York/NJ',group:'I',round:2,fase:'grupos'},
-  {date:'2026-06-23',h:0,min:0,label:'00h',t1:'Jordânia',t2:'Argélia',city:'San Francisco',group:'J',round:2,fase:'grupos'},
-  {date:'2026-06-23',h:14,min:0,label:'14h',t1:'Portugal',t2:'Uzbequistão',city:'Houston',group:'K',round:2,fase:'grupos'},
-  {date:'2026-06-23',h:17,min:0,label:'17h',t1:'Inglaterra',t2:'Gana',city:'Boston',group:'L',round:2,fase:'grupos'},
-  {date:'2026-06-23',h:20,min:0,label:'20h',t1:'Panamá',t2:'Croácia',city:'Toronto',group:'L',round:2,fase:'grupos'},
-  {date:'2026-06-23',h:23,min:0,label:'23h',t1:'Colômbia',t2:'RD Congo',city:'Guadalajara',group:'K',round:2,fase:'grupos'},
-  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Suíça',t2:'Canadá',city:'Vancouver',group:'B',round:3,fase:'grupos'},
-  {date:'2026-06-24',h:16,min:0,label:'16h',t1:'Bósnia e Herzegovina',t2:'Catar',city:'Seattle',group:'B',round:3,fase:'grupos'},
-  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Escócia',t2:'Brasil',city:'Miami',group:'C',round:3,fase:'grupos'},
-  {date:'2026-06-24',h:19,min:0,label:'19h',t1:'Marrocos',t2:'Haiti',city:'Atlanta',group:'C',round:3,fase:'grupos'},
-  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'República Tcheca',t2:'México',city:'Cidade do México',group:'A',round:3,fase:'grupos'},
-  {date:'2026-06-24',h:22,min:0,label:'22h',t1:'África do Sul',t2:'Coreia do Sul',city:'Monterrey',group:'A',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Equador',t2:'Alemanha',city:'Nova York/NJ',group:'E',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:17,min:0,label:'17h',t1:'Curaçao',t2:'Costa do Marfim',city:'Filadélfia',group:'E',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Japão',t2:'Suécia',city:'Dallas',group:'F',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:20,min:0,label:'20h',t1:'Tunísia',t2:'Holanda',city:'Kansas City',group:'F',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Turquia',t2:'Estados Unidos',city:'Los Angeles',group:'D',round:3,fase:'grupos'},
-  {date:'2026-06-25',h:23,min:0,label:'23h',t1:'Paraguai',t2:'Austrália',city:'San Francisco',group:'D',round:3,fase:'grupos'},
-  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Noruega',t2:'França',city:'Boston',group:'I',round:3,fase:'grupos'},
-  {date:'2026-06-26',h:16,min:0,label:'16h',t1:'Senegal',t2:'Iraque',city:'Toronto',group:'I',round:3,fase:'grupos'},
-  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Cabo Verde',t2:'Arábia Saudita',city:'Houston',group:'H',round:3,fase:'grupos'},
-  {date:'2026-06-26',h:21,min:0,label:'21h',t1:'Uruguai',t2:'Espanha',city:'Guadalajara',group:'H',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Egito',t2:'Irã',city:'Seattle',group:'G',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:0,min:0,label:'00h',t1:'Nova Zelândia',t2:'Bélgica',city:'Vancouver',group:'G',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Panamá',t2:'Inglaterra',city:'Nova York/NJ',group:'L',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:18,min:0,label:'18h',t1:'Croácia',t2:'Gana',city:'Filadélfia',group:'L',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'Colômbia',t2:'Portugal',city:'Miami',group:'K',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:20,min:30,label:'20:30h',t1:'RD Congo',t2:'Uzbequistão',city:'Atlanta',group:'K',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Argélia',t2:'Áustria',city:'Kansas City',group:'J',round:3,fase:'grupos'},
-  {date:'2026-06-27',h:23,min:0,label:'23h',t1:'Jordânia',t2:'Argentina',city:'Dallas',group:'J',round:3,fase:'grupos'},
-];
+// ─── FASE DE GRUPOS (encerrada) ───────────────────────────────────────────────
+const gamesGrupos = [];
 
-// ─── MATA-MATA (16-AVOS) ──────────────────────────────────────────────────────
+// ─── 16-AVOS DE FINAL (rodada de 32) ──────────────────────────────────────────
 const gamesMata = [
-  // 28 JUN
-  {date:'2026-06-28',h:16,min:0,label:'16h',t1:'África do Sul',t2:'Canadá',city:'Los Angeles',group:'16-AVOS',round:1,fase:'mata'},
-  // 29 JUN
-  {date:'2026-06-29',h:14,min:0,label:'14h',t1:'Brasil',t2:'Japão',city:'Houston',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-06-29',h:17,min:30,label:'17:30h',t1:'Alemanha',t2:'Paraguai',city:'Dallas',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-06-29',h:22,min:0,label:'22h',t1:'Holanda',t2:'Marrocos',city:'Toronto',group:'16-AVOS',round:1,fase:'mata'},
-  // 30 JUN
+  // 30 JUN (ontem)
   {date:'2026-06-30',h:14,min:0,label:'14h',t1:'Costa do Marfim',t2:'Noruega',city:'Seattle',group:'16-AVOS',round:1,fase:'mata'},
   {date:'2026-06-30',h:18,min:0,label:'18h',t1:'França',t2:'Suécia',city:'Miami',group:'16-AVOS',round:1,fase:'mata'},
   {date:'2026-06-30',h:22,min:0,label:'22h',t1:'México',t2:'Equador',city:'Cidade do México',group:'16-AVOS',round:1,fase:'mata'},
@@ -620,7 +532,19 @@ const gamesMata = [
   {date:'2026-07-03',h:22,min:30,label:'22:30h',t1:'Colômbia',t2:'Gana',city:'Atlanta',group:'16-AVOS',round:1,fase:'mata'},
 ];
 
-const games = [...gamesGrupos, ...gamesMata];
+// ─── OITAVAS DE FINAL ──────────────────────────────────────────────────────
+const gamesOitavas = [
+  {date:'2026-07-04',h:14,min:0,label:'14h',t1:'Canadá',t2:'Marrocos',city:'Houston',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-04',h:18,min:0,label:'18h',t1:'Paraguai',t2:'França',city:'Filadélfia',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-05',h:17,min:0,label:'17h',t1:'Brasil',t2:'Noruega',city:'Nova York/NJ',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-05',h:21,min:0,label:'21h',t1:'México',t2:'Inglaterra',city:'Cidade do México',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-06',h:16,min:0,label:'16h',t1:'Vencedor Portugal/Croácia',t2:'Vencedor Espanha/Áustria',city:'Dallas',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-06',h:21,min:0,label:'21h',t1:'Vencedor EUA/Bósnia',t2:'Vencedor Bélgica/Senegal',city:'Seattle',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-07',h:13,min:0,label:'13h',t1:'Vencedor Argentina/Cabo Verde',t2:'Vencedor Austrália/Egito',city:'Atlanta',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-07',h:17,min:0,label:'17h',t1:'Vencedor Suíça/Argélia',t2:'Vencedor Colômbia/Gana',city:'Vancouver',group:'OITAVAS',round:1,fase:'oitavas'},
+];
+
+const games = [...gamesGrupos, ...gamesMata, ...gamesOitavas];
 games.forEach((g,i) => g.id = 'g'+i);
 
 function kickoff(g){
@@ -636,39 +560,24 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS — apenas 25, 26 e 27/06 (mais recentes)
+//  RESULTADOS — apenas jogos de ontem e hoje (30/06 e 01/07)
 // ══════════════════════════════════════════════════════
 const resultados = {
-  // 25 Jun
-  'Equador vs Alemanha':            '2-1',
-  'Curaçao vs Costa do Marfim':     '0-2',
-  'Japão vs Suécia':                '1-1',
-  'Tunísia vs Holanda':             '1-3',
-  'Turquia vs Estados Unidos':      '3-2',
-  'Paraguai vs Austrália':          '0-0',
-  // 26 Jun
-  'Noruega vs França':              '1-4',
-  'Senegal vs Iraque':              '4-0',
-  'Cabo Verde vs Arábia Saudita':   '1-0',
-  'Uruguai vs Espanha':             '0-1',
-  // 27 Jun
-  'Egito vs Irã':                   '1-1',
-  'Nova Zelândia vs Bélgica':       '0-2',
-  'Panamá vs Inglaterra':           '0-3',
-  'Croácia vs Gana':                '2-1',
-  'Colômbia vs Portugal':           '1-2',
-  'RD Congo vs Uzbequistão':        '3-1',
-  'Argélia vs Áustria':             '3-3',
-  'Jordânia vs Argentina':          '0-2',
+  // 30 Jun (ontem)
+  'Costa do Marfim vs Noruega':     '1-2',
+  'França vs Suécia':               '3-0',
+  'México vs Equador':              '2-0',
+  // 01 Jul (hoje)
+  'Inglaterra vs RD Congo':         '2-1',
+  'Bélgica vs Senegal':             '3-2',
 };
 
 const destaques = {
-  'Noruega vs França':         '⭐ 3 gols Dembélé',
-  'Senegal vs Iraque':         '⭐ Goleada 4-0',
-  'Turquia vs Estados Unidos': '⭐ Virada turca',
-  'Colômbia vs Portugal':      '⭐ Brasil vs Japão',
-  'Jordânia vs Argentina':     '⭐ Argentina no mata-mata',
-  'Escócia vs Brasil':         '🇧🇷 BRASIL 3-0! HEXA VEM!',
+  'Costa do Marfim vs Noruega': '⭐ Virada da Noruega',
+  'França vs Suécia':           '⭐ Goleada francesa',
+  'Bélgica vs Senegal':         '⭐ Jogaço, 3-2',
+  'Inglaterra vs RD Congo':     '⭐ Inglaterra avança',
+  'Estados Unidos vs Bósnia e Herzegovina': '🔴 AO VIVO AGORA',
 };
 
 // ══════════════════════════════════════════════════════════════════════
@@ -760,8 +669,8 @@ function buildTicker(){
   const now = Date.now();
   const tickerEl = document.getElementById('results-ticker');
   const innerEl  = document.getElementById('tickerInner');
-  // Só exibe resultados de 25, 26 e 27/jun
-  const allowedDates = ['2026-06-25','2026-06-26','2026-06-27'];
+  // Só exibe resultados de ontem (30/06) e hoje (01/07)
+  const allowedDates = ['2026-06-30','2026-07-01'];
   const finished = games.filter(g => {
     const k = kickoff(g).getTime();
     return k + GAME_DUR < now && resultados[gameKey(g)] && allowedDates.includes(g.date);
@@ -780,7 +689,7 @@ function buildTicker(){
     return `<span class="ticker-item">
       ${temBrasil ? `<span class="t-brasil">🇧🇷 BRASIL</span>` : ''}
       ${destaque && !temBrasil ? `<span class="t-highlight">${destaque}</span>` : ''}
-      <span class="t-group">Grp ${g.group}</span>
+      <span class="t-group">16-avos</span>
       <img class="flag" src="${flagUrl(teams[g.t1]||'un')}" alt="${g.t1}" style="width:24px;height:17px" onerror="this.style.display='none'">
       ${g.t1}
       <span class="t-score">${s1} – ${s2}</span>
@@ -805,13 +714,9 @@ const months=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','No
 const wdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const roundLblGrupos={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
 const dateLbl={
-  '2026-06-11':'Qui 11','2026-06-12':'Sex 12','2026-06-13':'Sáb 13','2026-06-14':'Dom 14',
-  '2026-06-15':'Seg 15','2026-06-16':'Ter 16','2026-06-17':'Qua 17','2026-06-18':'Qui 18',
-  '2026-06-19':'Sex 19','2026-06-20':'Sáb 20','2026-06-21':'Dom 21','2026-06-22':'Seg 22',
-  '2026-06-23':'Ter 23','2026-06-24':'Qua 24','2026-06-25':'Qui 25','2026-06-26':'Sex 26',
-  '2026-06-27':'Sáb 27',
-  '2026-06-28':'Dom 28','2026-06-29':'Seg 29','2026-06-30':'Ter 30',
+  '2026-06-30':'Ter 30',
   '2026-07-01':'Qua 01/Jul','2026-07-02':'Qui 02','2026-07-03':'Sex 03',
+  '2026-07-04':'Sáb 04','2026-07-05':'Dom 05','2026-07-06':'Seg 06','2026-07-07':'Ter 07',
 };
 
 const tabsBar=document.getElementById('tabsBar');
@@ -820,7 +725,7 @@ const todayStr=brasiliaToday();
 const sorted=Object.keys(byDate).sort();
 let activeTab=sorted.includes(todayStr)?todayStr:sorted[0];
 
-// Separador visual entre grupos e mata-mata
+// Separador visual entre fases
 let lastFase = null;
 
 sorted.forEach(date=>{
@@ -828,21 +733,15 @@ sorted.forEach(date=>{
   const comCt=dayG.filter(g=>isComercial(g.h)).length;
   const isToday=date===todayStr;
   const hasBrasil=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
-  const isMata=dayG[0].fase==='mata';
+  const faseAtual=dayG[0].fase;
 
   // Inserir label de fase na tab bar
-  if(isMata && lastFase !== 'mata'){
+  if(faseAtual !== lastFase){
     const lbl = document.createElement('div');
     lbl.className = 'fase-label';
-    lbl.textContent = '⚔️ MATA-MATA';
+    lbl.textContent = faseAtual==='oitavas' ? '🏅 OITAVAS DE FINAL' : '⚔️ 16-AVOS DE FINAL';
     tabsBar.appendChild(lbl);
-    lastFase = 'mata';
-  } else if(!isMata && lastFase === null) {
-    const lbl = document.createElement('div');
-    lbl.className = 'fase-label';
-    lbl.textContent = '🏆 GRUPOS';
-    tabsBar.appendChild(lbl);
-    lastFase = 'grupos';
+    lastFase = faseAtual;
   }
 
   const btn=document.createElement('button');
@@ -861,14 +760,10 @@ sorted.forEach(date=>{
   sec.id='section-'+date;
   const [y,m,d]=date.split('-');
   const wd=new Date(date+'T12:00:00').getDay();
-  const rounds=[...new Set(dayG.map(g=>g.round))].sort();
+  const isMata = faseAtual==='mata';
+  const isOitavas = faseAtual==='oitavas';
 
-  let roundLabel;
-  if(isMata){
-    roundLabel = '16-Avos de Final — Mata-Mata';
-  } else {
-    roundLabel = rounds.map(r=>roundLblGrupos[r]).join(' & ');
-  }
+  let roundLabel = isOitavas ? 'Oitavas de Final — Mata-Mata' : '16-Avos de Final — Mata-Mata';
 
   const hasBrasilDay=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
 
@@ -880,7 +775,7 @@ sorted.forEach(date=>{
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
       ${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}
       ${hasBrasilDay?`<div class="day-brasil-badge">🇧🇷 JOGO DO BRASIL — HEXA!</div>`:''}
-      ${isMata?`<div class="day-com-badge" style="color:#00D97A;border-color:rgba(0,200,120,0.4);background:rgba(0,200,120,0.08);">⚔️ FASE ELIMINATÓRIA</div>`:''}
+      <div class="day-com-badge" style="color:#00D97A;border-color:rgba(0,200,120,0.4);background:rgba(0,200,120,0.08);">⚔️ FASE ELIMINATÓRIA</div>
     </div>
   </div>
   <div class="games-list">`;
@@ -891,8 +786,8 @@ sorted.forEach(date=>{
     const link=gameLinks[gameKey(g)];
     const watchBtn=link?`<a class="btn-watch" href="${link}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Assistir</a>`:'';
     const cardClass = temBr ? 'brasil-game' : (com ? 'com' : 'out');
-    const grpClass = g.fase==='mata' ? 'knockout' : '';
-    const grpLabel = g.fase==='mata' ? '16-avos' : `Grupo ${g.group}`;
+    const grpClass = 'knockout';
+    const grpLabel = g.fase==='oitavas' ? 'Oitavas' : '16-avos';
     html+=`<div class="game-card ${cardClass}" id="card-${g.id}">
       <div class="col-time"><div class="time-big">${g.label}</div><div class="time-lbl">Brasília</div></div>
       <div class="col-match">
