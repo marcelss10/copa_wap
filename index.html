@@ -7,25 +7,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --verde: #00A86B;
+    --azul-escuro: #0D2A3D;
+    --azul: #1B4965;
+    --azul-claro: #4FA3D1;
+    --preto: #0F0F0F;
+    --preto2: #1A1A1A;
     --amarelo: #F5D800;
-    --laranja: #F26522;
-    --laranja2: #FFAA44;
-    --verde-br: #00C878;
-    --verde-escuro: #005C3A;
-    --verde-claro: #00D97A;
-    --bg: #061810;
-    --bg2: #0A2218;
-    --card: #0D2B1C;
+    --bg: #0F0F0F;
+    --bg2: #1A1A1A;
+    --card: #252525;
     --txt: #EDF2F8;
     --muted: #7A8FA8;
-    --border: rgba(0,200,100,0.13);
+    --border: rgba(79,163,209,0.2);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Barlow', sans-serif;
     background: var(--bg);
-    background-image: radial-gradient(ellipse at 20% 0%, rgba(0,168,107,0.08) 0%, transparent 60%),
+    background-image: radial-gradient(ellipse at 20% 0%, rgba(79,163,209,0.08) 0%, transparent 60%),
                       radial-gradient(ellipse at 80% 100%, rgba(245,216,0,0.05) 0%, transparent 60%);
     color: var(--txt);
     min-height: 100vh;
@@ -33,7 +32,7 @@
   }
 
   header {
-    background: linear-gradient(135deg, #0A2218 0%, #0D2B1C 60%, #061810 100%);
+    background: linear-gradient(135deg, #1A1A1A 0%, #252525 60%, #0F0F0F 100%);
     border-bottom: 3px solid var(--amarelo);
     padding: 16px 32px;
     display: flex;
@@ -43,20 +42,20 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 24px rgba(0,168,107,0.18);
+    box-shadow: 0 2px 24px rgba(79,163,209,0.15);
   }
   .header-left { display: flex; align-items: center; gap: 16px; }
   .logo-img { height: 48px; width: auto; display: block; border-radius: 6px; }
-  .logo-block { background: var(--verde); border-radius: 6px; padding: 6px 13px; line-height: 1.2; text-align: center; }
+  .logo-block { background: var(--azul); border-radius: 6px; padding: 6px 13px; line-height: 1.2; text-align: center; }
   .logo-wap { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; color: #fff; letter-spacing: 0.04em; }
   .logo-waaw { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.09em; color: rgba(255,255,255,0.8); white-space: nowrap; }
   .header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.03em; line-height: 1.1; }
   .header-title em { color: var(--amarelo); font-style: normal; }
-  .header-sub { font-size: 12px; color: #5DE8A8; margin-top: 3px; letter-spacing: 0.04em; }
+  .header-sub { font-size: 12px; color: var(--azul-claro); margin-top: 3px; letter-spacing: 0.04em; }
 
   /* HEXA BANNER */
   .hexa-banner {
-    background: linear-gradient(90deg, var(--verde-escuro) 0%, #004d30 40%, #1a5c00 70%, var(--verde-escuro) 100%);
+    background: linear-gradient(90deg, var(--azul-escuro) 0%, #1B4965 40%, #2d5f7a 70%, var(--azul-escuro) 100%);
     border-bottom: 2px solid var(--amarelo);
     padding: 8px 32px;
     display: flex;
@@ -78,21 +77,155 @@
   }
   .hexa-flag { font-size: 20px; }
 
+  /* VIDEO + CARD LADO A LADO */
+  .content-row{
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+    gap:30px;
+    max-width:1400px;
+    margin:30px auto;
+    padding:0 24px;
+}
+
+  /* VIDEO SECTION */
+.video-section{
+    flex:1.3;
+    margin:0;
+    padding:0;
+    max-width:none;
+}
+
+  .video-container {
+    position: relative;
+    background: var(--card);
+    border: 2px solid var(--amarelo);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    max-width: 100%;
+  }
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15,15,15,0.3);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+  }
+ .video-message {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(24px, 8vw, 64px);
+    font-weight: 900;
+    color: var(--amarelo);
+    text-align: center;
+
+    opacity: 0.35; /* ← deixa o texto bem mais discreto */
+
+    text-shadow:
+      0 2px 4px rgba(0,0,0,0.5),
+      0 0 10px rgba(245,216,0,0.2);
+
+    letter-spacing: 0.05em;
+    padding: 20px;
+    line-height: 1.2;
+    animation: videoMsgPulse 2s ease-in-out infinite;
+}
+  @keyframes videoMsgPulse {
+    0%,100%{ transform: scale(1); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(245,216,0,0.5), -2px -2px 0px rgba(27,73,101,0.8), 2px 2px 0px rgba(27,73,101,0.8); }
+    50%{ transform: scale(1.05); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 40px rgba(245,216,0,0.8), -2px -2px 0px rgba(27,73,101,0.8), 2px 2px 0px rgba(27,73,101,0.8); }
+  }
+
+  /* MOTIVATIONAL SECTION */
+ .motivational-section{
+    flex:0.8;
+    margin:0;
+    padding:0;
+    max-width:none;
+    display:flex;
+}
+
+ .motivational-card{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--azul) 0%,var(--azul-escuro) 100%);
+    border:2px solid var(--amarelo);
+    border-radius:12px;
+    padding:24px;
+    box-shadow:0 8px 32px rgba(79,163,209,.2);
+}
+
+  .motivational-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    animation: iconFloat 3s ease-in-out infinite;
+  }
+  @keyframes iconFloat {
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-8px); }
+  }
+  .motivational-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--amarelo);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .motivational-text {
+    font-size: 13px;
+    color: var(--txt);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .motivational-cta {
+    display: inline-block;
+    background: var(--amarelo);
+    color: var(--preto);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .motivational-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(245,216,0,0.4);
+  }
+
   .notif-bar {
-    background: rgba(0,168,107,0.12);
-    border-bottom: 1px solid rgba(0,168,107,0.3);
+    background: rgba(79,163,209,0.12);
+    border-bottom: 1px solid rgba(79,163,209,0.3);
     padding: 9px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
     font-size: 13px;
-    color: #5DE8A8;
+    color: var(--azul-claro);
   }
   .notif-bar.hidden { display: none; }
   .notif-bar strong { font-weight: 700; }
   .btn-notif {
-    background: var(--verde);
+    background: var(--azul);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -133,13 +266,12 @@
   }
   .tab-btn:hover { color: var(--txt); }
   .tab-btn.active { color: var(--amarelo); border-bottom-color: var(--amarelo); }
-  .tab-btn.has-com::after { content: ''; position: absolute; top: 9px; right: 8px; width: 5px; height: 5px; background: var(--verde-claro); border-radius: 50%; }
-  .tab-btn.hoje { color: #5DE8A8; }
+  .tab-btn.has-com::after { content: ''; position: absolute; top: 9px; right: 8px; width: 5px; height: 5px; background: var(--azul-claro); border-radius: 50%; }
+  .tab-btn.hoje { color: var(--azul-claro); }
   .tab-btn.hoje.active { color: var(--amarelo); }
-  .tab-btn.brasil-tab { color: var(--verde-claro) !important; }
+  .tab-btn.brasil-tab { color: var(--azul-claro) !important; }
   .tab-btn.brasil-tab.active { color: var(--amarelo) !important; border-bottom-color: var(--amarelo) !important; }
 
-  /* Fase badge */
   .fase-label {
     padding: 4px 14px;
     font-family: 'Barlow Condensed', sans-serif;
@@ -163,9 +295,9 @@
   .day-hdr { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
   .day-title { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; line-height: 1; }
   .day-title .dnum { color: var(--amarelo); font-size: 60px; margin-right: 6px; }
-  .day-round { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-claro); margin-top: 5px; }
+  .day-round { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--azul-claro); margin-top: 5px; }
   .day-com-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(245,216,0,0.1); border: 1px solid rgba(245,216,0,0.3); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--amarelo); letter-spacing: 0.05em; margin-bottom: 4px; }
-  .day-brasil-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,200,120,0.12); border: 1px solid rgba(0,200,120,0.4); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 900; color: var(--verde-claro); letter-spacing: 0.08em; margin-bottom: 4px; text-transform: uppercase; animation: hexaPulse 2s ease-in-out infinite; }
+  .day-brasil-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(79,163,209,0.15); border: 1px solid rgba(79,163,209,0.4); border-radius: 24px; padding: 5px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 900; color: var(--azul-claro); letter-spacing: 0.08em; margin-bottom: 4px; text-transform: uppercase; animation: hexaPulse 2s ease-in-out infinite; }
 
   .games-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -191,10 +323,10 @@
     opacity: 0.55;
   }
   .game-card.brasil-game {
-    border-left-color: var(--verde-claro) !important;
-    background: linear-gradient(100deg, rgba(0,200,120,0.1) 0%, var(--card) 45%) !important;
+    border-left-color: var(--azul-claro) !important;
+    background: linear-gradient(100deg, rgba(79,163,209,0.1) 0%, var(--card) 45%) !important;
     opacity: 1 !important;
-    box-shadow: 0 0 20px rgba(0,200,120,0.12);
+    box-shadow: 0 0 20px rgba(79,163,209,0.12);
   }
   .game-card.live {
     border-left-color: #FF4040 !important;
@@ -210,16 +342,16 @@
   .time-big { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; line-height: 1; }
   .game-card.com .time-big { color: var(--amarelo); }
   .game-card.out .time-big { color: var(--muted); }
-  .game-card.brasil-game .time-big { color: var(--verde-claro); }
+  .game-card.brasil-game .time-big { color: var(--azul-claro); }
   .game-card.live .time-big { color: #FF7777; }
   .time-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
   .match-teams { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 3px; }
   .team { display: inline-flex; align-items: center; gap: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; line-height: 1; }
-  .team.brasil { color: var(--verde-claro); font-size: 17px; }
+  .team.brasil { color: var(--azul-claro); font-size: 17px; }
   .flag { display: inline-block; width: 20px; height: 14px; border-radius: 2px; object-fit: cover; vertical-align: middle; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.35); }
   .vs-sep { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); padding: 0 1px; flex-shrink: 0; }
   .match-meta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-  .meta-grp { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(0,200,100,0.1); border-radius: 3px; padding: 1px 5px; color: var(--verde-claro); }
+  .meta-grp { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(79,163,209,0.1); border-radius: 3px; padding: 1px 5px; color: var(--azul-claro); }
   .meta-grp.knockout { background: rgba(245,216,0,0.12); color: var(--amarelo); }
   .meta-city { font-size: 10px; color: var(--muted); }
   .btn-watch { display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,60,60,0.35); color: #FF7777; border-radius: 5px; padding: 4px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
@@ -227,11 +359,11 @@
   .btn-watch svg { flex-shrink: 0; }
   .col-cd { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
   .badge-com { display: inline-block; background: var(--amarelo); color: #000; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
-  .badge-brasil { display: inline-block; background: var(--verde-claro); color: #061810; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
+  .badge-brasil { display: inline-block; background: var(--azul-claro); color: var(--preto); font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; }
   .badge-live { display: inline-flex; align-items: center; gap: 4px; background: #FF4040; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; animation: blink 1.1s steps(1) infinite; }
   .live-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .cd-box { background: rgba(0,200,100,0.06); border: 1px solid rgba(0,200,100,0.18); border-radius: 8px; padding: 6px 10px; text-align: center; min-width: 90px; }
+  .cd-box { background: rgba(79,163,209,0.06); border: 1px solid rgba(79,163,209,0.18); border-radius: 8px; padding: 6px 10px; text-align: center; min-width: 90px; }
   .cd-num { font-family: 'Barlow Condensed', sans-serif; font-size: 21px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
   .cd-num.far    { color: var(--txt); }
   .cd-num.soon   { color: var(--amarelo); }
@@ -244,11 +376,11 @@
 
   #results-ticker {
     position: fixed; bottom: 0; left: 0; right: 0; height: 48px;
-    background: #061810; border-top: 2px solid var(--amarelo); z-index: 200;
+    background: var(--bg); border-top: 2px solid var(--amarelo); z-index: 200;
     display: flex; align-items: center; overflow: hidden;
   }
   #results-ticker .ticker-label {
-    flex-shrink: 0; background: var(--amarelo); color: #061810;
+    flex-shrink: 0; background: var(--amarelo); color: var(--preto);
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px;
     letter-spacing: 0.1em; text-transform: uppercase; padding: 0 16px;
     height: 100%; display: flex; align-items: center; white-space: nowrap;
@@ -267,9 +399,9 @@
   }
   .ticker-item .t-score { font-size: 18px; font-weight: 900; color: var(--amarelo); letter-spacing: 0.08em; }
   .ticker-item .t-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; }
-  .ticker-item .t-group { font-size: 10px; color: var(--verde-claro); font-weight: 800; letter-spacing: 0.1em; background: rgba(0,168,107,0.15); padding: 1px 5px; border-radius: 3px; }
-  .ticker-item .t-highlight { font-size: 10px; color: #061810; font-weight: 900; letter-spacing: 0.04em; background: var(--amarelo); padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
-  .ticker-item .t-brasil { font-size: 10px; color: #061810; font-weight: 900; background: var(--verde-claro); padding: 1px 7px; border-radius: 3px; }
+  .ticker-item .t-group { font-size: 10px; color: var(--azul-claro); font-weight: 800; letter-spacing: 0.1em; background: rgba(79,163,209,0.15); padding: 1px 5px; border-radius: 3px; }
+  .ticker-item .t-highlight { font-size: 10px; color: var(--preto); font-weight: 900; letter-spacing: 0.04em; background: var(--amarelo); padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+  .ticker-item .t-brasil { font-size: 10px; color: var(--preto); font-weight: 900; background: var(--azul-claro); padding: 1px 7px; border-radius: 3px; }
   #results-ticker.hidden { display: none; }
 
   #canary-stage {
@@ -279,7 +411,7 @@
   .canary-wrap { position: absolute; display: flex; flex-direction: column; align-items: center; pointer-events: none; gap: 0; }
   .canary-stolen {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px;
-    color: #061810; background: var(--amarelo); padding: 4px 14px;
+    color: var(--preto); background: var(--amarelo); padding: 4px 14px;
     border-radius: 6px 6px 0 0; white-space: nowrap; opacity: 0;
     transition: opacity 0.25s; letter-spacing: 0.08em; position: relative; bottom: -2px; z-index: 2;
   }
@@ -299,7 +431,7 @@
     position: fixed;
     inset: 0;
     z-index: 9000;
-    background: rgba(6,24,16,0.94);
+    background: rgba(15,15,15,0.94);
     backdrop-filter: blur(6px);
     align-items: center;
     justify-content: center;
@@ -330,15 +462,15 @@
   .overlay-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
   .overlay-btn {
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--verde); color: #fff;
+    background: var(--azul); color: #fff;
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.08em;
     text-transform: uppercase; padding: 14px 36px; border-radius: 10px; border: none; cursor: pointer;
-    transition: opacity .15s, transform .12s; box-shadow: 0 4px 24px rgba(0,168,107,0.4); text-decoration: none;
+    transition: opacity .15s, transform .12s; box-shadow: 0 4px 24px rgba(79,163,209,0.4); text-decoration: none;
   }
   .overlay-btn:hover { opacity: 0.88; transform: scale(1.03); }
   .overlay-dismiss { margin-top: 18px; font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: underline; }
   .overlay-dismiss:hover { color: var(--txt); }
-  .overlay-countdown { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--verde-claro); letter-spacing: 0.06em; margin-top: 10px; }
+  .overlay-countdown { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--azul-claro); letter-spacing: 0.06em; margin-top: 10px; }
 
   /* ── PLAYER CORNER ── */
   #player-corner {
@@ -383,7 +515,7 @@
     border-top: 12px solid transparent; border-bottom: 12px solid transparent;
     border-right: 14px solid #fff;
   }
-  .messi-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: #00A86B; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; text-align: center; }
+  .messi-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--azul); letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; text-align: center; }
   .messi-text { font-family: 'Barlow', sans-serif; font-size: 13px; color: #1a1a1a; line-height: 1.45; text-align: center; }
 </style>
 </head>
@@ -446,6 +578,50 @@
   <span class="hexa-flag">🇧🇷</span>
 </div>
 
+<!-- VIDEO + MOTIVATIONAL -->
+<div class="content-row">
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="video-container">
+      <video autoplay muted loop playsinline id="mainVideo">
+    <source src="./video.mp4" type="video/mp4">
+</video>
+
+      <div class="video-overlay">
+        <div class="video-message">
+           A vontade de todo Brasileiro hoje
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXTO -->
+  <div class="motivational-section">
+    <div class="motivational-card">
+      <div class="motivational-icon">🏆</div>
+
+      <div class="motivational-title">
+        PRÓXIMO DESAFIO: COPA AMÉRICA 2024!
+      </div>
+
+      <div class="motivational-text">
+        A Copa do Mundo foi uma jornada épica! Agora temos a Copa América
+        2024 no horizonte como nosso próximo grande objetivo.
+
+        O time está mais unido, mais forte e pronto para conquistar novos
+        títulos! Que venha o próximo torneio! 💪⚽
+      </div>
+
+      <button class="motivational-cta"
+        onclick="alert('Prepare-se para a próxima grande batalha! 🔥')">
+        Vamos Lá! 🚀
+      </button>
+    </div>
+  </div>
+
+</div>
+
 <div class="notif-bar hidden" id="notifBar">
   <span>🔔 <strong>Ative as notificações</strong> para ser avisado antes dos jogos.</span>
   <button class="btn-notif" id="btnNotif">Ativar notificações</button>
@@ -463,7 +639,7 @@
 
 <footer>
   Horário comercial: <strong>09h às 18h</strong> (horário de Brasília) · Copa do Mundo FIFA 2026 · Mata-Mata
-  <div class="dev">Desenvolvedor Marcel Ambrosio</div>
+  <div class="dev">Desenvolvedor Marcel Ambrosio | WAP — WAAW BY ALOK</div>
 </footer>
 
 <script>
@@ -482,6 +658,9 @@
   }
   tryNext();
 })();
+
+// ─── VERIFICAR E CARREGAR VÍDEO ────────────────────────────────────────────────
+
 
 // ─── DADOS ───────────────────────────────────────────────────────────────────
 const teams = {
@@ -502,19 +681,20 @@ const flagUrl = code => `https://flagcdn.com/w40/${code}.png`;
 const isComercial = h => h >= 9 && h < 18;
 const isBrasil    = n => n === 'Brasil';
 
-// ─── LINKS ────────────────────────────────────────────────────────────────────
+// ─── LINKS DE TRANSMISSÃO ────────────────────────────────────────────────────
 const gameLinks = {
   'Espanha vs Áustria':   'https://www.youtube.com/watch?v=__xDLB2Pi0w',
   'Austrália vs Egito':   'https://www.youtube.com/watch?v=OwVHSCdF37g',
+  'Portugal vs Espanha':  'https://www.youtube.com/watch?v=i6-j6_5aXL8',
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
 // ─── FASE DE GRUPOS (encerrada) ───────────────────────────────────────────────
 const gamesGrupos = [];
 
-// ─── 16-AVOS DE FINAL (rodada de 32) ──────────────────────────────────────────
+// ─── 16-AVOS DE FINAL ─────────────────────────────────────────────────────────
 const gamesMata = [
-  // 30 JUN (ontem)
+  // 30 JUN
   {date:'2026-06-30',h:14,min:0,label:'14h',t1:'Costa do Marfim',t2:'Noruega',city:'Seattle',group:'16-AVOS',round:1,fase:'mata'},
   {date:'2026-06-30',h:18,min:0,label:'18h',t1:'França',t2:'Suécia',city:'Miami',group:'16-AVOS',round:1,fase:'mata'},
   {date:'2026-06-30',h:22,min:0,label:'22h',t1:'México',t2:'Equador',city:'Cidade do México',group:'16-AVOS',round:1,fase:'mata'},
@@ -538,13 +718,21 @@ const gamesOitavas = [
   {date:'2026-07-04',h:18,min:0,label:'18h',t1:'Paraguai',t2:'França',city:'Filadélfia',group:'OITAVAS',round:1,fase:'oitavas'},
   {date:'2026-07-05',h:17,min:0,label:'17h',t1:'Brasil',t2:'Noruega',city:'Nova York/NJ',group:'OITAVAS',round:1,fase:'oitavas'},
   {date:'2026-07-05',h:21,min:0,label:'21h',t1:'México',t2:'Inglaterra',city:'Cidade do México',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-06',h:16,min:0,label:'16h',t1:'Vencedor Portugal/Croácia',t2:'Vencedor Espanha/Áustria',city:'Dallas',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-06',h:21,min:0,label:'21h',t1:'Vencedor EUA/Bósnia',t2:'Vencedor Bélgica/Senegal',city:'Seattle',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-07',h:13,min:0,label:'13h',t1:'Vencedor Argentina/Cabo Verde',t2:'Vencedor Austrália/Egito',city:'Atlanta',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-07',h:17,min:0,label:'17h',t1:'Vencedor Suíça/Argélia',t2:'Vencedor Colômbia/Gana',city:'Vancouver',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-06',h:16,min:0,label:'16h',t1:'Portugal',t2:'Espanha',city:'Lisboa',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-06',h:21,min:0,label:'21h',t1:'Estados Unidos',t2:'Bélgica',city:'Seattle',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-07',h:13,min:0,label:'13h',t1:'Argentina',t2:'Egito',city:'Atlanta',group:'OITAVAS',round:1,fase:'oitavas'},
+  {date:'2026-07-07',h:17,min:0,label:'17h',t1:'Suíça',t2:'Colômbia',city:'Vancouver',group:'OITAVAS',round:1,fase:'oitavas'},
 ];
 
-const games = [...gamesGrupos, ...gamesMata, ...gamesOitavas];
+// ─── QUARTAS DE FINAL ──────────────────────────────────────────────────────
+const gamesQuartas = [
+  {date:'2026-07-09',h:17,min:0,label:'17h',t1:'França',t2:'Marrocos',city:'Paris',group:'QUARTAS',round:1,fase:'quartas'},
+  {date:'2026-07-10',h:16,min:0,label:'16h',t1:'Vencedor Portugal/Espanha',t2:'Vencedor EUA/Bélgica',city:'Chicago',group:'QUARTAS',round:1,fase:'quartas'},
+  {date:'2026-07-11',h:18,min:0,label:'18h',t1:'Noruega',t2:'Inglaterra',city:'Manchester',group:'QUARTAS',round:1,fase:'quartas'},
+  {date:'2026-07-11',h:22,min:0,label:'22h',t1:'Vencedor Argentina/Egito',t2:'Vencedor Suíça/Colômbia',city:'Miami',group:'QUARTAS',round:1,fase:'quartas'},
+];
+
+const games = [...gamesGrupos, ...gamesMata, ...gamesOitavas, ...gamesQuartas];
 games.forEach((g,i) => g.id = 'g'+i);
 
 function kickoff(g){
@@ -560,14 +748,12 @@ function teamHtml(name, isBr){
 }
 
 // ══════════════════════════════════════════════════════
-//  RESULTADOS — apenas jogos de ontem e hoje (30/06 e 01/07)
+//  RESULTADOS — apenas jogos reais com resultados
 // ══════════════════════════════════════════════════════
 const resultados = {
-  // 30 Jun (ontem)
   'Costa do Marfim vs Noruega':     '1-2',
   'França vs Suécia':               '3-0',
   'México vs Equador':              '2-0',
-  // 01 Jul (hoje)
   'Inglaterra vs RD Congo':         '2-1',
   'Bélgica vs Senegal':             '3-2',
 };
@@ -577,7 +763,6 @@ const destaques = {
   'França vs Suécia':           '⭐ Goleada francesa',
   'Bélgica vs Senegal':         '⭐ Jogaço, 3-2',
   'Inglaterra vs RD Congo':     '⭐ Inglaterra avança',
-  'Estados Unidos vs Bósnia e Herzegovina': '🔴 AO VIVO AGORA',
 };
 
 // ══════════════════════════════════════════════════════════════════════
@@ -623,20 +808,31 @@ function showGameOverlay(g, link, minutesLeft) {
 }
 
 const overlayScheduled = new Set();
+
 function scheduleOverlays() {
   const now = Date.now();
+
   games.forEach(g => {
     const link = gameLinks[gameKey(g)];
     if (!link) return;
+
     const kickoffMs = kickoff(g).getTime();
-    const openAt = kickoffMs - 30 * 60 * 1000;
+
+    // Mostrar 15 minutos antes
+    const openAt = kickoffMs - 15 * 60 * 1000;
     const delay  = openAt - now;
-    if (delay >= 0 && delay <= 7*24*3600*1000 && !overlayScheduled.has(g.id)) {
+
+    if (delay >= 0 && delay <= 7 * 24 * 3600 * 1000 && !overlayScheduled.has(g.id)) {
       overlayScheduled.add(g.id);
-      setTimeout(() => showGameOverlay(g, link, 30), delay);
+      setTimeout(() => showGameOverlay(g, link, 15), delay);
     }
+
     if (delay < 0 && kickoffMs > now && !overlayShown.has(g.id)) {
-      showGameOverlay(g, link, Math.max(0, Math.floor((kickoffMs - now) / 60000)));
+      showGameOverlay(
+        g,
+        link,
+        Math.max(0, Math.floor((kickoffMs - now) / 60000))
+      );
     }
   });
 }
@@ -669,7 +865,6 @@ function buildTicker(){
   const now = Date.now();
   const tickerEl = document.getElementById('results-ticker');
   const innerEl  = document.getElementById('tickerInner');
-  // Só exibe resultados de ontem (30/06) e hoje (01/07)
   const allowedDates = ['2026-06-30','2026-07-01'];
   const finished = games.filter(g => {
     const k = kickoff(g).getTime();
@@ -712,7 +907,6 @@ const byDate={};
 games.forEach(g=>{ (byDate[g.date]=byDate[g.date]||[]).push(g); });
 const months=['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const wdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const roundLblGrupos={1:'1ª Rodada',2:'2ª Rodada',3:'3ª Rodada'};
 const dateLbl={
   '2026-06-30':'Ter 30',
   '2026-07-01':'Qua 01/Jul','2026-07-02':'Qui 02','2026-07-03':'Sex 03',
@@ -725,7 +919,6 @@ const todayStr=brasiliaToday();
 const sorted=Object.keys(byDate).sort();
 let activeTab=sorted.includes(todayStr)?todayStr:sorted[0];
 
-// Separador visual entre fases
 let lastFase = null;
 
 sorted.forEach(date=>{
@@ -735,11 +928,12 @@ sorted.forEach(date=>{
   const hasBrasil=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
   const faseAtual=dayG[0].fase;
 
-  // Inserir label de fase na tab bar
   if(faseAtual !== lastFase){
     const lbl = document.createElement('div');
     lbl.className = 'fase-label';
-    lbl.textContent = faseAtual==='oitavas' ? '🏅 OITAVAS DE FINAL' : '⚔️ 16-AVOS DE FINAL';
+    if(faseAtual==='quartas') lbl.textContent = '👑 QUARTAS DE FINAL';
+    else if(faseAtual==='oitavas') lbl.textContent = '🏅 OITAVAS DE FINAL';
+    else lbl.textContent = '⚔️ 16-AVOS DE FINAL';
     tabsBar.appendChild(lbl);
     lastFase = faseAtual;
   }
@@ -762,8 +956,12 @@ sorted.forEach(date=>{
   const wd=new Date(date+'T12:00:00').getDay();
   const isMata = faseAtual==='mata';
   const isOitavas = faseAtual==='oitavas';
+  const isQuartas = faseAtual==='quartas';
 
-  let roundLabel = isOitavas ? 'Oitavas de Final — Mata-Mata' : '16-Avos de Final — Mata-Mata';
+  let roundLabel;
+  if(isQuartas) roundLabel = 'Quartas de Final — Mata-Mata';
+  else if(isOitavas) roundLabel = 'Oitavas de Final — Mata-Mata';
+  else roundLabel = '16-Avos de Final — Mata-Mata';
 
   const hasBrasilDay=dayG.some(g=>g.t1==='Brasil'||g.t2==='Brasil');
 
@@ -775,7 +973,7 @@ sorted.forEach(date=>{
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
       ${comCt>0?`<div class="day-com-badge">⚡ ${comCt} jogo${comCt>1?'s':''} no horário comercial</div>`:''}
       ${hasBrasilDay?`<div class="day-brasil-badge">🇧🇷 JOGO DO BRASIL — HEXA!</div>`:''}
-      <div class="day-com-badge" style="color:#00D97A;border-color:rgba(0,200,120,0.4);background:rgba(0,200,120,0.08);">⚔️ FASE ELIMINATÓRIA</div>
+      <div class="day-com-badge" style="color:#4FA3D1;border-color:rgba(79,163,209,0.4);background:rgba(79,163,209,0.08);">⚔️ FASE ELIMINATÓRIA</div>
     </div>
   </div>
   <div class="games-list">`;
@@ -787,7 +985,10 @@ sorted.forEach(date=>{
     const watchBtn=link?`<a class="btn-watch" href="${link}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Assistir</a>`:'';
     const cardClass = temBr ? 'brasil-game' : (com ? 'com' : 'out');
     const grpClass = 'knockout';
-    const grpLabel = g.fase==='oitavas' ? 'Oitavas' : '16-avos';
+    let grpLabel;
+    if(g.fase==='quartas') grpLabel = 'Quartas';
+    else if(g.fase==='oitavas') grpLabel = 'Oitavas';
+    else grpLabel = '16-avos';
     html+=`<div class="game-card ${cardClass}" id="card-${g.id}">
       <div class="col-time"><div class="time-big">${g.label}</div><div class="time-lbl">Brasília</div></div>
       <div class="col-match">
@@ -828,7 +1029,7 @@ function spawnCleanStar(stage, x, y){
   s.style.fontSize = sz+'px';
   s.style.left = (x - sz/2)+'px';
   s.style.top  = (y - sz/2)+'px';
-  const cols = ['#F5D800','#5DE8A8','#ffffff','#afffda','#ffe066','#a0f0ff'];
+  const cols = ['#F5D800','#4FA3D1','#ffffff','#afffda','#ffe066','#a0f0ff'];
   s.style.color = cols[Math.floor(Math.random()*cols.length)];
   s.style.animationDelay = (Math.random()*0.08)+'s';
   s.style.animationDuration = (0.65+Math.random()*0.35)+'s';
