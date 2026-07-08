@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --azul-escuro: #0D2A3D;
-    --azul: #1B4965;
-    --azul-claro: #4FA3D1;
+    --azul-escuro: #000000;
+    --azul: #1A1A1A;
+    --azul-claro: #F2C230;
     --preto: #0F0F0F;
     --preto2: #1A1A1A;
     --amarelo: #F5D800;
@@ -52,164 +52,6 @@
   .header-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.03em; line-height: 1.1; }
   .header-title em { color: var(--amarelo); font-style: normal; }
   .header-sub { font-size: 12px; color: var(--azul-claro); margin-top: 3px; letter-spacing: 0.04em; }
-
-  /* HEXA BANNER */
-  .hexa-banner {
-    background: linear-gradient(90deg, var(--azul-escuro) 0%, #1B4965 40%, #2d5f7a 70%, var(--azul-escuro) 100%);
-    border-bottom: 2px solid var(--amarelo);
-    padding: 8px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 15px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--amarelo);
-    text-shadow: 0 0 20px rgba(245,216,0,0.4);
-    animation: hexaPulse 3s ease-in-out infinite;
-  }
-  @keyframes hexaPulse {
-    0%,100%{ text-shadow: 0 0 12px rgba(245,216,0,0.3); }
-    50%    { text-shadow: 0 0 30px rgba(245,216,0,0.7), 0 0 60px rgba(245,216,0,0.3); }
-  }
-  .hexa-flag { font-size: 20px; }
-
-  /* VIDEO + CARD LADO A LADO */
-  .content-row{
-    display:flex;
-    align-items:stretch;
-    justify-content:center;
-    gap:30px;
-    max-width:1400px;
-    margin:30px auto;
-    padding:0 24px;
-  }
-
-  /* VIDEO SECTION (Tamanho diminuído) */
-  .video-section{
-    flex:0.9;
-    margin:0;
-    padding:0;
-    max-width:none;
-  }
-
-  .video-container {
-    position: relative;
-    background: var(--card);
-    border: 2px solid var(--amarelo);
-    border-radius: 12px;
-    overflow: hidden;
-    aspect-ratio: 16/9;
-    max-width: 100%;
-  }
-  .video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(15,15,15,0.3);
-    backdrop-filter: blur(2px);
-    pointer-events: none;
-  }
- .video-message {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(24px, 8vw, 64px);
-    font-weight: 900;
-    color: var(--amarelo);
-    text-align: center;
-
-    opacity: 0.35; /* ← deixa o texto bem mais discreto */
-
-    text-shadow:
-      0 2px 4px rgba(0,0,0,0.5),
-      0 0 10px rgba(245,216,0,0.2);
-
-    letter-spacing: 0.05em;
-    padding: 20px;
-    line-height: 1.2;
-    animation: videoMsgPulse 2s ease-in-out infinite;
-}
-  @keyframes videoMsgPulse {
-    0%,100%{ transform: scale(1); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(245,216,0,0.5), -2px -2px 0px rgba(27,73,101,0.8), 2px 2px 0px rgba(27,73,101,0.8); }
-    50%{ transform: scale(1.05); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 40px rgba(245,216,0,0.8), -2px -2px 0px rgba(27,73,101,0.8), 2px 2px 0px rgba(27,73,101,0.8); }
-  }
-
-  /* MOTIVATIONAL SECTION */
- .motivational-section{
-    flex:0.8;
-    margin:0;
-    padding:0;
-    max-width:none;
-    display:flex;
-}
-
- .motivational-card{
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    background:linear-gradient(135deg,var(--azul) 0%,var(--azul-escuro) 100%);
-    border:2px solid var(--amarelo);
-    border-radius:12px;
-    padding:24px;
-    box-shadow:0 8px 32px rgba(79,163,209,.2);
-}
-
-  .motivational-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-    animation: iconFloat 3s ease-in-out infinite;
-  }
-  @keyframes iconFloat {
-    0%,100%{ transform: translateY(0px); }
-    50%{ transform: translateY(-8px); }
-  }
-  .motivational-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 20px;
-    color: var(--amarelo);
-    margin-bottom: 6px;
-    letter-spacing: 0.04em;
-  }
-  .motivational-text {
-    font-size: 13px;
-    color: var(--txt);
-    line-height: 1.4;
-    margin-bottom: 12px;
-  }
-  .motivational-cta {
-    display: inline-block;
-    background: var(--amarelo);
-    color: var(--preto);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .motivational-cta:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(245,216,0,0.4);
-  }
 
   .notif-bar {
     background: rgba(79,163,209,0.12);
@@ -571,53 +413,6 @@
     <div class="leg"><div class="leg-dot out"></div> Fora do comercial</div>
   </div>
 </header>
-
-<div class="hexa-banner">
-  <span class="hexa-flag">🇧🇷</span>
-  ⭐⭐⭐⭐⭐ BRASIL —  VAMOS BRASIL! ⭐⭐⭐⭐⭐⭐
-  <span class="hexa-flag">🇧🇷</span>
-</div>
-
-<!-- VIDEO + MOTIVATIONAL -->
-<div class="content-row">
-
-  <!-- VIDEO -->
-  <div class="video-section">
-    <div class="video-container">
-      <video autoplay muted loop playsinline id="mainVideo">
-    <source src="./video.mp4" type="video/mp4">
-</video>
-
-      <div class="video-overlay">
-        <div class="video-message">
-           A vontade de todo Brasileiro hoje
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TEXTO -->
-  <div class="motivational-section">
-    <div class="motivational-card">
-      <div class="motivational-icon">🏆</div>
-      <div class="motivational-title">
-        PRÓXIMO DESAFIO: COPA AMÉRICA 2028!
-      </div>
-      <div class="motivational-text">
-        A Copa do Mundo foi uma jornada épica! Agora temos a Copa América
-        2028 no horizonte como nosso próximo grande objetivo.
-        O time está mais unido, mais forte e pronto para conquistar novos
-        títulos! Que venha o próximo torneio! 💪⚽
-      </div>
-
-      <button class="motivational-cta"
-        onclick="alert('Prepare-se para a próxima grande batalha! 🔥')">
-        Vamos Lá! 🚀
-      </button>
-    </div>
-  </div>
-
-</div>
 
 <div class="notif-bar hidden" id="notifBar">
   <span>🔔 <strong>Ative as notificações</strong> para ser avisado antes dos jogos.</span>
@@ -1101,19 +896,28 @@ function fireCanary(stolenText, targetEl){
   html: true 
    },
    { 
-  src:'./tozo.png',
-  alt:'Gianni Infantino',
-  title:'🏆 VOCÊ SABIA? — Gianni "TOZO" Infantino',
-  text:'"JOAO" Gianni "TOZO" <b>Infantino</b> é o atual presidente da FIFA. O suíço-italiano assumiu o comando da entidade em 2016 e lidera a organização das principais competições do futebol mundial, incluindo a Copa do Mundo.',
-  html:true
+  src:'./ance.png',
+  alt:'Carlo Ancelotti',
+  title:'🏆 "ALEXANDRE" ANCELOTTI TEM UM PLANO PARA COPA AMERICA 2028!',
+  text:'CARLO "ALEXANDRE" ANCELOTTI <b>ANCELOTTI</b> já projeta os próximos passos da Seleção Brasileira rumo ao título continental. Faltam <b>{CD}</b> para a Copa América 2028!',
+  html:true,
+  countdown:true
    },
   {
-  src: './ale.png',
-  alt: 'Thiago Silva',
-  title: '🎯 Admirador do Ney, porém não convocado',
-  text: '"ANDERSON" Thiago Silva é admirador declarado de Neymar, porém não foi convocado pelo técnico Carlo Ancelotti e ficou fora da lista final de 26 jogadores da Seleção Brasileira para a Copa do Mundo de 2026.'
+  src: './kane2.png',
+  alt: 'Marcos',
+  title: 'VAMOS PEGAR A NORUEGA DO "HALLAND" "FEIJO" QUE TIROU A PENTA CAMPEÃ!',
+  text: '"KANE" Marcos vão enfrentar a Noruega dia sábado 11/07 às 18h.'
   },
   ];
+  const COPA_AMERICA_2028 = new Date('2028-06-08T00:00:00-03:00');
+  function copaAmerica2028Countdown(){
+    const diff = COPA_AMERICA_2028.getTime() - Date.now();
+    if(diff <= 0) return 'já começou';
+    const dias = Math.floor(diff / 86400000);
+    const horas = Math.floor((diff % 86400000) / 3600000);
+    return `${dias} dias e ${horas}h`;
+  }
   let idx2 = 0;
   function switchInfo2(){
     if(canaryActive) return;
@@ -1124,7 +928,9 @@ function fireCanary(stolenText, targetEl){
       const info = infos2[idx2];
       andreImgEl.src = info.src; andreImgEl.alt = info.alt; andreImgEl.className = info.className || '';
       bubbleTitleEl2.textContent = info.title;
-      if(info.html){ bubbleTextEl2.innerHTML = info.text; } else { bubbleTextEl2.textContent = info.text; }
+      let renderedText = info.text;
+      if(info.countdown){ renderedText = renderedText.replace('{CD}', copaAmerica2028Countdown()); }
+      if(info.html){ bubbleTextEl2.innerHTML = renderedText; } else { bubbleTextEl2.textContent = renderedText; }
       andreImgEl.style.opacity = '1';
     }, 420);
   }
