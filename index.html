@@ -86,15 +86,15 @@
     max-width:1400px;
     margin:30px auto;
     padding:0 24px;
-}
+  }
 
-  /* VIDEO SECTION */
-.video-section{
-    flex:1.3;
+  /* VIDEO SECTION (Tamanho diminuído) */
+  .video-section{
+    flex:0.9;
     margin:0;
     padding:0;
     max-width:none;
-}
+  }
 
   .video-container {
     position: relative;
@@ -574,7 +574,7 @@
 
 <div class="hexa-banner">
   <span class="hexa-flag">🇧🇷</span>
-  ⭐⭐⭐⭐⭐ BRASIL — EM BUSCA DO HEXA! VAMOS BRASIL! ⭐⭐⭐⭐⭐⭐
+  ⭐⭐⭐⭐⭐ BRASIL —  VAMOS BRASIL! ⭐⭐⭐⭐⭐⭐
   <span class="hexa-flag">🇧🇷</span>
 </div>
 
@@ -686,50 +686,31 @@ const gameLinks = {
 };
 const gameKey = g => `${g.t1} vs ${g.t2}`;
 
-// ─── FASE DE GRUPOS (encerrada) ───────────────────────────────────────────────
 const gamesGrupos = [];
 
-// ─── 16-AVOS DE FINAL ─────────────────────────────────────────────────────────
+// ─── NOVO CALENDÁRIO ATUALIZADO (CONFRONTOS NOVOS) ───────────────────────────
 const gamesMata = [
-  // 30 JUN
-  {date:'2026-06-30',h:14,min:0,label:'14h',t1:'Costa do Marfim',t2:'Noruega',city:'Seattle',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-06-30',h:18,min:0,label:'18h',t1:'França',t2:'Suécia',city:'Miami',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-06-30',h:22,min:0,label:'22h',t1:'México',t2:'Equador',city:'Cidade do México',group:'16-AVOS',round:1,fase:'mata'},
-  // 01 JUL
-  {date:'2026-07-01',h:13,min:0,label:'13h',t1:'Inglaterra',t2:'RD Congo',city:'Nova York/NJ',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-01',h:17,min:0,label:'17h',t1:'Bélgica',t2:'Senegal',city:'Atlanta',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-01',h:21,min:0,label:'21h',t1:'Estados Unidos',t2:'Bósnia e Herzegovina',city:'Kansas City',group:'16-AVOS',round:1,fase:'mata'},
-  // 02 JUL
-  {date:'2026-07-02',h:16,min:0,label:'16h',t1:'Espanha',t2:'Áustria',city:'San Francisco',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-02',h:20,min:0,label:'20h',t1:'Portugal',t2:'Croácia',city:'Toronto',group:'16-AVOS',round:1,fase:'mata'},
-  // 03 JUL
-  {date:'2026-07-03',h:0,min:0,label:'00h',t1:'Suíça',t2:'Argélia',city:'Vancouver',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-03',h:15,min:0,label:'15h',t1:'Austrália',t2:'Egito',city:'Boston',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-03',h:19,min:0,label:'19h',t1:'Argentina',t2:'Cabo Verde',city:'Dallas',group:'16-AVOS',round:1,fase:'mata'},
-  {date:'2026-07-03',h:22,min:30,label:'22:30h',t1:'Colômbia',t2:'Gana',city:'Atlanta',group:'16-AVOS',round:1,fase:'mata'},
+  // QUARTAS DE FINAL
+  {date:'2026-07-09', h:17, min:0, label:'17h', t1:'França', t2:'Marrocos', city:'Estádio Principal', group:'Quartas de Final', round:1, fase:'quartas'},
+  {date:'2026-07-10', h:16, min:0, label:'16h', t1:'Espanha', t2:'Bélgica', city:'Estádio Principal', group:'Quartas de Final', round:1, fase:'quartas'},
+  {date:'2026-07-11', h:18, min:0, label:'18h', t1:'Noruega', t2:'Inglaterra', city:'Estádio Principal', group:'Quartas de Final', round:1, fase:'quartas'},
+  {date:'2026-07-11', h:22, min:0, label:'22h', t1:'Argentina', t2:'Suíça', city:'Estádio Principal', group:'Quartas de Final', round:1, fase:'quartas'},
+  
+  // SEMIFINAIS
+  {date:'2026-07-14', h:16, min:0, label:'16h', t1:'Vencedor França × Marrocos', t2:'Vencedor Espanha × Bélgica', city:'Estádio Principal', group:'Semifinais', round:1, fase:'semifinais'},
+  {date:'2026-07-15', h:16, min:0, label:'16h', t1:'Vencedor Noruega × Inglaterra', t2:'Vencedor Argentina × Suíça', city:'Estádio Principal', group:'Semifinais', round:1, fase:'semifinais'},
+  
+  // DISPUTA DO 3º LUGAR
+  {date:'2026-07-18', h:18, min:0, label:'18h', t1:'Derrotado Semifinal 1', t2:'Derrotado Semifinal 2', city:'Estádio Consolação', group:'Disputa do 3º lugar', round:1, fase:'terceiro'},
+  
+  // FINAL
+  {date:'2026-07-19', h:16, min:0, label:'16h', t1:'Vencedor Semifinal 1', t2:'Vencedor Semifinal 2', city:'Estádio Grand Final', group:'Final', round:1, fase:'final'}
 ];
 
-// ─── OITAVAS DE FINAL ──────────────────────────────────────────────────────
-const gamesOitavas = [
-  {date:'2026-07-04',h:14,min:0,label:'14h',t1:'Canadá',t2:'Marrocos',city:'Houston',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-04',h:18,min:0,label:'18h',t1:'Paraguai',t2:'França',city:'Filadélfia',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-05',h:17,min:0,label:'17h',t1:'Brasil',t2:'Noruega',city:'Nova York/NJ',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-05',h:21,min:0,label:'21h',t1:'México',t2:'Inglaterra',city:'Cidade do México',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-06',h:16,min:0,label:'16h',t1:'Portugal',t2:'Espanha',city:'Lisboa',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-06',h:21,min:0,label:'21h',t1:'Estados Unidos',t2:'Bélgica',city:'Seattle',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-07',h:13,min:0,label:'13h',t1:'Argentina',t2:'Egito',city:'Atlanta',group:'OITAVAS',round:1,fase:'oitavas'},
-  {date:'2026-07-07',h:17,min:0,label:'17h',t1:'Suíça',t2:'Colômbia',city:'Vancouver',group:'OITAVAS',round:1,fase:'oitavas'},
-];
+const gamesOitavas = [];
+const gamesQuartas = [];
 
-// ─── QUARTAS DE FINAL ──────────────────────────────────────────────────────
-const gamesQuartas = [
-  {date:'2026-07-09',h:17,min:0,label:'17h',t1:'França',t2:'Marrocos',city:'Paris',group:'QUARTAS',round:1,fase:'quartas'},
-  {date:'2026-07-10',h:16,min:0,label:'16h',t1:'Vencedor Portugal/Espanha',t2:'Vencedor EUA/Bélgica',city:'Chicago',group:'QUARTAS',round:1,fase:'quartas'},
-  {date:'2026-07-11',h:18,min:0,label:'18h',t1:'Noruega',t2:'Inglaterra',city:'Manchester',group:'QUARTAS',round:1,fase:'quartas'},
-  {date:'2026-07-11',h:22,min:0,label:'22h',t1:'Vencedor Argentina/Egito',t2:'Vencedor Suíça/Colômbia',city:'Miami',group:'QUARTAS',round:1,fase:'quartas'},
-];
-
-const games = [...gamesGrupos, ...gamesMata, ...gamesOitavas, ...gamesQuartas];
+const games = [...gamesGrupos, ...gamesMata];
 games.forEach((g,i) => g.id = 'g'+i);
 
 function kickoff(g){
@@ -1130,7 +1111,7 @@ function fireCanary(stolenText, targetEl){
   src: './ale.png',
   alt: 'Thiago Silva',
   title: '🎯 Admirador do Ney, porém não convocado',
-  text: '"ALEXANDRE" Thiago Silva é admirador declarado de Neymar, porém não foi convocado pelo técnico Carlo Ancelotti e ficou fora da lista final de 26 jogadores da Seleção Brasileira para a Copa do Mundo de 2026.'
+  text: '"ANDERSON" Thiago Silva é admirador declarado de Neymar, porém não foi convocado pelo técnico Carlo Ancelotti e ficou fora da lista final de 26 jogadores da Seleção Brasileira para a Copa do Mundo de 2026.'
   },
   ];
   let idx2 = 0;
