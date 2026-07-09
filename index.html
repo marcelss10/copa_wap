@@ -351,6 +351,7 @@
     max-width: 215px; min-width: 160px; box-shadow: 0 4px 24px rgba(0,0,0,0.38);
     display: flex; flex-direction: column; gap: 2px;
   }
+  #messi-bubble.wide-bubble { max-width: 340px; }
   #messi-bubble::after {
     content: ''; position: absolute; top: 50%; left: -14px;
     transform: translateY(-50%); width: 0; height: 0;
@@ -389,7 +390,7 @@
 <!-- MESSI CORNER esquerda -->
 <div id="messi-corner">
   <img id="messi-img" src="./karine.png" alt="Karine" onerror="this.style.display='none'">
-  <div id="messi-bubble">
+  <div id="messi-bubble" class="wide-bubble">
     <div class="messi-title" id="messi-bubble-title">💜 Seleção Brasileira volta a ter uma psicóloga depois de duas Copas</div>
     <div class="messi-text" id="messi-bubble-text">"KARINE" Marisa Santiago, psicóloga do Grêmio, integra a comissão técnica do Brasil.<br><br>Olá, Legendários! 💜 Cuidar do bem-estar é essencial e aqui na Wap | WAAW By Alok, um dos nossos benefícios é a Zenklub, uma plataforma completa de saúde emocional e qualidade de vida.<br><br>Ela oferece:<br>• Atendimento psicológico;<br>• Acompanhamento com nutricionista;<br>• Outros serviços e conteúdos voltados ao bem-estar.<br><br>Tudo pensado para apoiar você no equilíbrio mental, emocional e físico, de forma prática e acessível custando apenas R$4,00.</div>
   </div>
@@ -934,6 +935,7 @@ function fireCanary(stolenText, targetEl){
 // ─── MESSI CORNER ─────────────────────────────────────────────────────────
 (function(){
   const messiImgEl   = document.getElementById('messi-img');
+  const messiBubbleEl= document.getElementById('messi-bubble');
   const bubbleTitleEl= document.getElementById('messi-bubble-title');
   const bubbleTextEl = document.getElementById('messi-bubble-text');
   const infos = [
@@ -943,7 +945,8 @@ function fireCanary(stolenText, targetEl){
   title:'💜 Seleção Brasileira volta a ter uma psicóloga depois de duas Copas',
   text:'"KARINE" Marisa Santiago, psicóloga do Grêmio, integra a comissão técnica do Brasil.<br><br>Olá, Legendários! 💜 Cuidar do bem-estar é essencial e aqui na Wap | WAAW By Alok, um dos nossos benefícios é a Zenklub, uma plataforma completa de saúde emocional e qualidade de vida.<br><br>Ela oferece:<br>• Atendimento psicológico;<br>• Acompanhamento com nutricionista;<br>• Outros serviços e conteúdos voltados ao bem-estar.<br><br>Tudo pensado para apoiar você no equilíbrio mental, emocional e físico, de forma prática e acessível custando apenas R$4,00.',
   html:true,
-  duration:25000
+  duration:25000,
+  wide:true
    },
     { src:'./canarinho.png', alt:'Canarinho', title:'🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?', text:'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!' },
     { src:'./treinador.png', alt:'Dick Advocaat', className:'treinador-img', title:'🏆 Recorde de experiência', text:'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA.' },
@@ -977,6 +980,7 @@ function fireCanary(stolenText, targetEl){
       idx = (idx + 1) % infos.length;
       const info = infos[idx];
       messiImgEl.src = info.src; messiImgEl.alt = info.alt; messiImgEl.className = info.className || '';
+      messiBubbleEl.classList.toggle('wide-bubble', !!info.wide);
       bubbleTitleEl.textContent = info.title;
       if(info.html){ bubbleTextEl.innerHTML = info.text; } else { bubbleTextEl.textContent = info.text; }
       messiImgEl.style.opacity = '1';
