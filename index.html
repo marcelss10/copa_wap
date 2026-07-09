@@ -388,10 +388,10 @@
 
 <!-- MESSI CORNER esquerda -->
 <div id="messi-corner">
-  <img id="messi-img" src="./diego.png" alt="Conteúdo informativo" onerror="this.style.display='none'">
+  <img id="messi-img" src="./karine.png" alt="Karine" onerror="this.style.display='none'">
   <div id="messi-bubble">
-    <div class="messi-title" id="messi-bubble-title">📊 Recorde na Copa</div>
-    <div class="messi-text" id="messi-bubble-text">"<b>Diego</b>" Lionel "<b>Mafioletti</b>" <b>Messi</b> é o maior artilheiro da história das Copas, com 16 gols — marca alcançada com um hat-trick contra a Argélia, igualando o recorde do alemão Miroslav Klose.</div>
+    <div class="messi-title" id="messi-bubble-title">💜 Seleção Brasileira volta a ter uma psicóloga depois de duas Copas</div>
+    <div class="messi-text" id="messi-bubble-text">"KARINE" Marisa Santiago, psicóloga do Grêmio, integra a comissão técnica do Brasil.<br><br>Olá, Legendários! 💜 Cuidar do bem-estar é essencial e aqui na Wap | WAAW By Alok, um dos nossos benefícios é a Zenklub, uma plataforma completa de saúde emocional e qualidade de vida.<br><br>Ela oferece:<br>• Atendimento psicológico;<br>• Acompanhamento com nutricionista;<br>• Outros serviços e conteúdos voltados ao bem-estar.<br><br>Tudo pensado para apoiar você no equilíbrio mental, emocional e físico, de forma prática e acessível custando apenas R$4,00.</div>
   </div>
 </div>
 
@@ -889,13 +889,6 @@ function fireCanary(stolenText, targetEl){
   const infos2 = [
     { src:'./andre.png', alt:'André', title:'⭐ Melhor meio-campista da Croácia!', text:'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.' },
    { 
-  src: './xande.png', 
-  alt: 'Pedro Neto', 
-  title: ' DESTAQUE DE PORTUGAL — Pedro "ALEXANDRE" Neto', 
-  text: 'O atacante português Pedro "ALEXANDRE" Neto é um dos grandes destaques da Seleção de Portugal na Copa do Mundo, chamando atenção pela velocidade, dribles e poder de decisão no ataque.', 
-  html: true 
-   },
-   { 
   src:'./ance.png',
   alt:'Carlo Ancelotti',
   title:'🏆 "ALEXANDRE" ANCELOTTI TEM UM PLANO PARA COPA AMERICA 2028!',
@@ -945,11 +938,12 @@ function fireCanary(stolenText, targetEl){
   const bubbleTextEl = document.getElementById('messi-bubble-text');
   const infos = [
    { 
-  src:'./marcus.png',
-  alt:'Marcus',
-  title:'🇧🇷 HERÓI DA CLASSIFICAÇÃO',
-  text:'"MARCUS" Gabriel Martinelli é um dos grandes destaques da Seleção Brasileira na Copa do Mundo de 2026. O atacante foi o herói da classificação do Brasil para as oitavas de final ao marcar o gol da virada.',
-  html:true
+  src:'./karine.png',
+  alt:'Karine',
+  title:'💜 Seleção Brasileira volta a ter uma psicóloga depois de duas Copas',
+  text:'"KARINE" Marisa Santiago, psicóloga do Grêmio, integra a comissão técnica do Brasil.<br><br>Olá, Legendários! 💜 Cuidar do bem-estar é essencial e aqui na Wap | WAAW By Alok, um dos nossos benefícios é a Zenklub, uma plataforma completa de saúde emocional e qualidade de vida.<br><br>Ela oferece:<br>• Atendimento psicológico;<br>• Acompanhamento com nutricionista;<br>• Outros serviços e conteúdos voltados ao bem-estar.<br><br>Tudo pensado para apoiar você no equilíbrio mental, emocional e físico, de forma prática e acessível custando apenas R$4,00.',
+  html:true,
+  duration:25000
    },
     { src:'./canarinho.png', alt:'Canarinho', title:'🐤 VOCÊ SABIA QUEM ERA POR BAIXO DA FANTASIA?', text:'RAFAEL GODOI, em entrevista, declara que é o verdadeiro Canarinho da Seleção!' },
     { src:'./treinador.png', alt:'Dick Advocaat', className:'treinador-img', title:'🏆 Recorde de experiência', text:'Dick "Nestor" Advocaat, técnico do Curaçao, aos 78 anos se torna o treinador mais experiente da história das Copas — um novo recorde na FIFA.' },
@@ -970,8 +964,13 @@ function fireCanary(stolenText, targetEl){
    },
   ];
   let idx = 0;
+  function scheduleNext(){
+    const current = infos[idx];
+    const wait = (current && current.duration) ? current.duration : 10000;
+    setTimeout(switchInfo, wait);
+  }
   function switchInfo(){
-    if(canaryActive) return;
+    if(canaryActive){ scheduleNext(); return; }
     messiImgEl.style.transition = 'opacity 0.4s';
     messiImgEl.style.opacity = '0';
     setTimeout(()=>{
@@ -981,10 +980,11 @@ function fireCanary(stolenText, targetEl){
       bubbleTitleEl.textContent = info.title;
       if(info.html){ bubbleTextEl.innerHTML = info.text; } else { bubbleTextEl.textContent = info.text; }
       messiImgEl.style.opacity = '1';
+      scheduleNext();
     }, 420);
   }
   if(!canaryActive){ setMessiCornerVisible(true); }
-  setInterval(switchInfo, 10000);
+  scheduleNext();
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
