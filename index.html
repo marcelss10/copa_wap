@@ -360,6 +360,28 @@
   }
   .messi-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--azul); letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; text-align: center; }
   .messi-text { font-family: 'Barlow', sans-serif; font-size: 13px; color: #1a1a1a; line-height: 1.45; text-align: center; }
+
+  /* ── TECH WEEK CORNER (centro-inferior) ── */
+  #tech-corner {
+    position: fixed; bottom: 56px; left: 50%; transform: translateX(-50%); z-index: 310;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    pointer-events: none; transition: opacity 0.4s;
+  }
+  #tech-corner.hidden { opacity: 0; pointer-events: none; }
+  #tech-bubble {
+    pointer-events: none; margin-bottom: 10px; position: relative;
+    background: #fff; border-radius: 18px; padding: 10px 16px;
+    max-width: 320px; min-width: 220px; box-shadow: 0 4px 24px rgba(0,0,0,0.38);
+    display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center;
+  }
+  #tech-bubble::after {
+    content: ''; position: absolute; bottom: -12px; left: 50%;
+    transform: translateX(-50%); width: 0; height: 0;
+    border-left: 12px solid transparent; border-right: 12px solid transparent;
+    border-top: 14px solid #fff;
+  }
+  #tech-img { width: 950px;; height: auto; object-fit: contain; object-position: bottom; display: block; flex-shrink: 0; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5)); }
+  .tech-cd { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; color: var(--amarelo); letter-spacing: 0.05em; }
 </style>
 </head>
 <body>
@@ -394,6 +416,15 @@
     <div class="messi-title" id="messi-bubble-title">💜 Seleção Brasileira volta a ter uma psicóloga depois de duas Copas</div>
     <div class="messi-text" id="messi-bubble-text">"KARINE" Marisa Santiago, psicóloga do Grêmio, integra a comissão técnica do Brasil.<br><br>Olá, Legendários! 💜 Cuidar do bem-estar é essencial e aqui na Wap | WAAW By Alok, um dos nossos benefícios é a Zenklub, uma plataforma completa de saúde emocional e qualidade de vida.<br><br>Ela oferece:<br>• Atendimento psicológico;<br>• Acompanhamento com nutricionista;<br>• Outros serviços e conteúdos voltados ao bem-estar.<br><br>Tudo pensado para apoiar você no equilíbrio mental, emocional e físico, de forma prática e acessível custando apenas R$4,00.</div>
   </div>
+</div>
+
+<!-- TECH WEEK CORNER centro-inferior -->
+<div id="tech-corner" class="hidden">
+  <div id="tech-bubble">
+    <div class="messi-title">🚀 TECH WEEK CHEGANDO!</div>
+    <div class="messi-text">A Tech Week começa em <b id="tech-cd-text">--</b>. Prepare-se!</div>
+  </div>
+  <img id="tech-img" src="./tech.png" alt="Tech Week" onerror="this.style.display='none'">
 </div>
 
 <header>
@@ -823,6 +854,11 @@ function setMessiCornerVisible(visible){
   if(!el) return;
   if(visible){ el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
 }
+function setTechCornerVisible(visible){
+  const el = document.getElementById('tech-corner');
+  if(!el) return;
+  if(visible){ el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
+}
 function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
   const t0 = performance.now();
   function step(now){
@@ -840,7 +876,7 @@ function animSeg(wrap, stage, x0,y0, x1,y1, dur, easeFn, onDone){
 function fireCanary(stolenText, targetEl){
   if(canaryActive) return;
   canaryActive = true;
-  setPlayerCornerVisible(false); setMessiCornerVisible(false);
+  setPlayerCornerVisible(false); setMessiCornerVisible(false); setTechCornerVisible(false);
   lastStarPos = {x:-9999, y:-9999};
   const stage = document.getElementById('canary-stage');
   const W = window.innerWidth, H = window.innerHeight;
@@ -871,6 +907,7 @@ function fireCanary(stolenText, targetEl){
               animSeg(wrap,stage, xt,yt, W+350,yt, 900, easeIn, ()=>{
                 wrap.remove(); canaryActive = false;
                 setPlayerCornerVisible(true); setMessiCornerVisible(true);
+                if(!techCornerActive) setTechCornerVisible(false);
                 setTimeout(()=>location.reload(), 100);
               });
             }, 400);
@@ -888,7 +925,6 @@ function fireCanary(stolenText, targetEl){
   const bubbleTextEl2  = document.getElementById('playerBubbleText');
   const cornerEl2      = document.getElementById('player-corner');
   const infos2 = [
-    { src:'./andre.png', alt:'André', title:'⭐ Melhor meio-campista da Croácia!', text:'Luka "ANDRE" Modrić "FEIJO" (nascido em 9 de setembro de 1985, em Zadar, Croácia) é amplamente considerado um dos maiores meio-campistas da história do futebol.' },
    { 
   src:'./ance.png',
   alt:'Carlo Ancelotti',
@@ -988,6 +1024,56 @@ function fireCanary(stolenText, targetEl){
   }
   if(!canaryActive){ setMessiCornerVisible(true); }
   scheduleNext();
+})();
+
+// ─── TECH WEEK CORNER (centro-inferior, sozinho) ──────────────────────────
+let techCornerActive = false;
+(function(){
+  const TECH_WEEK_DATE = new Date('2026-07-20T00:00:00-03:00');
+  const cdTextEl = document.getElementById('tech-cd-text');
+
+  function techWeekCountdown(){
+    const diff = TECH_WEEK_DATE.getTime() - Date.now();
+    if(diff <= 0) return 'começou! 🚀';
+    const dias  = Math.floor(diff / 86400000);
+    const horas = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    if(dias > 0) return `${dias}d ${horas}h ${mins}m`;
+    if(horas > 0) return `${horas}h ${mins}m`;
+    const seg = Math.floor((diff % 60000)/1000);
+    return `${mins}m ${seg}s`;
+  }
+
+  function updateCd(){
+    if(cdTextEl) cdTextEl.textContent = techWeekCountdown();
+  }
+  updateCd();
+  setInterval(updateCd, 1000);
+
+  const SHOW_MS = 12000;  // tempo visível, sozinho na tela
+  const HIDE_MS = 18000;  // intervalo entre aparições
+
+  function showTechCorner(){
+    if(canaryActive) { scheduleShow(); return; }
+    techCornerActive = true;
+    setPlayerCornerVisible(false);
+    setMessiCornerVisible(false);
+    setTechCornerVisible(true);
+    setTimeout(hideTechCorner, SHOW_MS);
+  }
+  function hideTechCorner(){
+    techCornerActive = false;
+    setTechCornerVisible(false);
+    if(!canaryActive){
+      setPlayerCornerVisible(true);
+      setMessiCornerVisible(true);
+    }
+    scheduleShow();
+  }
+  function scheduleShow(){
+    setTimeout(showTechCorner, HIDE_MS);
+  }
+  scheduleShow();
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────────
